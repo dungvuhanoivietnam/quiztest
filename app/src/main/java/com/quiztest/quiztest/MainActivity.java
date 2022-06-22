@@ -7,13 +7,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.collection.CircularArray;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
     private ExtTextView btnHome, btnRanking, btnProfile;
+    private ConstraintLayout ctsBottomNavigation;
     private BaseFragment fragmentHome = new HomeFragment();
     private BaseFragment fragmentRanking = new RankingFragment();
     private BaseFragment fragmentProfile = new ProfileFragment();
@@ -52,23 +54,31 @@ public class MainActivity extends AppCompatActivity {
         initData();
     }
 
+    private void hideOrShowBottomView(boolean show) {
+        if (show) {
+            ctsBottomNavigation.setVisibility(View.VISIBLE);
+        } else {
+            ctsBottomNavigation.setVisibility(View.GONE);
+        }
+    }
+
     private void initData() {
         showFragment(fragmentHome);
         enableButton(btnHome);
-        btnHome.setOnClickListener(v->{
-            if (fragmentHome.isAdded()){
+        btnHome.setOnClickListener(v -> {
+            if (fragmentHome.isAdded()) {
                 showFragment(fragmentHome);
                 enableButton(btnHome);
             }
         });
-        btnRanking.setOnClickListener(v->{
-            if (fragmentRanking.isAdded()){
+        btnRanking.setOnClickListener(v -> {
+            if (fragmentRanking.isAdded()) {
                 showFragment(fragmentRanking);
                 enableButton(btnRanking);
             }
         });
-        btnProfile.setOnClickListener(v->{
-            if (fragmentProfile.isAdded()){
+        btnProfile.setOnClickListener(v -> {
+            if (fragmentProfile.isAdded()) {
                 showFragment(fragmentProfile);
                 enableButton(btnProfile);
             }
@@ -120,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         btns.add(btnRanking);
         btnProfile = findViewById(R.id.btn_profile);
         btns.add(btnProfile);
+        ctsBottomNavigation = findViewById(R.id.cts_bottomNavigation);
     }
 
     private void addFragment(BaseFragment fmAdd) {
