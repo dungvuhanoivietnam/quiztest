@@ -6,6 +6,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
@@ -28,7 +30,7 @@ import com.quiztest.quiztest.ui.ExtTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MyCustomOnboarder {
 
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initData();
     }
+
 
     private void hideOrShowBottomView(boolean show) {
         if (show) {
