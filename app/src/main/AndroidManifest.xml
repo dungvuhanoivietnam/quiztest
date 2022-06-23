@@ -15,17 +15,18 @@
         android:theme="@style/Theme.QuizTest"
         tools:targetApi="31">
         <activity
-            android:name="com.quiztest.MyCustomOnboarder"
+            android:launchMode="singleTask"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:name="com.quiztest.MyCustomOnboarder"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

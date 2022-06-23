@@ -1,5 +1,6 @@
 package com.quiztest.quiztest;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -51,9 +52,23 @@ public class MainActivity extends MyCustomOnboarder {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.GRAY);
         }
+        boolean onboarding = false;
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            onboarding = getIntent().getExtras().getBoolean("onboarding", false);
+        }
+            if (!onboarding) {
+                initOnboarding();
+            }
         setContentView(R.layout.activity_main);
+
         initView();
         initData();
+    }
+
+    private void initOnboarding() {
+        Intent intent = new Intent(this, MyCustomOnboarder.class);
+        startActivity(intent);
+        finish();
     }
 
 
