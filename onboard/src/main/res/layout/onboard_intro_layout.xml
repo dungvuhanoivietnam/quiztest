@@ -90,8 +90,9 @@
         android:textColor="@color/onboard_icon_tint"
         android:textSize="@dimen/onboard_donetext_size"
         android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/20"
-        android:visibility="visible"
+        android:layout_marginStart="@dimen/_20ssp"
+        android:layout_marginEnd="@dimen/_20ssp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

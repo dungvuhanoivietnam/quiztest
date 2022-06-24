@@ -17,21 +17,21 @@ public class MyCustomOnboarder extends OnboardAdvanced {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addSlide(OnboardFragment.newInstance("Welcome...", "This is first slice",
+        addSlide(OnboardFragment.newInstance("Alarm with sound", "Alarm with gentle sound, more comfortable than other apps",
                 R.drawable.img_onboard_example,
+                getResources().getColor(R.color.white),
+                getResources().getColor(R.color.color_22313F),
+                getResources().getColor(R.color.color_22313F)));
+        addSlide(OnboardFragment.newInstance("Alarm with sound", "Alarm with gentle sound, more comfortable than other apps",
                 R.drawable.img_onboard_example,
-                getResources().getColor(R.color.purple_200),
-                getResources().getColor(R.color.teal_200)));
-        addSlide(OnboardFragment.newInstance("Hmm...!", "This is the second slice",
+                getResources().getColor(R.color.white),
+                getResources().getColor(R.color.color_22313F),
+                getResources().getColor(R.color.color_22313F)));
+        addSlide(OnboardFragment.newInstance("Alarm with sound", "Alarm with gentle sound, more comfortable than other apps",
                 R.drawable.img_onboard_example,
-                R.drawable.img_onboard_example,
-                getResources().getColor(R.color.purple_200),
-                getResources().getColor(R.color.teal_200)));
-        addSlide(OnboardFragment.newInstance("Let's get started!", "This is the last slice",
-                R.drawable.img_onboard_example,
-                R.drawable.img_onboard_example,
-                getResources().getColor(R.color.purple_200),
-                getResources().getColor(R.color.teal_200)));
+                getResources().getColor(R.color.white),
+                getResources().getColor(R.color.color_22313F),
+                getResources().getColor(R.color.color_22313F)));
 
     }
 

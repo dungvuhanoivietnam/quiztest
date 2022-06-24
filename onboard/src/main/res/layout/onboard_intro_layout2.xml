@@ -70,14 +70,20 @@
         app:layout_constraintTop_toTopOf="@+id/bottom"
         app:srcCompat="@drawable/ic_onboard_fab_next" />
 
-    <ImageButton
+    <Button
         android:id="@+id/done"
-        style="@style/Onboard2ButtonStyleCompat"
-        android:contentDescription="@string/onboard_done_button"
+        style="@style/OnboardButtonStyleCompat"
+        android:background="@drawable/drawable_btn_done"
+        android:labelFor="@string/onboard_done_button"
+        android:text="@string/onboard_done_button"
+        android:textColor="@color/onboard_icon_tint"
+        android:textSize="@dimen/onboard_donetext_size"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_20ssp"
+        android:layout_marginEnd="@dimen/_20ssp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bottom"
-        app:srcCompat="@drawable/ic_onboard_fab_done" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

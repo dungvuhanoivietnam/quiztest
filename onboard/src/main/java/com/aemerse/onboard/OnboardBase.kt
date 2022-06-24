@@ -6,6 +6,7 @@ import android.animation.ArgbEvaluator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
@@ -187,13 +188,13 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
     protected fun setImmersiveMode() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                )
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    )
         }
     }
 
@@ -231,8 +232,8 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
             window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         } else {
             window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
     }
@@ -242,14 +243,14 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
      * @deprecated setNextPageSwipeLock has been deprecated in favor of setSwipeLock or SlidePolicy
      */
     @Deprecated(
-        "setNextPageSwipeLock has been deprecated in favor of setSwipeLock or SlidePolicy",
-        ReplaceWith("setSwipeLock"),
-        DeprecationLevel.ERROR
+            "setNextPageSwipeLock has been deprecated in favor of setSwipeLock or SlidePolicy",
+            ReplaceWith("setSwipeLock"),
+            DeprecationLevel.ERROR
     )
     protected fun setNextPageSwipeLock(lock: Boolean) {
         LogHelper.w(
-            TAG,
-            "Calling setNextPageSwipeLock has not effect here. Please switch to setSwipeLock or SlidePolicy",
+                TAG,
+                "Calling setNextPageSwipeLock has not effect here. Please switch to setSwipeLock or SlidePolicy",
         )
     }
 
@@ -286,8 +287,8 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
      * @param unselectedIndicatorColor your unselected color
      */
     protected fun setIndicatorColor(
-        @ColorInt selectedIndicatorColor: Int,
-        @ColorInt unselectedIndicatorColor: Int
+            @ColorInt selectedIndicatorColor: Int,
+            @ColorInt unselectedIndicatorColor: Int
     ) {
         indicatorController?.selectedIndicatorColor = selectedIndicatorColor
         indicatorController?.unselectedIndicatorColor = unselectedIndicatorColor
@@ -396,7 +397,7 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
         setContentView(layoutId)
 
         indicatorContainer = findViewById(R.id.indicator_container)
-            ?: error("Missing Indicator Container: R.id.indicator_container")
+                ?: error("Missing Indicator Container: R.id.indicator_container")
         nextButton = findViewById(R.id.next) ?: error("Missing Next button: R.id.next")
         doneButton = findViewById(R.id.done) ?: error("Missing Done button: R.id.done")
         skipButton = findViewById(R.id.skip) ?: error("Missing Skip button: R.id.skip")
@@ -436,6 +437,8 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
         pager.onNextPageRequestedListener = this
 
         setScrollDurationFactor(DEFAULT_SCROLL_DURATION_FACTOR)
+        setIndicatorColor(resources.getColor(R.color.color_21C3FF),
+                resources.getColor(R.color.color_E3F4FB));
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -456,9 +459,9 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
 
         pager.post {
             dispatchSlideChangedCallbacks(
-                null,
-                pagerAdapter
-                    .getItem(pager.currentItem)
+                    null,
+                    pagerAdapter
+                            .getItem(pager.currentItem)
             )
         }
     }
@@ -494,9 +497,9 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
             pager.isFullPagingEnabled = getBoolean(ARG_BUNDLE_IS_FULL_PAGING_ENABLED)
 
             permissionsMap = (
-                (getSerializable(ARG_BUNDLE_PERMISSION_MAP) as HashMap<Int, PermissionWrapper>?)
-                    ?: hashMapOf()
-                )
+                    (getSerializable(ARG_BUNDLE_PERMISSION_MAP) as HashMap<Int, PermissionWrapper>?)
+                            ?: hashMapOf()
+                    )
             isColorTransitionsEnabled = getBoolean(ARG_BUNDLE_COLOR_TRANSITIONS_ENABLED)
         }
     }
@@ -510,8 +513,8 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
     override fun onKeyDown(code: Int, event: KeyEvent): Boolean {
         // Handle the navigation with 'Enter' or Dpad events.
         if (code == KeyEvent.KEYCODE_ENTER ||
-            code == KeyEvent.KEYCODE_BUTTON_A ||
-            code == KeyEvent.KEYCODE_DPAD_CENTER
+                code == KeyEvent.KEYCODE_BUTTON_A ||
+                code == KeyEvent.KEYCODE_DPAD_CENTER
         ) {
             val isLastSlide = pager.isLastSlide(fragments.size)
             goToNextSlide(isLastSlide)
@@ -602,9 +605,9 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
         val permissionToRequest = permissionsMap[currentSlideNumber]
         permissionToRequest?.let {
             ActivityCompat.requestPermissions(
-                this,
-                it.permissions,
-                PERMISSIONS_REQUEST_ALL_PERMISSIONS
+                    this,
+                    it.permissions,
+                    PERMISSIONS_REQUEST_ALL_PERMISSIONS
             )
         }
     }
@@ -613,9 +616,9 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
      * Handles the Permission Result from Android SDK.
      */
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         setSwipeLock(false)
@@ -625,9 +628,9 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
         }
 
         val deniedPermissions = grantResults
-            .mapIndexed { index, result -> (permissions[index] to result) }
-            .filter { (_, result) -> result == PackageManager.PERMISSION_DENIED }
-            .map { (permission, _) -> permission }
+                .mapIndexed { index, result -> (permissions[index] to result) }
+                .filter { (_, result) -> result == PackageManager.PERMISSION_DENIED }
+                .map { (permission, _) -> permission }
 
         // Check if all permissions are granted.
         if (deniedPermissions.isEmpty()) {
@@ -696,15 +699,15 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
     /** Performs color interpolation between two slides.. */
     private fun performColorTransition(currentSlide: Fragment?, nextSlide: Fragment?, positionOffset: Float) {
         if (currentSlide is SlideBackgroundColorHolder &&
-            nextSlide is SlideBackgroundColorHolder
+                nextSlide is SlideBackgroundColorHolder
         ) {
             // Check if both fragments are attached to an activity,
             // otherwise getDefaultBackgroundColor may fail.
             if (currentSlide.isAdded && nextSlide.isAdded) {
                 val newColor = argbEvaluator.evaluate(
-                    positionOffset,
-                    currentSlide.defaultBackgroundColor,
-                    nextSlide.defaultBackgroundColor
+                        positionOffset,
+                        currentSlide.defaultBackgroundColor,
+                        nextSlide.defaultBackgroundColor
                 ) as Int
                 currentSlide.setBackgroundColor(newColor)
                 nextSlide.setBackgroundColor(newColor)
@@ -771,8 +774,8 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
                     dispatchSlideChangedCallbacks(null, pagerAdapter.getItem(position))
                 } else {
                     dispatchSlideChangedCallbacks(
-                        pagerAdapter.getItem(currentlySelectedItem),
-                        pagerAdapter.getItem(pager.currentItem)
+                            pagerAdapter.getItem(currentlySelectedItem),
+                            pagerAdapter.getItem(pager.currentItem)
                     )
                 }
             }
