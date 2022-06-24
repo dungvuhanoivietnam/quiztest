@@ -1,11 +1,13 @@
 package com.quiztest.quiztest;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
@@ -28,7 +31,7 @@ import com.quiztest.quiztest.ui.ExtTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MyCustomOnboarder {
 
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
@@ -49,10 +52,25 @@ public class MainActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.GRAY);
         }
+        boolean onboarding = false;
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            onboarding = getIntent().getExtras().getBoolean("onboarding", false);
+        }
+            if (!onboarding) {
+                initOnboarding();
+            }
         setContentView(R.layout.activity_main);
+
         initView();
         initData();
     }
+
+    private void initOnboarding() {
+        Intent intent = new Intent(this, MyCustomOnboarder.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     private void hideOrShowBottomView(boolean show) {
         if (show) {
