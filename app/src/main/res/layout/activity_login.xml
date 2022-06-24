@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/img_thum"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="@dimen/dp_240"
         android:src="@drawable/bg_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,53 +18,57 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="220dp">
+        android:layout_marginTop="@dimen/dp_220"
+        android:background="@drawable/login_background">
 
         <TextView
             android:id="@+id/hellomyfriend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/dp_24"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="Hello my friend"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp_20"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/Ink100"/>
 
         <TextView
             android:id="@+id/welcometo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp_8"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:text="Welcome to the tests of Quiz test"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@+id/hellomyfriend" />
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintTop_toBottomOf="@+id/hellomyfriend"
+            android:textColor="@color/Ink100"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_16"
             android:background="@drawable/edittext_background"
-            android:hint="Enter your email"
-            android:padding="10dp"
-            android:textSize="16sp"
+            android:hint="@string/enter_your_email"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcometo" />
+            app:layout_constraintTop_toBottomOf="@+id/welcometo"
+            android:textColor="@color/Ink50"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_malfomed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/dp_12"
             android:gravity="center"
-            android:text="Malformed account"
+            android:text="@string/malformed_account"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/edt_mail" />
 
@@ -72,25 +76,26 @@
             android:id="@+id/edt_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_16"
             android:background="@drawable/edittext_background"
-            android:drawableRight="@drawable/ic_open_eye"
-            android:hint="Enter your password"
-            android:padding="10dp"
-            android:textSize="16sp"
+            android:drawableEnd="@drawable/ic_open_eye"
+            android:hint="@string/enter_your_password"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/sp_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_malfomed" />
+            app:layout_constraintTop_toBottomOf="@id/txt_malfomed"
+            android:textColor="@color/Ink50"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_incorectpass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/dp_12"
             android:gravity="center"
-            android:text="Incorrect password"
+            android:text="@string/incorrect_password"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/edt_pass" />
 
@@ -98,22 +103,24 @@
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_24"
+            android:layout_marginEnd="@dimen/dp_16"
             android:background="@drawable/btn_background"
             android:fontFamily="@font/roboto_medium"
-            android:text="Login"
+            android:text="@string/login"
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_incorectpass" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_incorectpass"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"/>
 
         <LinearLayout
             android:id="@+id/ln"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/dp_24"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -124,64 +131,89 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Do not have an account?"
+                android:text="@string/do_not_have_an_account"
                 android:textColor="@color/Ink50"
-                android:textSize="14sp" />
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="@dimen/dp_4"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Register"
+                android:text="@string/register"
                 android:textColor="@color/Ink100"
-                android:textSize="14sp" />
+                android:textSize="@dimen/sp_14" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/txt_fogot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/dp_16"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center_horizontal"
-            android:text="Forgot password?"
-            android:textColor="@color/Ink50"
-            android:textSize="14sp"
+            android:text="@string/forgot_password"
+            android:textColor="@color/Ink100"
+            android:textSize="@dimen/sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ln" />
 
         <LinearLayout
+            android:id="@+id/ln2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/txt_fogot_pass">
+            app:layout_constraintTop_toBottomOf="@+id/txt_fogot_pass"
+            >
 
             <View
-                android:layout_width="139dp"
+                android:layout_width="@dimen/dp_160"
                 android:layout_height="1dp"
-                android:layout_marginLeft="23dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="@dimen/dp_23"
+                android:layout_marginTop="@dimen/dp_26"
+                android:layout_marginEnd="@dimen/dp_8"
                 android:background="@color/Ink10" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
-                android:text="OR"
-                android:textSize="14dp"
-                android:layout_marginTop="16dp"/>
+                android:text="@string/or"
+                android:textSize="@dimen/sp_14"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_8"/>
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginRight="23dp"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_26"
+                android:layout_marginEnd="@dimen/dp_23"
                 android:background="@color/Ink10" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ln2"
+            android:orientation="horizontal"
+            android:layout_marginTop="28.5dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="@dimen/dp_40dp"
+                android:layout_height="@dimen/dp_40dp"
+                android:src="@drawable/ic_google"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
+                android:src="@drawable/ic_facebook"
+                android:layout_marginStart="@dimen/dp_21"/>
+
+        </LinearLayout>
+
+
 
 
 

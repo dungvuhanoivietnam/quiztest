@@ -3,4 +3,13 @@
     <string name="home">Home</string>
     <string name="ranking">Ranking</string>
     <string name="profile">Profile</string>
+    <string name="or">OR</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="register">Register</string>
+    <string name="do_not_have_an_account">Do not have an account?</string>
+    <string name="login">Login</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="malformed_account">Malformed account</string>
+    <string name="enter_your_email">Enter your email</string>
 </resources>
