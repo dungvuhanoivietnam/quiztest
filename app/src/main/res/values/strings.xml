@@ -4,4 +4,11 @@
     <string name="ranking">Ranking</string>
     <string name="profile">Profile</string>
     <string name="skip">Skip</string>
+    <string name="text_guest_mode">You are using guest mode</string>
+    <string name="log_in">Log in</string>
+    <string name="all_quiz">All quiz</string>
+    <string name="View_all">View all</string>
+    <string name="recommend_for_you">Recommend for you</string>
+    <string name="search_recent">Search recent</string>
+    <string name="show_all_history">Show all history</string>
 </resources>
