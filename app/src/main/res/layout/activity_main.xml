@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/white"
     tools:context=".MainActivity">
 
@@ -21,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.quiztest.quiztest.ui.ExtTextView
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/btn_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
             app:layout_constraintEnd_toStartOf="@id/btn_ranking"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.quiztest.quiztest.ui.ExtTextView
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/btn_ranking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +44,7 @@
             app:layout_constraintEnd_toStartOf="@id/btn_profile"
             app:layout_constraintStart_toEndOf="@id/btn_home" />
 
-        <com.quiztest.quiztest.ui.ExtTextView
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/btn_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

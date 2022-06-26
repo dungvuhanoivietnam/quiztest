@@ -21,10 +21,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="@dimen/_29sdp"
-            android:layout_height="@dimen/_29sdp"
-            android:layout_marginTop="@dimen/_32sdp"
-            android:layout_marginEnd="@dimen/_13sdp"
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_42sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
             android:src="@drawable/ic_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,11 +40,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imv_thum">
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_hellomyfriend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="@string/hello_my_friend"
@@ -52,11 +53,11 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_welcometo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:text="@string/welcome_to_the_tests_of_quiz_test"
@@ -64,63 +65,38 @@
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintTop_toBottomOf="@+id/txt_hellomyfriend" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <com.quiztest.quiztest.custom.ExtEditTextApp
                 android:id="@+id/edt_mail"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:background="@drawable/edittext_background"
-                android:hint="@string/enter_your_email"
-                android:padding="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_welcometo" />
 
-            <com.quiztest.quiztest.ui.ExtTextView
-                android:id="@+id/txt_malfomed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:gravity="center"
-                android:text="@string/malformed_account"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/edt_mail" />
-
-            <androidx.appcompat.widget.AppCompatEditText
+            <com.quiztest.quiztest.custom.ExtEditTextApp
                 android:id="@+id/edt_pass"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_background"
+                android:layout_marginTop="@dimen/_7sdp"
                 android:drawableEnd="@drawable/ic_open_eye"
                 android:hint="@string/enter_your_password"
                 android:inputType="textPassword"
-                android:padding="@dimen/_16sdp"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.512"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_malfomed" />
+                app:layout_constraintTop_toBottomOf="@id/edt_mail" />
 
-            <com.quiztest.quiztest.ui.ExtTextView
-                android:id="@+id/txt_incorectpass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:gravity="center"
-                android:text="@string/incorrect_password"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/edt_pass" />
-
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/btn_background"
                 android:gravity="center"
                 android:text="@string/login"
@@ -128,24 +104,24 @@
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_incorectpass" />
+                app:layout_constraintTop_toBottomOf="@+id/edt_pass" />
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_do_not_have"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_2sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/do_not_have_an_account"
                 android:textColor="@color/color_8D959D"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintEnd_toStartOf="@id/txt_register"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_login"
                 app:layout_constraintHorizontal_chainStyle="packed"/>
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,23 +129,23 @@
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/register"
                 android:textColor="@color/color_22313F"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_do_not_have"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_do_not_have"
                 app:layout_constraintTop_toTopOf="@id/txt_do_not_have" />
 
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_fogot_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center_horizontal"
                 android:text="@string/forgot_password"
                 android:textColor="@color/color_22313F"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_do_not_have" />
@@ -186,16 +162,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/txt_center" />
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/or"
                 android:textColor="@color/color_8D959D"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_fogot_pass" />

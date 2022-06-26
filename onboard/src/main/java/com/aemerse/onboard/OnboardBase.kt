@@ -6,21 +6,18 @@ import android.animation.ArgbEvaluator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageButton
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.TooltipCompat.setTooltipText
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -29,9 +26,9 @@ import androidx.viewpager.widget.ViewPager
 import com.aemerse.onboard.indicator.DotIndicatorController
 import com.aemerse.onboard.indicator.IndicatorController
 import com.aemerse.onboard.indicator.ProgressIndicatorController
-import com.aemerse.onboard.internal.OnboardViewPager
 import com.aemerse.onboard.internal.LayoutUtil
 import com.aemerse.onboard.internal.LogHelper
+import com.aemerse.onboard.internal.OnboardViewPager
 import com.aemerse.onboard.internal.PermissionWrapper
 import com.aemerse.onboard.internal.viewpager.PagerAdapter
 import com.aemerse.onboard.internal.viewpager.ViewPagerTransformer
@@ -384,15 +381,13 @@ abstract class OnboardBase : AppCompatActivity(), OnboardViewPagerListener {
      =================================== */
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         super.onCreate(savedInstanceState)
 
         // We default the indicator controller to the Dotted one.
         indicatorController = DotIndicatorController(this)
 
         // We default to don't show the Status Bar. User can override this.
-        showStatusBar(false)
+//        showStatusBar(false)
 
         setContentView(layoutId)
 
