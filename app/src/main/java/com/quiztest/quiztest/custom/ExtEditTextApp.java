@@ -86,7 +86,7 @@ public class ExtEditTextApp extends FrameLayout {
     }
 
     /**
-     * regex là điều kiện để validate
+     * typeValidate là điều kiện để validate
      * errpr là thông tin lỗi trả về khi sai
      * inputType loại type mặc định
      */
