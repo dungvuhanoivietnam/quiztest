@@ -30,10 +30,9 @@
             android:launchMode="singleTask"
             android:name="com.quiztest.MyCustomOnboarder"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
+        <activity android:name=".ui.Login.LoginActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

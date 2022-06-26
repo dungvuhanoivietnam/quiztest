@@ -8,9 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_21C3FF">#21C3FF</color>
-    <color name="color_F5F5F5">#F5F5F5</color>
-    <color name="color_E3E5E7">#E3E5E7</color>
-    <color name="color_B8BDC2">#B8BDC2</color>
     <color name="color_8D959D">#8D959D</color>
     <color name="color_22313F">#22313F</color>
+    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="Ink10">#E3E5E7</color>
+    <color name="Ink30">#B8BDC2</color>
+    <color name="Ink50">#8D959D</color>
+    <color name="Ink100">#22313F</color>
 </resources>
