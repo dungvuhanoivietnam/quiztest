@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.fragment.HomeFragment;
+import com.quiztest.quiztest.fragment.LoginFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.ui.ExtTextView;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private BaseFragment fragmentHome = new HomeFragment();
     private BaseFragment fragmentRanking = new RankingFragment();
     private BaseFragment fragmentProfile = new ProfileFragment();
+    private BaseFragment fragmentLogin = new LoginFragment();
     private List<Fragment> fragments = new ArrayList<>();
     private List<ExtTextView> btns = new ArrayList<>();
 
