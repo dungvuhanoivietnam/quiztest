@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.quiztest.quiztest.R
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
 import com.quiztest.quiztest.utils.Utils
 
