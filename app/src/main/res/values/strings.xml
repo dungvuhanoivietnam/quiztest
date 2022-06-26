@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuizTest</string>
+    <string name="app_name">QuizTestHome</string>
     <string name="home">Home</string>
     <string name="ranking">Ranking</string>
     <string name="profile">Profile</string>
@@ -13,4 +13,8 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="malformed_account">Malformed account</string>
     <string name="enter_your_email">Enter your email</string>
+    <string name="hello_my_friend">Hello my friend</string>
+    <string name="welcome_to_the_tests_of_quiz_test">Welcome to the tests of Quiz test</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
