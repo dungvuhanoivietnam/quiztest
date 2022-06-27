@@ -58,6 +58,11 @@ public class HomeFragment extends BaseFragment implements
         call.enqueue(new callBack());
     }
 
+    @Override
+    protected void initView(View v) {
+
+    }
+
     private class callBack implements Callback<ResponseBody> {
 
         @Override
