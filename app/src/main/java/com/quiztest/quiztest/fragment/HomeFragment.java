@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
-import com.quiztest.quiztest.ui.ExtTextView;
+import com.quiztest.quiztest.custom.ExtTextView;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 

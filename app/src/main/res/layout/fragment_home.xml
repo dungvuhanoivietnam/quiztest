@@ -35,13 +35,13 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/text_guest_mode"
                     android:textAlignment="center" />
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/ext_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -98,7 +98,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/all_quiz"
@@ -106,7 +106,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/tv_view_all_quiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_40sdp">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/recommend_for_you"
@@ -144,7 +144,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/tv_view_all_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

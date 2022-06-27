@@ -20,7 +20,7 @@
             android:launchMode="singleTask"
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,7 +29,7 @@
         <activity
             android:launchMode="singleTask"
             android:name="com.quiztest.MyCustomOnboarder"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:screenOrientation="portrait"/>
 
     </application>
 

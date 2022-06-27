@@ -1,37 +1,33 @@
 package com.quiztest.quiztest;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.aemerse.onboard.OnboardAdvanced;
 import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
-import com.quiztest.quiztest.ui.ExtTextView;
+import com.quiztest.quiztest.custom.ExtTextView;
+import com.aemerse.onboard.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends MyCustomOnboarder {
+public class MainActivity extends OnboardAdvanced {
 
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
@@ -47,11 +43,7 @@ public class MainActivity extends MyCustomOnboarder {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.GRAY);
-        }
+        ScreenUtils.transparentStatusAndNavigation(this);
         boolean onboarding = false;
         if (getIntent() != null && getIntent().getExtras() != null) {
             onboarding = getIntent().getExtras().getBoolean("onboarding", false);

@@ -1,4 +1,4 @@
-package com.quiztest.quiztest.ui;
+package com.quiztest.quiztest.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
