@@ -10,6 +10,7 @@ import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.custom.ExtEditTextApp
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
+import com.quiztest.quiztest.fragment.register.RegisterFragment
 import com.quiztest.quiztest.utils.Utils
 
 

@@ -1,4 +1,4 @@
-package com.quiztest.quiztest.fragment
+package com.quiztest.quiztest.fragment.register
 
 import android.os.Bundle
 import android.text.TextPaint
