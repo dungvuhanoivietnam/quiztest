@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:paddingTop="@dimen/onboard_statusbar_height"
     android:paddingBottom="@dimen/onboard2_bottombar_height"
     tools:background="@color/onboard_background_color">
