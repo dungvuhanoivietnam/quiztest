@@ -17,7 +17,7 @@
     <string name="welcome_to_the_tests_of_quiz_test">Welcome to the tests of Quiz test</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_guest_mode">You are using guest mode</string>
+    <string name="text_guest_mode">You need to login to make money</string>
     <string name="log_in">Log in</string>
     <string name="all_quiz">All quiz</string>
     <string name="View_all">View all</string>
@@ -29,4 +29,11 @@
     <string name="upgrade_to_the_pro_version">Upgrade to the pro version</string>
     <string name="analyzing_data">Analyzing data...</string>
     <string name="ok">OK</string>
+    <string name="your_star">Your Star</string>
+    <string name="star">star</string>
+    <string name="your_money">Your Money</string>
+    <string name="money">$</string>
+    <string name="history_star">History Star</string>
+    <string name="payment_history">Payment History</string>
+    <string name="get_money">Get Money</string>
 </resources>
