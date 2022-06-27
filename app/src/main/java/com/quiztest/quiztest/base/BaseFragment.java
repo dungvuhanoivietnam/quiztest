@@ -34,6 +34,7 @@ public abstract class BaseFragment extends Fragment {
                 container,
                 false
         );
+        initView(v);
         dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
         return v;
     }
@@ -80,6 +81,8 @@ public abstract class BaseFragment extends Fragment {
         initView();
         initData();
     }
+
+    protected abstract void initView(View v);
 
     protected abstract void initView();
 

@@ -29,6 +29,9 @@
     <string name="upgrade_to_the_pro_version">Upgrade to the pro version</string>
     <string name="analyzing_data">Analyzing data...</string>
     <string name="ok">OK</string>
+    <string name="history_result">History Result</string>
+    <string name="view_all">View all</string>
+
     <string name="your_star">Your Star</string>
     <string name="star">star</string>
     <string name="your_money">Your Money</string>
