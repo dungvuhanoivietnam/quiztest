@@ -7,16 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.quiztest.quiztest.R
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
+import com.quiztest.quiztest.utils.Utils
 
 
 class LoginFragment : Fragment() {
-private lateinit var binding: FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        initView()
         return binding.root
+    }
+
+    fun initView() {
+        val height = Utils.getHeight(activity) * 240 / 800
+        var layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
+        binding.imvThum.layoutParams = layoutParams
     }
 
 
