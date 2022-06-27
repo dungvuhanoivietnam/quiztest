@@ -53,6 +53,7 @@ public class ExtEditTextApp extends FrameLayout {
         edtContent = view.findViewById(R.id.edtContent);
         txtError = view.findViewById(R.id.txtError);
         etPasswordLayout = view.findViewById(R.id.etPasswordLayout);
+
         edtContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
