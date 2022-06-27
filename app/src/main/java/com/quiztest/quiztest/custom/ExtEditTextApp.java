@@ -33,7 +33,7 @@ public class ExtEditTextApp extends FrameLayout {
     }
 
     public enum TYPE_VALIDATE {
-        EMAIL, PASSWORD
+        EMAIL, PASSWORD, NAME
     }
 
     private TYPE_VALIDATE typeValidate;
@@ -66,6 +66,7 @@ public class ExtEditTextApp extends FrameLayout {
                 if ("".equals(charSequence.toString())) {
                     addTextChange(TYPE_ERROR.NOT_CHANGE);
                 } else {
+
                     if (typeValidate == TYPE_VALIDATE.EMAIL) {
                         consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() );
                         addTextChange(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
@@ -74,6 +75,11 @@ public class ExtEditTextApp extends FrameLayout {
                         consumer.accept(charSequence.toString().length() >= 8);
                         addTextChange(charSequence.toString().length() >= 8 ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
+                    if (typeValidate == TYPE_VALIDATE.NAME) {
+                        consumer.accept(charSequence.toString().length() <= 32);
+                        addTextChange(charSequence.toString().length() <= 32 ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
+                    }
+
                 }
             }
 
