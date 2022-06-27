@@ -56,9 +56,9 @@ public class MainActivity extends MyCustomOnboarder {
         if (getIntent() != null && getIntent().getExtras() != null) {
             onboarding = getIntent().getExtras().getBoolean("onboarding", false);
         }
-            if (!onboarding) {
-                initOnboarding();
-            }
+        if (!onboarding) {
+            initOnboarding();
+        }
         setContentView(R.layout.activity_main);
 
         initView();
@@ -124,10 +124,6 @@ public class MainActivity extends MyCustomOnboarder {
 
 
     private void initView() {
-        fragmentHome = new HomeFragment();
-        fragmentRanking = new RankingFragment();
-        fragmentProfile = new ProfileFragment();
-
         fragments.add(fragmentHome);
         fragments.add(fragmentRanking);
         fragments.add(fragmentProfile);
@@ -152,6 +148,7 @@ public class MainActivity extends MyCustomOnboarder {
     }
 
     private void addFragment(BaseFragment fmAdd) {
+        getFragmentManager().executePendingTransactions();
         if (!fmAdd.isAdded()) {
             if (fmAdd instanceof HomeFragment) {
                 fragmentStates.add(HomeFragment.TAG);
@@ -221,10 +218,12 @@ public class MainActivity extends MyCustomOnboarder {
         if (fmShow instanceof HomeFragment) {
 //            transaction.addToBackStack("Show fragment");
         }
+        getFragmentManager().executePendingTransactions();
         for (int i = 0; i < fragments.size(); i++) {
-            if (fragments.get(i).isAdded()) {
-                hideFragment(fragments.get(i));
-            }
+            // chỗ này đang k hiểu tại sao check isAdded false
+//            if (fragments.get(i).isAdded()) {
+            hideFragment(fragments.get(i));
+//            }
         }
         transaction.commit();
     }
