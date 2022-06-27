@@ -36,6 +36,10 @@ class LoginFragment : BaseFragment() {
         return R.layout.fragment_login
     }
 
+    override fun initView(v: View?) {
+        TODO("Not yet implemented")
+    }
+
     override fun initView() {
         val height = Utils.getHeight(activity) * 220 / 800
         var layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
