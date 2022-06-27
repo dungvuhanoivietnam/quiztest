@@ -48,7 +48,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         if (view.getId() == R.id.ext_login) {
             replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
-            ((MainActivity)getActivity()).hideOrShowBottomView(false);
+            if ((MainActivity) getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((MainActivity) getActivity() != null) {
+            ((MainActivity) getActivity()).hideOrShowBottomView(true);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }
