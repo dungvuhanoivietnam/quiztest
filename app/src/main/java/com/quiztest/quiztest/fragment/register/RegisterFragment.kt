@@ -43,11 +43,8 @@ class RegisterFragment : BaseFragment() {
 
     override fun getLayoutId(): Int = R.layout.fragment_register
 
+
     override fun initView(v: View?) {
-
-    }
-
-    override fun initView() {
         val height = Utils.getHeight(activity) * 220 / 800
         var layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
         binding.imvThum.layoutParams = layoutParams
@@ -79,8 +76,6 @@ class RegisterFragment : BaseFragment() {
     }
 
     private fun setupView() {
-        password = binding.edtPass.toString().trim()
-        confirm_password = binding.edtConfirmPass.toString().trim()
 
         binding.edtName.initData(ExtEditTextApp.TYPE_VALIDATE.NAME,
             context?.getString(R.string.Your_name_cannot_exceed_32_characters)
@@ -116,35 +111,24 @@ class RegisterFragment : BaseFragment() {
             })
 
 
-        if( password != confirm_password){
-            binding.edtConfirmPass.setBackgroundResource(R.drawable.bg_edt_error)
-            binding.txtRepassNotAvaible.isVisible = true
-
-        } else{
-            isSuccessPass = true
-            initButtonRegister()
-        }
 
     }
 
 
     override fun initData() {
-//        binding.btnRegister.setOnClickListener {
-//            if (isValidateSucess()){
-//                viewModel.registerAccount(email,name,password,confirm_password)
-//            }
-//
-//        }
+        binding.btnRegister.setOnClickListener {
+            name = binding.edtName.toString().trim()
+            email =binding.edtMail.toString().trim()
+            password = binding.edtPass.toString().trim()
+            confirm_password = binding.edtConfirmPass.toString().trim()
+
+            viewModel.registerAccount(email,name,password,confirm_password)
+
+
+        }
     }
 
-//    private fun isValidateSucess(): Boolean {
-//
-//        name = binding.edtName.toString().trim()
-//        email =binding.edtMail.toString().trim()
-//        password = binding.edtPass.toString().trim()
-//        confirm_password = binding.edtConfirmPass.toString().trim()
-//
-//    }
+
 
     private fun initButtonRegister() {
         if (isSuccessEmail and isSuccessPass and isSuccessName)

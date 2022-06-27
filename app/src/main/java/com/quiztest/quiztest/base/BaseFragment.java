@@ -85,7 +85,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
         mContext = getContext();
-        Retrofit retrofit = RetrofitClient.getInstance(mContext);
+        Retrofit retrofit = RetrofitClient.getInstance();
         requestAPI = retrofit.create(RequestAPI.class);
     }
 

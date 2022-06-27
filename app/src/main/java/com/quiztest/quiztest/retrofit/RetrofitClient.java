@@ -3,6 +3,7 @@ package com.quiztest.quiztest.retrofit;
 import android.content.Context;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.quiztest.quiztest.App;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -39,10 +40,10 @@ public class RetrofitClient {
         return okHttpClient;
     }
 
-    public static Retrofit getInstance(Context context) {
+    public static Retrofit getInstance() {
         if (ourInstance == null)
             ourInstance = new Retrofit.Builder()
-                    .client(okHttpClient(context, 30))
+                    .client(okHttpClient(App.getInstance(), 30))
                     .baseUrl("https://quiz-test.merryblue.llc/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

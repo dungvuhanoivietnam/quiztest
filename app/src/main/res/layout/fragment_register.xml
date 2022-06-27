@@ -142,7 +142,7 @@
             android:textColor="@color/color_8D959D"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/txt_login"
+            app:layout_constraintEnd_toStartOf="@id/txt_login"
             app:layout_constraintTop_toBottomOf="@+id/btn_register"
             app:layout_constraintHorizontal_chainStyle="packed"/>
 

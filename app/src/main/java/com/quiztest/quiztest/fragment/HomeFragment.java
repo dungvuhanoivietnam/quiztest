@@ -46,7 +46,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Retrofit retrofit = RetrofitClient.getInstance(mContext);
+        Retrofit retrofit = RetrofitClient.getInstance();
         requestAPI = retrofit.create(RequestAPI.class);
 
 //        Call<ResponseBody> call =
