@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 
 data class AuthResponse (
-    val success: Boolean,
-    val data: Data,
-    val message: String
+    val success: Boolean?,
+    val data: Data?,
+    val message: String?
 )
 
 data class Data (
