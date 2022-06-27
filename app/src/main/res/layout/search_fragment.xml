@@ -40,7 +40,7 @@
         android:layout_marginEnd="@dimen/_16sdp"
         android:visibility="gone">
 
-        <com.quiztest.quiztest.ui.ExtTextView
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/tv_recommend_for_you"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         android:layout_marginBottom="@dimen/_40sdp"
         android:visibility="gone">
 
-        <com.quiztest.quiztest.ui.ExtTextView
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/tv_search_recent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             tools:listitem="@layout/item_search_recent" />
     </RelativeLayout>
 
-    <com.quiztest.quiztest.ui.ExtTextView
+    <com.quiztest.quiztest.custom.ExtTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

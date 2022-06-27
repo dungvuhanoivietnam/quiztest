@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import com.aemerse.onboard.OnboardAdvanced;
 import com.aemerse.onboard.OnboardFragment;
 
+import com.aemerse.onboard.ScreenUtils;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 
@@ -17,6 +18,7 @@ public class MyCustomOnboarder extends OnboardAdvanced {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         addSlide(OnboardFragment.newInstance("Alarm with sound", "Alarm with gentle sound, more comfortable than other apps",
                 R.drawable.img_onboard_example,
                 getResources().getColor(R.color.white),

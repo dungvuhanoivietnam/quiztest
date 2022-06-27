@@ -1,19 +1,24 @@
 package com.quiztest.quiztest;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,17 +26,19 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.aemerse.onboard.OnboardAdvanced;
 import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
-import com.quiztest.quiztest.ui.ExtTextView;
+import com.quiztest.quiztest.custom.ExtTextView;
+import com.aemerse.onboard.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends MyCustomOnboarder {
+public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
@@ -47,11 +54,7 @@ public class MainActivity extends MyCustomOnboarder {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.GRAY);
-        }
+//        ScreenUtils.transparentStatusAndNavigation(this);
         boolean onboarding = false;
         if (getIntent() != null && getIntent().getExtras() != null) {
             onboarding = getIntent().getExtras().getBoolean("onboarding", false);
@@ -63,6 +66,47 @@ public class MainActivity extends MyCustomOnboarder {
 
         initView();
         initData();
+        setKeyboardVisibilityListener();
+    }
+
+    private void setKeyboardVisibilityListener() {
+        final View parentView = ((ViewGroup) findViewById(R.id.cst_container)).getChildAt(0);
+        parentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            private boolean alreadyOpen;
+            private final int defaultKeyboardHeightDP = 100;
+            private final int EstimatedKeyboardDP = defaultKeyboardHeightDP + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 48 : 0);
+            private final Rect rect = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                int estimatedKeyboardHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, EstimatedKeyboardDP, parentView.getResources().getDisplayMetrics());
+                parentView.getWindowVisibleDisplayFrame(rect);
+                int heightDiff = parentView.getRootView().getHeight() - (rect.bottom - rect.top);
+                boolean isShown = heightDiff >= estimatedKeyboardHeight;
+
+                if (isShown == alreadyOpen) {
+                    Log.i("Keyboard state", "Ignoring global layout change...");
+                    return;
+                }
+                alreadyOpen = isShown;
+                onKeyBoardChange(isShown);
+            }
+        });
+    }
+
+    private void onKeyBoardChange(boolean isShow) {
+        if (isShow) {
+            hideOrShowBottomView(false);
+        } else {
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hideOrShowBottomView(true);
+                }
+            }, 100);
+        }
     }
 
     private void initOnboarding() {
@@ -74,7 +118,8 @@ public class MainActivity extends MyCustomOnboarder {
 
     public void hideOrShowBottomView(boolean show) {
         if (show) {
-            ctsBottomNavigation.setVisibility(View.VISIBLE);
+            if (ctsBottomNavigation.getVisibility() != View.VISIBLE)
+                ctsBottomNavigation.setVisibility(View.VISIBLE);
         } else {
             ctsBottomNavigation.setVisibility(View.GONE);
         }
@@ -166,9 +211,14 @@ public class MainActivity extends MyCustomOnboarder {
         }
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     public void replaceFragment(Fragment fragment, String tag) {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.frContent, fragment);
+        ft.replace(R.id.frContent, fragment);
         if (!fragmentStates.contains(tag))
             fragmentStates.add(tag);
         ft.addToBackStack(tag);

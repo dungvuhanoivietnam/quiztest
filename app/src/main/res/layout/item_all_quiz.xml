@@ -12,7 +12,7 @@
         android:layout_marginEnd="@dimen/_6sdp"
         android:layout_marginBottom="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="@dimen/_8sdp">
+        app:cardElevation="@dimen/_4sdp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:src="@drawable/img_test_iq" />
 
-            <com.quiztest.quiztest.ui.ExtTextView
+            <com.quiztest.quiztest.custom.ExtTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

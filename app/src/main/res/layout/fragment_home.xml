@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:paddingBottom="@dimen/dp_64dp"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -18,13 +19,16 @@
             android:orientation="vertical">
 
             <SearchView
+                android:queryBackground="@null"
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
-                android:background="@drawable/bg_search_corner_8" />
+                android:background="@drawable/bg_search_corner_8"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search" />
 
             <LinearLayout
                 android:id="@+id/ll_guest_mode"
@@ -35,13 +39,13 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/text_guest_mode"
                     android:textAlignment="center" />
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/ext_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,7 +68,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -98,7 +102,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_16sdp">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/all_quiz"
@@ -106,7 +110,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/tv_view_all_quiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,12 +135,14 @@
                 android:id="@+id/rl_recommend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_40sdp">
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:id="@+id/label_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/recommend_for_you"
@@ -144,24 +150,61 @@
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold" />
 
-                <com.quiztest.quiztest.ui.ExtTextView
+                <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/tv_view_all_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="@string/View_all"
                     android:textColor="@color/color_21C3FF"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    android:visibility="gone" />
 
-                <androidx.recyclerview.widget.RecyclerView
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@id/tv_view_all_recommend"-->
+                <!--                    android:layout_centerHorizontal="true"-->
+                <!--                    android:layout_marginStart="-6dp"-->
+                <!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+                <!--                    tools:itemCount="5"-->
+                <!--                    tools:listitem="@layout/item_recommend_for_you" />-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_view_all_recommend"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="-6dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_recommend_for_you" />
+                    android:layout_below="@+id/label_recommend">
+
+                    <com.quiztest.quiztest.custom.ItemViewRecommend
+                        android:id="@+id/item_test_iq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.quiztest.quiztest.custom.ItemViewRecommend
+                        android:id="@+id/item_test_eq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.quiztest.quiztest.custom.ItemViewRecommend
+                        android:id="@+id/item_test_mbi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/item_test_eq" />
+
+                    <com.quiztest.quiztest.custom.ItemViewRecommend
+                        android:id="@+id/item_test_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/item_test_eq" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </RelativeLayout>
 
         </LinearLayout>
