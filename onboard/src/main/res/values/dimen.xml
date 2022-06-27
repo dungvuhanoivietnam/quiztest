@@ -3,7 +3,7 @@
     <dimen name="onboard_statusbar_height">24dp</dimen>
 
     <dimen name="onboard_bottombar_height">70dp</dimen>
-    <dimen name="onboard2_bottombar_height">90dp</dimen>
+    <dimen name="onboard2_bottombar_height">120dp</dimen>
 
     <dimen name="onboard2_fab_inset">16dp</dimen>
     <dimen name="onboard2_fab_size">88dp</dimen>

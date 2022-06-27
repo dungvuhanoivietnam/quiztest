@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideOrShowBottomView(boolean show) {
         if (show) {
-            ctsBottomNavigation.setVisibility(View.VISIBLE);
+            if (ctsBottomNavigation.getVisibility() != View.VISIBLE)
+                ctsBottomNavigation.setVisibility(View.VISIBLE);
         } else {
             ctsBottomNavigation.setVisibility(View.GONE);
         }
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void replaceFragment(Fragment fragment, String tag) {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.frContent, fragment);
+        ft.replace(R.id.frContent, fragment);
         if (!fragmentStates.contains(tag))
             fragmentStates.add(tag);
         ft.addToBackStack(tag);
