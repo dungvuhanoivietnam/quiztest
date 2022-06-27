@@ -1,5 +1,6 @@
 package com.quiztest.quiztest.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -86,10 +88,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.ext_login) {
-            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
-            if ((MainActivity) getActivity() != null) {
-                ((MainActivity) getActivity()).hideOrShowBottomView(false);
-            }
+//            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
+//            if ((MainActivity) getActivity() != null) {
+//                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+//            }
+            Intent intent = new Intent(getActivity(), MainIQActivity.class);
+            startActivity(intent);
         }
     }
 
