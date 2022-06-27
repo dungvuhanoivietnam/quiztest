@@ -1,17 +1,12 @@
 package com.quiztest.quiztest;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,17 +16,19 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.aemerse.onboard.OnboardAdvanced;
 import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
-import com.quiztest.quiztest.ui.ExtTextView;
+import com.quiztest.quiztest.custom.ExtTextView;
+import com.aemerse.onboard.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends MyCustomOnboarder {
+public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
@@ -47,18 +44,14 @@ public class MainActivity extends MyCustomOnboarder {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.GRAY);
-        }
+//        ScreenUtils.transparentStatusAndNavigation(this);
         boolean onboarding = false;
         if (getIntent() != null && getIntent().getExtras() != null) {
             onboarding = getIntent().getExtras().getBoolean("onboarding", false);
         }
-            if (!onboarding) {
-                initOnboarding();
-            }
+        if (!onboarding) {
+            initOnboarding();
+        }
         setContentView(R.layout.activity_main);
 
         initView();
@@ -72,9 +65,10 @@ public class MainActivity extends MyCustomOnboarder {
     }
 
 
-    private void hideOrShowBottomView(boolean show) {
+    public void hideOrShowBottomView(boolean show) {
         if (show) {
-            ctsBottomNavigation.setVisibility(View.VISIBLE);
+            if (ctsBottomNavigation.getVisibility() != View.VISIBLE)
+                ctsBottomNavigation.setVisibility(View.VISIBLE);
         } else {
             ctsBottomNavigation.setVisibility(View.GONE);
         }
@@ -124,10 +118,6 @@ public class MainActivity extends MyCustomOnboarder {
 
 
     private void initView() {
-        fragmentHome = new HomeFragment();
-        fragmentRanking = new RankingFragment();
-        fragmentProfile = new ProfileFragment();
-
         fragments.add(fragmentHome);
         fragments.add(fragmentRanking);
         fragments.add(fragmentProfile);
@@ -152,6 +142,7 @@ public class MainActivity extends MyCustomOnboarder {
     }
 
     private void addFragment(BaseFragment fmAdd) {
+        getFragmentManager().executePendingTransactions();
         if (!fmAdd.isAdded()) {
             if (fmAdd instanceof HomeFragment) {
                 fragmentStates.add(HomeFragment.TAG);
@@ -171,7 +162,7 @@ public class MainActivity extends MyCustomOnboarder {
 
     public void replaceFragment(Fragment fragment, String tag) {
         ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.frContent, fragment);
+        ft.replace(R.id.frContent, fragment);
         if (!fragmentStates.contains(tag))
             fragmentStates.add(tag);
         ft.addToBackStack(tag);
@@ -221,10 +212,12 @@ public class MainActivity extends MyCustomOnboarder {
         if (fmShow instanceof HomeFragment) {
 //            transaction.addToBackStack("Show fragment");
         }
+        getFragmentManager().executePendingTransactions();
         for (int i = 0; i < fragments.size(); i++) {
-            if (fragments.get(i).isAdded()) {
-                hideFragment(fragments.get(i));
-            }
+            // chỗ này đang k hiểu tại sao check isAdded false
+//            if (fragments.get(i).isAdded()) {
+            hideFragment(fragments.get(i));
+//            }
         }
         transaction.commit();
     }
