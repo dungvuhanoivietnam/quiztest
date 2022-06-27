@@ -65,10 +65,5 @@ class LoginFragment : BaseFragment() {
             binding.btnLogin.setBackgroundResource(R.drawable.bg_gray_b8)
 
     }
-
-    override fun initData() {
-
-    }
-
-
+    
 }
