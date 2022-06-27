@@ -72,7 +72,7 @@ public class MainActivity extends MyCustomOnboarder {
     }
 
 
-    private void hideOrShowBottomView(boolean show) {
+    public void hideOrShowBottomView(boolean show) {
         if (show) {
             ctsBottomNavigation.setVisibility(View.VISIBLE);
         } else {

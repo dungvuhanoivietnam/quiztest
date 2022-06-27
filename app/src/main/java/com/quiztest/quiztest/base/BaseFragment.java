@@ -70,6 +70,17 @@ public abstract class BaseFragment extends Fragment {
         mContext = getContext();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+        initData();
+    }
+
+    protected abstract void initView();
+
+    protected abstract void initData();
+
 //    public Dialog initDialogConfirm(String title, String message, String textPositiveButton, String textNegativeButton, Consumer consumer) {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
 //        builder.setMessage(message);

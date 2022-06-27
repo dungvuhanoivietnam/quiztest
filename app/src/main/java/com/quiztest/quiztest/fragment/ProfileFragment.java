@@ -25,4 +25,14 @@ public class ProfileFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_profile;
     }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
 }

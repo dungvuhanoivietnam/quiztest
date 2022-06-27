@@ -25,4 +25,14 @@ public class RankingFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_ranking;
     }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
 }
