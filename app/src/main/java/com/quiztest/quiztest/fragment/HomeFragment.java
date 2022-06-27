@@ -1,9 +1,12 @@
 package com.quiztest.quiztest.fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +24,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import com.quiztest.quiztest.custom.ExtTextView;
 
-
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements
+        View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin;
+    private SearchView searchView;
     private RequestAPI requestAPI;
 
     @Override
@@ -76,6 +80,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView() {
         extLogin = getActivity().findViewById(R.id.ext_login);
+        searchView = getActivity().findViewById(R.id.search_view);
     }
 
     @Override
