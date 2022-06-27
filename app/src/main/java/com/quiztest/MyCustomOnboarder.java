@@ -18,7 +18,7 @@ public class MyCustomOnboarder extends OnboardAdvanced {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScreenUtils.transparentStatusAndNavigation(this);
+
         addSlide(OnboardFragment.newInstance("Alarm with sound", "Alarm with gentle sound, more comfortable than other apps",
                 R.drawable.img_onboard_example,
                 getResources().getColor(R.color.white),

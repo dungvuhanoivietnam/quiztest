@@ -32,7 +32,7 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun initView() {
-        val height = Utils.getHeight(activity) * 240 / 800
+        val height = Utils.getHeight(activity) * 220 / 800
         var layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
         binding.imvThum.layoutParams = layoutParams
         binding.edtMail.initData(
@@ -52,6 +52,7 @@ class LoginFragment : BaseFragment() {
 
         })
         binding.ivBack.setOnClickListener {
+            backstackFragment()
         }
     }
 

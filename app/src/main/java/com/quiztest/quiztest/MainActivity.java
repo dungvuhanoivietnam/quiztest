@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,7 @@ import com.aemerse.onboard.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends OnboardAdvanced {
+public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> fragmentStates = new ArrayList<>();
     private FragmentTransaction ft;
@@ -43,7 +44,7 @@ public class MainActivity extends OnboardAdvanced {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScreenUtils.transparentStatusAndNavigation(this);
+//        ScreenUtils.transparentStatusAndNavigation(this);
         boolean onboarding = false;
         if (getIntent() != null && getIntent().getExtras() != null) {
             onboarding = getIntent().getExtras().getBoolean("onboarding", false);
