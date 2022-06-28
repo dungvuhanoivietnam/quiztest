@@ -13,15 +13,29 @@ import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
 
 import com.quiztest.quiztest.MainActivity;
+import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.dialog.DialogProgressLoading;
+import com.quiztest.quiztest.fragment.HomeFragment;
+import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.retrofit.RequestAPI;
+import com.quiztest.quiztest.retrofit.RetrofitClient;
 import com.quiztest.quiztest.utils.NetworkUtils;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public abstract class BaseFragment extends Fragment {
 
-//    protected AlertDialog progressDialog;
+    //    protected AlertDialog progressDialog;
     private Thread thread;
     protected Activity mActivity;
     protected Context mContext;
-//    protected ShowErrorDialog errorDialog;
+    //    protected ShowErrorDialog errorDialog;
+    private DialogProgressLoading dialogProgressLoading;
+    protected RequestAPI requestAPI;
 
     @Nullable
     @Override
@@ -31,6 +45,9 @@ public abstract class BaseFragment extends Fragment {
                 container,
                 false
         );
+        initView(v);
+        initData();
+        dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
         return v;
     }
 
@@ -68,16 +85,16 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
         mContext = getContext();
+        Retrofit retrofit = RetrofitClient.getInstance(mContext);
+        requestAPI = retrofit.create(RequestAPI.class);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
-        initData();
     }
 
-    protected abstract void initView();
+    protected abstract void initView(View v);
 
     protected abstract void initData();
 
@@ -156,4 +173,17 @@ public abstract class BaseFragment extends Fragment {
         }
         return false;
     }
+
+    protected void showLoading() {
+        if (dialogProgressLoading != null && !dialogProgressLoading.isShowing()) {
+            dialogProgressLoading.show();
+        }
+    }
+
+    protected void cancelLoading() {
+        if (dialogProgressLoading != null && dialogProgressLoading.isShowing()) {
+            dialogProgressLoading.hide();
+        }
+    }
+
 }

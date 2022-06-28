@@ -13,7 +13,7 @@ public class TypefacesUtils {
     private static final Hashtable<String, Typeface> caches = new Hashtable<>();
 
     // default font
-    public static final String FONT_DEFAULT = "fonts/san_francisco_display_regular.otf";
+    public static final String FONT_DEFAULT = "fonts/roboto_medium.ttf";
 
     /**
      * get typeface
