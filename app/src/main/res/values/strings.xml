@@ -43,4 +43,7 @@
     <string name="history_star">History Star</string>
     <string name="payment_history">Payment History</string>
     <string name="get_money">Get Money</string>
+    <string name="no_search_results_found">No search results found</string>
+    <string name="search_quiz">Search quiz test</string>
+    <string name="search">Search</string>
 </resources>

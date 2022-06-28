@@ -17,17 +17,31 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <SearchView
-                android:id="@+id/search_view"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:background="@drawable/bg_search_corner_8"
-                android:iconifiedByDefault="false"
-                android:queryBackground="@null"
-                android:queryHint="Search" />
+                android:layout_marginEnd="@dimen/_16sdp">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/bg_search_corner_8"
+                    android:queryBackground="@null"
+                    android:queryHint="Search"
+                    app:defaultQueryHint="@string/search" />
+
+                <com.quiztest.quiztest.custom.ExtTextView
+                    android:textColor="@color/color_B8BDC2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_36sdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/search" />
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/ll_guest_mode"
@@ -191,26 +205,26 @@
 
                 <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/ext_payment_history"
-                    android:textSize="@dimen/_11sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:drawableTop="@drawable/ic_payment_history"
                     android:drawablePadding="@dimen/_2sdp"
                     android:text="@string/payment_history"
+                    android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toStartOf="@id/ext_get_money"
                     app:layout_constraintStart_toEndOf="@id/ext_history_star"
                     app:layout_constraintTop_toBottomOf="@id/ll_your_star" />
 
                 <com.quiztest.quiztest.custom.ExtTextView
                     android:id="@+id/ext_get_money"
-                    android:textSize="@dimen/_11sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:drawableTop="@drawable/ic_get_money"
                     android:drawablePadding="@dimen/_2sdp"
                     android:text="@string/get_money"
+                    android:textSize="@dimen/_11sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/ext_payment_history"
                     app:layout_constraintTop_toBottomOf="@id/ll_your_star" />

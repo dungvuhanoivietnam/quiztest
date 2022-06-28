@@ -1,5 +1,6 @@
 package com.quiztest.quiztest;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
@@ -289,7 +290,6 @@ public class MainActivity extends AppCompatActivity {
         }
         transaction.commit();
     }
-
 
     @Override
     protected void onDestroy() {
