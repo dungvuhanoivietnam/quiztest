@@ -26,10 +26,14 @@
     <string name="show_all_history">Show all history</string>
     <string name="create_account">Create account</string>
     <string name="create_an_account_and_take_the_quiz">Create an account and take the quiz</string>
+    <string name="you_are_using_guest_mode">You are using guest mode</string>
     <string name="upgrade_to_the_pro_version">Upgrade to the pro version</string>
     <string name="analyzing_data">Analyzing data...</string>
     <string name="ok">OK</string>
     <string name="history_result">History Result</string>
     <string name="view_all">View all</string>
+    <string name="language">Language</string>
+    <string name="spoken_language">Spoken Language</string>
+    <string name="english">English</string>
 
 </resources>

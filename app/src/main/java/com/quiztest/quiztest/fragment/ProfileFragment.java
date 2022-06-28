@@ -6,11 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -25,7 +28,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileFragment extends BaseFragment {
-    private ExtTextView txt_title_create_acount;
+
+    private ExtTextView txt_title_create_acount, txt_content_create_account;
+    private ImageView iv_profile, iv_create_account;
+    private LinearLayout llLogin;
+
     private UserViewModel userViewModel;
 
     public static final String TAG = ProfileFragment.class.getSimpleName();
@@ -50,6 +57,10 @@ public class ProfileFragment extends BaseFragment {
             replaceFragment(new SettingFragment(), SettingFragment.class.getSimpleName());
         });
         txt_title_create_acount = v.findViewById(R.id.txt_title_create_acount);
+        txt_content_create_account = v.findViewById(R.id.txt_content_create_account);
+        iv_profile = v.findViewById(R.id.iv_profile);
+        iv_create_account = v.findViewById(R.id.iv_create_account);
+        llLogin = v.findViewById(R.id.llLogin);
     }
 
     @Override
@@ -66,13 +77,23 @@ public class ProfileFragment extends BaseFragment {
             userViewModel.getUserInfo(requestAPI, o -> {
                 cancelLoading();
                 if (!TextUtils.isEmpty(userViewModel.getUserInfoResponse().getAvatar())) {
-                    Log.e("natruou", userViewModel.getUserInfoResponse().getAvatar());
+                    updateView();
                 } else {
-                    Log.e("natruou", "");
+
                 }
             });
+        } else if (!TextUtils.isEmpty(userViewModel.getUserInfoResponse().getEmail())) {
+            updateView();
         }
     }
 
+    private void updateView() {
+        UserInfoResponse.UserInfo userInfo = userViewModel.getUserInfoResponse();
+        txt_title_create_acount.setText(userInfo.getName() != null ? userInfo.getName() : getString(R.string.create_account));
+        Glide.with(mContext).load(userInfo.getAvatar() != null ? userInfo.getAvatar() : R.drawable.ic_create_account_profile).placeholder(R.drawable.ic_create_account_profile).into(iv_profile);
+        txt_content_create_account.setText(userInfo.getEmail() != null ? userInfo.getEmail() : getString(R.string.create_an_account_and_take_the_quiz));
+        llLogin.setVisibility(userInfo.getEmail() == null ? View.VISIBLE : View.GONE);
+        iv_create_account.setVisibility(userInfo.getEmail() == null ? View.VISIBLE : View.GONE);
+    }
 
 }
