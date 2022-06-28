@@ -23,7 +23,7 @@ class LoginFragment : BaseFragment() {
             savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        initView()
+        initView(binding.root)
         return binding.root
     }
 
@@ -32,23 +32,19 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun initView(v: View?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun initView() {
         val height = Utils.getHeight(activity) * 220 / 800
         var layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
         binding.imvThum.layoutParams = layoutParams
         binding.edtMail.initData(
             ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
                 ?: "", InputType.TYPE_CLASS_TEXT, { t ->
-            kotlin.run {
-                isSuccessEmail = t
-                initButtonLogin()
-            }
-        })
+                kotlin.run {
+                    isSuccessEmail = t
+                    initButtonLogin()
+                }
+            })
         binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.PASSWORD, context?.getString(R.string.incorrect_password)
-                ?: "", InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD, { t ->
+            ?: "", InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD, { t ->
             kotlin.run {
                 isSuccessPass = t
                 initButtonLogin()

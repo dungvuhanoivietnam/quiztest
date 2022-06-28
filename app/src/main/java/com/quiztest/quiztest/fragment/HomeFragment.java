@@ -46,21 +46,22 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Retrofit retrofit = RetrofitClient.getInstance();
+        Retrofit retrofit = RetrofitClient.getInstance(mContext);
         requestAPI = retrofit.create(RequestAPI.class);
 
-        Call<ResponseBody> call =
-                requestAPI.registerAccount(
-                "luyenphong00@gmail.ccom",
-                "test",
-                "12345678",
-                "12345678");
-        call.enqueue(new callBack());
+//        Call<ResponseBody> call =
+//                requestAPI.registerAccount(
+//                "ppppppp99999343434334399@gmail.ccom",
+//                "test",
+//                "12345678",
+//                "12345678");
+//        call.enqueue(new callBack());
     }
 
     @Override
     protected void initView(View v) {
-
+        extLogin = v.findViewById(R.id.ext_login);
+        searchView = v.findViewById(R.id.search_view);
     }
 
     private class callBack implements Callback<ResponseBody> {
@@ -79,13 +80,6 @@ public class HomeFragment extends BaseFragment implements
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home;
-    }
-
-
-    @Override
-    protected void initView() {
-        extLogin = getActivity().findViewById(R.id.ext_login);
-        searchView = getActivity().findViewById(R.id.search_view);
     }
 
     @Override
