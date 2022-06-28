@@ -16,4 +16,8 @@
         <item name="android:windowExitAnimation">@anim/popup_out</item>
     </style>
 
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:textSize">@dimen/_11sdp</item>
+    </style>
+
 </resources>
