@@ -44,34 +44,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Retrofit retrofit = RetrofitClient.getInstance(mContext);
-        requestAPI = retrofit.create(RequestAPI.class);
 
-        Call<ResponseBody> call =
-                requestAPI.registerAccount(
-                "luyenphong00@gmail.ccom",
-                "test",
-                "12345678",
-                "12345678");
-        call.enqueue(new callBack());
     }
 
     @Override
     protected void initView(View v) {
-
-    }
-
-    private class callBack implements Callback<ResponseBody> {
-
-        @Override
-        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            //ok
-        }
-
-        @Override
-        public void onFailure(Call<ResponseBody> call, Throwable t) {
-            // faild
-        }
+        extLogin = v.findViewById(R.id.ext_login);
     }
 
     @Override
