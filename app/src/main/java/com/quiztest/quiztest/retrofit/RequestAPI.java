@@ -7,7 +7,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RequestAPI {
-    @POST("register-account")
+    @POST("auth/register-account")
     Call<ResponseBody> registerAccount(@Query("email") String email,
                                @Query("name") String name,
                                @Query("password") String password,
