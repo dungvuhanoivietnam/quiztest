@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initView(View v) {
-        
+
     }
 
     private class callBack implements Callback<ResponseBody> {
