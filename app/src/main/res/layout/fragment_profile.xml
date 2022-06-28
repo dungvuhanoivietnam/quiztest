@@ -38,6 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/iv_create_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -49,6 +50,7 @@
             <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_content_create_account"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:layout_height="wrap_content"
                 android:text="@string/create_an_account_and_take_the_quiz"
                 android:textColor="@color/color_8D959D"
@@ -58,8 +60,8 @@
 
             <ImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:src="@drawable/ic_create_account_profile"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
