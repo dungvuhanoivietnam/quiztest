@@ -75,49 +75,46 @@ class RegisterFragment : BaseFragment() {
         binding.edtName.initData(
             ExtEditTextApp.TYPE_VALIDATE.NAME,
             context?.getString(R.string.Your_name_cannot_exceed_32_characters)
-                ?: "", InputType.TYPE_CLASS_TEXT,
-            {t ->
+                ?: "", InputType.TYPE_CLASS_TEXT
+        ) { t ->
             kotlin.run {
                 isSuccessName = t
                 initButtonRegister()
             }
-        })
+        }
 
 
         binding.edtMail.initData(
             ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
-                ?: "",InputType.TYPE_CLASS_TEXT,
-        { t ->
+                ?: "",InputType.TYPE_CLASS_TEXT
+        ) { t ->
             kotlin.run {
                 isSuccessEmail = t
                 initButtonRegister()
             }
-        })
+        }
 
-
-        binding.edtPass.validatePass(binding.edtPass.toString().trim());
         binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
-        { t ->
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        ) { t ->
             kotlin.run {
                 isSuccessPass = t
                 initButtonRegister()
             }
-        })
+        }
 
-        binding.edtConfirmPass.validatePass(binding.edtConfirmPass.toString().trim());
         binding.edtConfirmPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            { t ->
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        ) { t ->
             kotlin.run {
                 isSuccessPass = t
                 initButtonRegister()
             }
-        })
+        }
 
     }
 

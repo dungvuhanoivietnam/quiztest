@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,9 +83,11 @@ public class ExtEditTextApp extends FrameLayout {
                     }
                     if (typeValidate == TYPE_VALIDATE.COMFIRNPASSWORD) {
                         boolean isSuccess = charSequence.toString().length() >= 8 && charSequence.toString().equals(passWord);
+                        Log.e("=====>", "length:" + charSequence.toString().length());
+                        Log.e("=====>", "passWord:" + charSequence +"  " +passWord);
                         consumer.accept(isSuccess);
                         addTextChange(isSuccess ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
-                        if (charSequence.toString().length() >= 8)
+                        if (charSequence.toString().length() <= 8)
                             txtError.setText("Password cannot less 8 characters");
                         if (!charSequence.toString().equals(passWord)) {
                             txtError.setText("Re-entered password does not match");
@@ -121,6 +124,7 @@ public class ExtEditTextApp extends FrameLayout {
     }
 
     public void validatePass(String passWord) {
+        Log.e("=====>", "validatePass:"+"  " +passWord.toString());
         this.passWord = passWord;
     }
 

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.testiq.MainIQActivity;
+//import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -74,12 +74,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.ext_login) {
-//            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
-//            if ((MainActivity) getActivity() != null) {
-//                ((MainActivity) getActivity()).hideOrShowBottomView(false);
-//            }
-            Intent intent = new Intent(getActivity(), MainIQActivity.class);
-            startActivity(intent);
+            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
+            if ((MainActivity) getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+//            Intent intent = new Intent(getActivity(), MainIQActivity.class);
+//            startActivity(intent);
         }
         if (view.getId() == R.id.search_view) {
             replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
