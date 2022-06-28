@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:orientation="horizontal">
@@ -20,15 +23,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/_18sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_18sdp"
+            android:paddingBottom="@dimen/_6sdp"
             android:src="@drawable/ic_arrrow_left" />
 
         <SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-
-            android:background="@drawable/bg_search_corner_8" />
+            android:background="@drawable/bg_search_corner_8"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@null"
+            android:queryHint="@string/search_quiz"
+            android:theme="@style/AppSearchView" />
     </LinearLayout>
 
     <RelativeLayout
@@ -108,8 +117,26 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <RelativeLayout
-        android:id="@+id/rl_empty_view"
+    <LinearLayout
+        android:id="@+id/ll_empty_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_bg_empty_view" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:text="@string/no_search_results_found"
+            android:textColor="@color/color_8D959D"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
 </LinearLayout>

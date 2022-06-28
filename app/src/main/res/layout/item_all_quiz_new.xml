@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_16sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_16sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:cardElevation="@dimen/_8sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_item"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/bg_circle"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/img_test_iq" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_toEndOf="@id/iv_item"
+            android:text="Test IQ"
+            android:textColor="@color/color_22313F"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_item"
+            android:layout_toEndOf="@id/iv_item">
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/star_can_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get 200 star"
+                android:textColor="@color/color_22313F"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_toEndOf="@id/star_can_get"
+                android:background="@color/color_EDF6FA"
+                app:layout_constraintBottom_toBottomOf="@id/star_can_get"
+                app:layout_constraintStart_toEndOf="@id/star_can_get"
+                app:layout_constraintTop_toTopOf="@id/star_can_get" />
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/money_can_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:text="Get 2 $"
+                android:textColor="@color/color_22313F"
+                app:layout_constraintStart_toEndOf="@id/divider"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_go_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:src="@drawable/ic_goto" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -40,6 +40,16 @@
     <string name="spoken_language">Spoken Language</string>
     <string name="english">English</string>
 
+    <string name="your_star">Your Star</string>
+    <string name="star">star</string>
+    <string name="your_money">Your Money</string>
+    <string name="money">$</string>
+    <string name="history_star">History Star</string>
+    <string name="payment_history">Payment History</string>
+    <string name="get_money">Get Money</string>
+    <string name="no_search_results_found">No search results found</string>
+    <string name="search_quiz">Search quiz test</string>
+    <string name="search">Search</string>
     <string name="Email_invalidate">Email invalidate</string>
     <string name="Email_already_in_use">Email already in use</string>
     <string name="Re_entered_password_does_not_match">Re-entered password does not match</string>

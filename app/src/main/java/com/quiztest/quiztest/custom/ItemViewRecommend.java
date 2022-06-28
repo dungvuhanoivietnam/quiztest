@@ -33,7 +33,7 @@ public class ItemViewRecommend extends LinearLayout {
 
     private void applyAttributes(Context context, AttributeSet attrs) {
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = vi.inflate(R.layout.item_all_quiz, null);
+        View view = vi.inflate(R.layout.item_recommend, null);
         addView(view);
     }
 }
