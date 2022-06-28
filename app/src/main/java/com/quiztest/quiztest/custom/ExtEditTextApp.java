@@ -85,9 +85,9 @@ public class ExtEditTextApp extends FrameLayout {
                         consumer.accept(isSuccess);
                         addTextChange(isSuccess ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                         if (charSequence.toString().length() >= 8)
-                            txtError.setText("loi nho32 ");
+                            txtError.setText("Password cannot less 8 characters");
                         if (!charSequence.toString().equals(passWord)) {
-                            txtError.setText("ko trung ");
+                            txtError.setText("Re-entered password does not match");
                         }
                     }
 
@@ -110,7 +110,7 @@ public class ExtEditTextApp extends FrameLayout {
      * inputType loại type mặc định
      */
 
-    public void initData(TYPE_VALIDATE typeValidate, String error, int inputType, Consumer<Boolean> consumer) {
+    public void initData(TYPE_VALIDATE typeValidate, String error, int inputType, Consumer<Boolean>consumer) {
         this.typeValidate = typeValidate;
         this.consumer = consumer;
         this.txtError.setText(error);

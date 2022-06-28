@@ -2,6 +2,7 @@ package com.quiztest.quiztest.fragment.register
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class RegisterFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        initView(binding.root)
         return binding.root
 
     }
@@ -56,6 +58,7 @@ class RegisterFragment : BaseFragment() {
                 cancelLoading()
             }
         }
+
         viewModel.registerAccount.observe(viewLifecycleOwner) {
             if (it.success == true) {
                 AppPreferences.apply {
@@ -68,6 +71,7 @@ class RegisterFragment : BaseFragment() {
             }
         }
 
+
         binding.edtName.initData(
             ExtEditTextApp.TYPE_VALIDATE.NAME,
             context?.getString(R.string.Your_name_cannot_exceed_32_characters)
@@ -79,6 +83,7 @@ class RegisterFragment : BaseFragment() {
             }
         })
 
+
         binding.edtMail.initData(
             ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
                 ?: "",InputType.TYPE_CLASS_TEXT,
@@ -89,7 +94,8 @@ class RegisterFragment : BaseFragment() {
             }
         })
 
-        binding.edtPass.validatePass(binding.edtConfirmPass.toString());
+
+        binding.edtPass.validatePass(binding.edtPass.toString().trim());
         binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
@@ -101,7 +107,7 @@ class RegisterFragment : BaseFragment() {
             }
         })
 
-        binding.edtConfirmPass.validatePass(binding.edtPass.toString());
+        binding.edtConfirmPass.validatePass(binding.edtConfirmPass.toString().trim());
         binding.edtConfirmPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
@@ -131,10 +137,10 @@ class RegisterFragment : BaseFragment() {
     }
 
     private fun initButtonRegister() {
-//        if (isSuccessEmail and isSuccessPass and isSuccessName)
-//            binding.btnRegister.setBackgroundResource(R.drawable.bg_blue_21)
-//        else
-//            binding.btnRegister.setBackgroundResource(R.drawable.bg_gray_b8)
+        if (isSuccessEmail and isSuccessPass and isSuccessName)
+            binding.btnRegister.setBackgroundResource(R.drawable.bg_blue_21)
+        else
+            binding.btnRegister.setBackgroundResource(R.drawable.bg_gray_b8)
     }
 
 
