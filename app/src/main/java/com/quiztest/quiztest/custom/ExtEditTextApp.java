@@ -33,7 +33,7 @@ public class ExtEditTextApp extends FrameLayout {
     }
 
     public enum TYPE_VALIDATE {
-        EMAIL, PASSWORD, NAME
+        EMAIL, PASSWORD, NAME, COMFIRNPASSWORD
     }
 
     private TYPE_VALIDATE typeValidate;
@@ -41,6 +41,7 @@ public class ExtEditTextApp extends FrameLayout {
     private TextInputLayout etPasswordLayout;
     private ExtTextView txtError;
     private Consumer<Boolean> consumer;
+    private String passWord;
 
     public ExtEditTextApp(@NonNull Context context) {
         super(context);
@@ -68,7 +69,7 @@ public class ExtEditTextApp extends FrameLayout {
                 } else {
 
                     if (typeValidate == TYPE_VALIDATE.EMAIL) {
-                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() );
+                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches());
                         addTextChange(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
                     if (typeValidate == TYPE_VALIDATE.PASSWORD) {
@@ -79,6 +80,17 @@ public class ExtEditTextApp extends FrameLayout {
                         consumer.accept(charSequence.toString().length() <= 32);
                         addTextChange(charSequence.toString().length() <= 32 ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
+                    if (typeValidate == TYPE_VALIDATE.COMFIRNPASSWORD) {
+                        boolean isSuccess = charSequence.toString().length() >= 8 && charSequence.toString().equals(passWord);
+                        consumer.accept(isSuccess);
+                        addTextChange(isSuccess ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
+                        if (charSequence.toString().length() >= 8)
+                            txtError.setText("loi nho32 ");
+                        if (!charSequence.toString().equals(passWord)) {
+                            txtError.setText("ko trung ");
+                        }
+                    }
+
 
                 }
             }
@@ -106,6 +118,14 @@ public class ExtEditTextApp extends FrameLayout {
         if (inputType == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
             this.etPasswordLayout.setPasswordVisibilityToggleEnabled(true);
         }
+    }
+
+    public void validatePass(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public void setHintEditText(String hint) {
+        this.edtContent.setHint(hint);
     }
 
     private void addTextChange(TYPE_ERROR typeError) {
