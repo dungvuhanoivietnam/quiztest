@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Fragment> fragments = new ArrayList<>();
     private List<ExtTextView> btns = new ArrayList<>();
 
+    private boolean isKeyboardVisible;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,17 +101,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void onKeyBoardChange(boolean isShow) {
         if (isShow) {
-            hideOrShowBottomView(false);
+//            hideOrShowBottomView(false);
+            isKeyboardVisible = true;
         } else {
+            isKeyboardVisible = false;
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    hideOrShowBottomView(true);
+//                    hideOrShowBottomView(true);
                 }
             }, 100);
         }
     }
+
+    public boolean isKeyBoardVisible(){
+        return isKeyboardVisible;
+    }
+
+//    public static void hideKeyboard(Activity activity) {
+//        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+//        //Find the currently focused view, so we can grab the correct window token from it.
+//        View view = activity.getCurrentFocus();
+//        //If no view currently has focus, create a new one, just so we can grab a window token from it
+//        if (view == null) {
+//            view = new View(activity);
+//        }
+//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//    }
 
     private void initOnboarding() {
         Intent intent = new Intent(this, MyCustomOnboarder.class);
