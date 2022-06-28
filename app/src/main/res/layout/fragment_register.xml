@@ -87,7 +87,7 @@
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_7sdp"
             android:drawableEnd="@drawable/ic_open_eye"
-            android:hint="@string/enter_your_password"
+            android:hint="@string/enter_your_password_again"
             android:inputType="textPassword"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"

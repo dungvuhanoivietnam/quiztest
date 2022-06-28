@@ -68,51 +68,50 @@ class RegisterFragment : BaseFragment() {
             }
         }
 
-        binding.edtName.initData(ExtEditTextApp.TYPE_VALIDATE.NAME,
+        binding.edtName.initData(
+            ExtEditTextApp.TYPE_VALIDATE.NAME,
             context?.getString(R.string.Your_name_cannot_exceed_32_characters)
-                ?: "",
-            InputType.TYPE_CLASS_TEXT
-        ) { t ->
+                ?: "", InputType.TYPE_CLASS_TEXT,
+            {t ->
             kotlin.run {
                 isSuccessName = t
                 initButtonRegister()
             }
-        }
+        })
 
         binding.edtMail.initData(
-            ExtEditTextApp.TYPE_VALIDATE.EMAIL,
-            context?.getString(R.string.Email_invalidate) ?: "",
-            InputType.TYPE_CLASS_TEXT
-        ) { t ->
+            ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
+                ?: "",InputType.TYPE_CLASS_TEXT,
+        { t ->
             kotlin.run {
                 isSuccessEmail = t
                 initButtonRegister()
             }
-        }
+        })
 
         binding.edtPass.validatePass(binding.edtConfirmPass.toString());
         binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        ) { t ->
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
+        { t ->
             kotlin.run {
                 isSuccessPass = t
                 initButtonRegister()
             }
-        }
+        })
 
         binding.edtConfirmPass.validatePass(binding.edtPass.toString());
         binding.edtConfirmPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        ) { t ->
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
+            { t ->
             kotlin.run {
                 isSuccessPass = t
                 initButtonRegister()
             }
-        }
+        })
 
     }
 
@@ -132,10 +131,10 @@ class RegisterFragment : BaseFragment() {
     }
 
     private fun initButtonRegister() {
-        if (isSuccessEmail and isSuccessPass and isSuccessName)
-            binding.btnRegister.setBackgroundResource(R.drawable.bg_blue_21)
-        else
-            binding.btnRegister.setBackgroundResource(R.drawable.bg_gray_b8)
+//        if (isSuccessEmail and isSuccessPass and isSuccessName)
+//            binding.btnRegister.setBackgroundResource(R.drawable.bg_blue_21)
+//        else
+//            binding.btnRegister.setBackgroundResource(R.drawable.bg_gray_b8)
     }
 
 
