@@ -1,6 +1,5 @@
 package com.quiztest.quiztest;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,14 +25,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.aemerse.onboard.OnboardAdvanced;
 import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
+import com.quiztest.quiztest.callback.ActivityResultFragment;
+import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
-import com.quiztest.quiztest.custom.ExtTextView;
-import com.aemerse.onboard.ScreenUtils;
+import com.quiztest.quiztest.fragment.SettingFragment;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.ArrayList;
@@ -53,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private List<ExtTextView> btns = new ArrayList<>();
 
     private boolean isKeyboardVisible;
+    private ActivityResultFragment activityResultFragment;
 
 
     @Override
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isKeyBoardVisible(){
+    public boolean isKeyBoardVisible() {
         return isKeyboardVisible;
     }
 
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         ctsBottomNavigation = findViewById(R.id.cts_bottomNavigation);
     }
 
-    public void actionLogout(){
+    public void actionLogout() {
         showFragment(fragmentHome);
         enableButton(btnHome);
     }
@@ -244,6 +243,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(Fragment fragment, String tag) {
+        if (tag.contains(SettingFragment.class.getSimpleName())) {
+            activityResultFragment = (SettingFragment) fragment;
+        }
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frContent, fragment);
         if (!fragmentStates.contains(tag))
@@ -337,5 +339,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("LOGGGGG", "LOGGGGG onPause NativeLogin");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        activityResultFragment.result(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        activityResultFragment.result(requestCode,permissions,grantResults);
     }
 }

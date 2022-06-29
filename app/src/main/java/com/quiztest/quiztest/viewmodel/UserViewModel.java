@@ -4,6 +4,7 @@ import androidx.core.util.Consumer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
@@ -96,5 +97,29 @@ public class UserViewModel extends ViewModel {
 
     public int getPageHistory() {
         return pageHistory;
+    }
+
+    public void updateProfile(RequestAPI requestAPI, String name, String email, Consumer consumer) {
+        requestAPI.updateProfile(name, email).enqueue(new callBackUpdateProfile(consumer));
+    }
+
+    private class callBackUpdateProfile implements Callback<BaseResponse> {
+
+        private Consumer consumer;
+
+        public callBackUpdateProfile(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            BaseResponse userInfoResponse = response.body();
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<BaseResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
     }
 }

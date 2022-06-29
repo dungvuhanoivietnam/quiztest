@@ -1,24 +1,37 @@
 package com.quiztest.quiztest.fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
+import com.quiztest.quiztest.callback.ActivityResultFragment;
 import com.quiztest.quiztest.custom.ExtEditText;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogChooseImage;
+import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment implements ActivityResultFragment {
 
     private ExtTextView txt_title, txt_content_create_account, txt_link_google, txt_link_facebook;
     private ImageView ivAvatar, ivUpload;
@@ -55,13 +68,28 @@ public class SettingFragment extends BaseFragment {
         llSave = v.findViewById(R.id.llSave);
 
         dialogChooseImage = new DialogChooseImage(getContext(), R.style.MaterialDialogSheet, type_select -> {
-
+            if (type_select == DialogChooseImage.TYPE_SELECT.CAMERA)
+                openCamera();
+            if (type_select == DialogChooseImage.TYPE_SELECT.ALBUM)
+                openGallery();
         });
 
-        v.findViewById(R.id.txt_change_info).setOnClickListener(view -> {
+        v.findViewById(R.id.llSave).setOnClickListener(view -> {
             showLoading();
+            userViewModel.updateProfile(requestAPI, edtName.getText().toString().trim(), edtGmail.getText().toString().trim(), o -> {
+                cancelLoading();
+                if (o instanceof BaseResponse) {
+                    BaseResponse baseResponse = (BaseResponse) o;
+                    if (baseResponse.getSuccess()) {
+                        userViewModel.getUserInfoResponse().setEmail(edtGmail.getText().toString());
+                        userViewModel.getUserInfoResponse().setName(edtName.getText().toString());
+                        checkIsSave();
+                    }
+                }
+            });
         });
         v.findViewById(R.id.ivUpload).setOnClickListener(view -> {
+
             if (!dialogChooseImage.isShowing())
                 dialogChooseImage.show();
         });
@@ -74,42 +102,14 @@ public class SettingFragment extends BaseFragment {
                 activity.actionLogout();
             }
         });
-        edtName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkIsSave();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        edtGmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkIsSave();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
     }
 
     private void checkIsSave() {
-        isSave = !edtName.getText().toString().contains(userInfo.getName()) || !edtGmail.getText().toString().contains(userInfo.getEmail());
+        String name = edtName.getText().toString().toLowerCase();
+        String mName = userInfo.getName().toLowerCase();
+        String gmail = edtGmail.getText().toString().toLowerCase();
+        String mgmail = userInfo.getEmail().toLowerCase();
+        isSave = !name.equals(mName) || !gmail.equals(mgmail);
         llSave.setBackgroundResource(isSave ? R.drawable.bg_button_blue_21 : R.drawable.bg_gray_b8);
     }
 
@@ -131,5 +131,79 @@ public class SettingFragment extends BaseFragment {
         txt_link_facebook.setTextColor(getContext().getResources().getColor(userInfo.getFacebookProviderId() == null ? R.color.color_B8BDC2 : R.color.color_21C3FF));
         ll_login.setVisibility(isLogin ? View.GONE : View.VISIBLE);
         ll_logout.setVisibility(isLogin ? View.VISIBLE : View.GONE);
+        edtName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkIsSave();
+            }
+        });
+        edtGmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkIsSave();
+            }
+        });
+
+    }
+
+    private void openCamera() {
+        try {
+            if (Build.VERSION.SDK_INT >= 23 && mActivity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                mActivity.requestPermissions(new String[]{Manifest.permission.CAMERA}, Const.CAMERA_REQUEST_CODE);
+                return;
+            }
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            mActivity.startActivityForResult(takePictureIntent, Const.CAMERA_REQUEST_CODE);
+        } catch (Exception e) {
+        }
+    }
+
+    private void openGallery() {
+        if (Build.VERSION.SDK_INT >= 23 && mActivity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            mActivity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Const.ALBUM_REQUEST_CODE);
+            return;
+        }
+        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        mActivity.startActivityForResult(i, Const.ALBUM_REQUEST_CODE);
+    }
+
+
+    @Override
+    public void result(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == Const.CAMERA_REQUEST_CODE) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            Glide.with(mContext).load(photo).circleCrop().into(ivAvatar);
+        }
+        if (requestCode == Const.ALBUM_REQUEST_CODE){
+            Glide.with(mContext).load(data.getData()).circleCrop().into(ivAvatar);
+        }
+    }
+
+    @Override
+    public void result(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Const.CAMERA_REQUEST_CODE)
+            openCamera();
+        if (requestCode == Const.ALBUM_REQUEST_CODE)
+            openGallery();
     }
 }

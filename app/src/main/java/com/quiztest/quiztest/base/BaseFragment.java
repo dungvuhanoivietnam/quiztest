@@ -2,6 +2,7 @@ package com.quiztest.quiztest.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.callback.ActivityResultFragment;
 import com.quiztest.quiztest.dialog.DialogProgressLoading;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -36,6 +38,9 @@ public abstract class BaseFragment extends Fragment {
     //    protected ShowErrorDialog errorDialog;
     private DialogProgressLoading dialogProgressLoading;
     protected RequestAPI requestAPI;
+
+    // cái này cần set mới có nhé
+    protected ActivityResultFragment activityResultFragment;
 
     @Nullable
     @Override
@@ -186,4 +191,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    public void setActivityResultFragment(ActivityResultFragment activityResultFragment) {
+        this.activityResultFragment = activityResultFragment;
+    }
 }
