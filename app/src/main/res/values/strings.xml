@@ -46,4 +46,10 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="search_quiz">Search quiz test</string>
     <string name="search">Search</string>
+    <string name="stars">0 Stars</string>
+    <string name="not_update">Not update</string>
+    <string name="weekly_ranking">Weekly ranking</string>
+    <string name="overall_rating">Overall rating</string>
+    <string name="please_login_to_use_this_feature">Please login to use this feature</string>
+    <string name="score"><b>1034</b> điểm</string>
 </resources>

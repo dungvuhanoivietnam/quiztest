@@ -1,12 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cst_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/ranking" />
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_26sdp"
+            android:elevation="@dimen/_5sdp"
+            android:text="@string/ranking"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/cv_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_bg_header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_300sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_bg_header_ranking_frag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_46sdp"
+            app:cardCornerRadius="@dimen/_500sdp"
+            app:layout_constraintBottom_toBottomOf="@id/img_bg_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_create_account_profile" />
+        </androidx.cardview.widget.CardView>
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_avatar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ext_name">
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/ext_stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corner_4"
+                android:backgroundTint="@color/color_4BA2DE"
+                android:drawableLeft="@drawable/ic_stars"
+                android:drawablePadding="@dimen/_2sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/stars"
+                android:textColor="@color/white" />
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/ext_ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:background="@drawable/bg_corner_4"
+                android:backgroundTint="@color/color_4BA2DE"
+                android:drawableLeft="@drawable/ic_ranking_db"
+                android:drawablePadding="@dimen/_2sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/not_update"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/fr_option_view"
+        android:layout_width="@dimen/_260sdp"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginStart="@dimen/_35sdp"
+        android:layout_marginTop="-25dp"
+        android:layout_marginEnd="@dimen/_35sdp"
+        android:background="@drawable/bg_search_corner_8"
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/_3sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cst_header">
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_weekly_ranking"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_search_corner_8"
+            android:backgroundTint="@color/color_21C3FF"
+            android:elevation="@dimen/_1sdp"
+            android:gravity="center"
+            android:text="@string/weekly_ranking"
+            android:textColor="@color/white" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_overall_rating"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_search_corner_8"
+            android:gravity="center"
+            android:text="@string/overall_rating"
+            android:textColor="@color/color_8D959D" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fr_option_view">
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/please_login_to_use_this_feature"
+            android:textColor="@color/color_8D959D"
+            android:textSize="@dimen/_12sdp" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:background="@drawable/bg_search_corner_8"
+            android:backgroundTint="@color/color_21C3FF"
+            android:paddingStart="@dimen/_48sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_48sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:text="@string/log_in"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fr_option_view"
+        tools:itemCount="6"
+        tools:listitem="@layout/item_list_ranking" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
