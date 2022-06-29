@@ -40,7 +40,6 @@ public class UserInfoResponse {
     }
 
     public static class UserInfo {
-
         @SerializedName("id")
         @Expose
         private Integer id;
@@ -62,6 +61,12 @@ public class UserInfoResponse {
         @SerializedName("total_star")
         @Expose
         private Integer totalStar;
+        @SerializedName("google_provider_id")
+        @Expose
+        private Object googleProviderId;
+        @SerializedName("facebook_provider_id")
+        @Expose
+        private Object facebookProviderId;
 
         public Integer getId() {
             return id;
@@ -117,6 +122,22 @@ public class UserInfoResponse {
 
         public void setTotalStar(Integer totalStar) {
             this.totalStar = totalStar;
+        }
+
+        public Object getGoogleProviderId() {
+            return googleProviderId;
+        }
+
+        public void setGoogleProviderId(Object googleProviderId) {
+            this.googleProviderId = googleProviderId;
+        }
+
+        public Object getFacebookProviderId() {
+            return facebookProviderId;
+        }
+
+        public void setFacebookProviderId(Object facebookProviderId) {
+            this.facebookProviderId = facebookProviderId;
         }
 
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.testiq">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:usesCleartextTraffic="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="true"
+        tools:targetApi="m">
+        <activity
+            android:name=".MainIQActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ActivityQuestion"/>
+    </application>
+
+</manifest>

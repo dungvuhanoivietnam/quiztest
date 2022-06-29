@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <LinearLayout
+        android:paddingBottom="@dimen/_6sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_top"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:paddingTop="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_close_dialog_choose_image" />
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/txt_title_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/change_image"
+                android:textColor="@color/color_22313F"
+                android:textSize="@dimen/_14sdp" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_EDEFF1" />
+
+        <LinearLayout
+            android:id="@+id/llCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_white"
+            android:paddingLeft="@dimen/_2sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:src="@drawable/ic_choose_image_camera" />
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:text="@string/camera"
+                android:textColor="@color/color_22313F"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_white"
+            android:paddingLeft="@dimen/_2sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:src="@drawable/ic_choose_image_album" />
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:text="@string/select_picture"
+                android:textColor="@color/color_22313F"
+                android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
