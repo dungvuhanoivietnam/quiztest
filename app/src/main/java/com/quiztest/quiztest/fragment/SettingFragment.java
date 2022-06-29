@@ -32,6 +32,7 @@ import com.quiztest.quiztest.dialog.DialogChooseImage;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.utils.Const;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 public class SettingFragment extends BaseFragment implements ActivityResultFragment {
@@ -48,7 +49,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     private Spinner sp_language;
 
     String[] countryNames = {"Tiếng Việt", "English"};
-    String [] countryFlag = {"https://manager-apps.merryblue.llc/storage/flags/Vietnam.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1920px-Flag_of_the_United_Kingdom.svg.png"};
+    String[] countryFlag = {"https://manager-apps.merryblue.llc/storage/flags/Vietnam.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1920px-Flag_of_the_United_Kingdom.svg.png"};
 
     @Override
     protected int getLayoutId() {
@@ -103,11 +104,20 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
 
         ll_login.setOnClickListener(view -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
         ll_logout.setOnClickListener(view -> {
-            backstackFragment();
-            if (getActivity() instanceof MainActivity) {
-                MainActivity activity = (MainActivity) getActivity();
-                activity.actionLogout();
-            }
+            showLoading();
+            userViewModel.logout(requestAPI, o -> {
+                cancelLoading();
+                if (o instanceof BaseResponse) {
+                    SharePrefrenceUtils.getInstance(mContext).saveAuth("");
+                    userViewModel.clearViewModel();
+                    backstackFragment();
+                    if (getActivity() instanceof MainActivity) {
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.actionLogout();
+                    }
+                }
+            });
+
         });
         sp_language = v.findViewById(R.id.sp_language);
         sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -204,7 +214,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             mActivity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Const.ALBUM_REQUEST_CODE);
             return;
         }
-        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mActivity.startActivityForResult(i, Const.ALBUM_REQUEST_CODE);
     }
 
@@ -215,7 +225,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Glide.with(mContext).load(photo).circleCrop().into(ivAvatar);
         }
-        if (requestCode == Const.ALBUM_REQUEST_CODE){
+        if (requestCode == Const.ALBUM_REQUEST_CODE) {
             Glide.with(mContext).load(data.getData()).circleCrop().into(ivAvatar);
         }
     }

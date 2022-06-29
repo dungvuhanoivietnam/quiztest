@@ -26,5 +26,8 @@ public interface RequestAPI {
     Call<HistoryResponse> getHistorys(@Query("page") String page);
 
     @PUT("user/update-profile")
-    Call<BaseResponse>  updateProfile(@Query("name") String name, @Query("email") String email);
+    Call<BaseResponse> updateProfile(@Query("name") String name, @Query("email") String email);
+
+    @GET("user/logout")
+    Call<BaseResponse> logOut();
 }

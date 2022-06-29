@@ -122,4 +122,28 @@ public class UserViewModel extends ViewModel {
             consumer.accept(t);
         }
     }
+
+    public void logout(RequestAPI requestAPI, Consumer consumer) {
+        requestAPI.logOut().enqueue(new callBackLogout(consumer));
+    }
+
+    private class callBackLogout implements Callback<BaseResponse> {
+
+        private Consumer consumer;
+
+        public callBackLogout(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            BaseResponse userInfoResponse = response.body();
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<BaseResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
 }
