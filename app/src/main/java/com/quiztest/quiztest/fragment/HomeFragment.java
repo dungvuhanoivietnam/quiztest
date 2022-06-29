@@ -3,11 +3,14 @@ package com.quiztest.quiztest.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 
 import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
@@ -28,6 +31,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin;
+    private SearchView searchView;
     private RequestAPI requestAPI;
 
     @Override
@@ -50,7 +54,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View v) {
         extLogin = v.findViewById(R.id.ext_login);
+        searchView = v.findViewById(R.id.search_view);
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -60,6 +66,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData() {
         extLogin.setOnClickListener(this);
+
+        //check onCLick search view
+        searchView.setOnClickListener(this);
     }
 
     @Override
@@ -72,12 +81,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             Intent intent = new Intent(getActivity(), MainIQActivity.class);
             startActivity(intent);
         }
+        if (view.getId() == R.id.search_view) {
+            replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if ((MainActivity) getActivity() != null) {
+        if (getActivity() != null) {
             ((MainActivity) getActivity()).hideOrShowBottomView(true);
         }
     }
