@@ -55,15 +55,9 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void initView(View v) {
-        v.findViewById(R.id.llLogin).setOnClickListener(v1 -> {
-            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
-        });
-        v.findViewById(R.id.ic_right).setOnClickListener(v1 -> {
-            replaceFragment(new SettingFragment(), SettingFragment.class.getSimpleName());
-        });
-        v.findViewById(R.id.txt_view_all).setOnClickListener(view -> {
-
-        });
+        v.findViewById(R.id.llLogin).setOnClickListener(v1 -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
+        v.findViewById(R.id.ic_right).setOnClickListener(v1 -> replaceFragment(new SettingFragment(), SettingFragment.class.getSimpleName()));
+        v.findViewById(R.id.txt_view_all).setOnClickListener(view -> replaceFragment(new HistoryFragment(),HistoryFragment.class.getSimpleName()));
         txt_title_create_acount = v.findViewById(R.id.txt_title_create_acount);
         txt_content_create_account = v.findViewById(R.id.txt_content_create_account);
         iv_profile = v.findViewById(R.id.iv_profile);
@@ -100,7 +94,7 @@ public class ProfileFragment extends BaseFragment {
             updateView();
         }
 
-        if (auth != null && !"".equals(auth)) {
+        if (auth != null && !"".equals(auth) && userViewModel.getHistories().size() == 0) {
             showLoading();
             userViewModel.getHistory(requestAPI, 1, o -> {
                 cancelLoading();

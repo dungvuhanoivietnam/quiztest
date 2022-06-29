@@ -24,6 +24,7 @@ public class UserViewModel extends ViewModel {
 
     private UserInfoResponse.UserInfo userInfo = new UserInfoResponse.UserInfo();
     private ArrayList<HistoryResponse.History> histories = new ArrayList<>();
+    private int pageHistory = 0;
 
     public void clearViewModel() {
         userInfo = new UserInfoResponse.UserInfo();
@@ -35,6 +36,7 @@ public class UserViewModel extends ViewModel {
     }
 
     public void getHistory(RequestAPI requestAPI, int page, Consumer consumer) {
+        pageHistory = page;
         requestAPI.getHistorys(page + "").enqueue(new callBackHistory(consumer));
     }
 
@@ -90,5 +92,9 @@ public class UserViewModel extends ViewModel {
 
     public ArrayList<HistoryResponse.History> getHistories() {
         return histories;
+    }
+
+    public int getPageHistory() {
+        return pageHistory;
     }
 }
