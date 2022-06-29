@@ -1,5 +1,6 @@
 package com.quiztest.quiztest.remote
 
+import com.quiztest.quiztest.App
 import com.quiztest.quiztest.retrofit.RequestAPI
 import com.quiztest.quiztest.retrofit.RetrofitClient
 import okhttp3.ResponseBody

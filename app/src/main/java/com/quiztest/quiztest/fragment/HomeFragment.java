@@ -1,16 +1,18 @@
 package com.quiztest.quiztest.fragment;
 
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 
+//import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -24,8 +26,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import com.quiztest.quiztest.custom.ExtTextView;
 
-public class HomeFragment extends BaseFragment implements
-        View.OnClickListener {
+
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin;
@@ -46,51 +48,27 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Retrofit retrofit = RetrofitClient.getInstance();
-        requestAPI = retrofit.create(RequestAPI.class);
 
-        Call<ResponseBody> call =
-                requestAPI.registerAccount(
-                "luyenphong00@gmail.ccom",
-                "test",
-                "12345678",
-                "12345678");
-        call.enqueue(new callBack());
     }
 
     @Override
     protected void initView(View v) {
-
+        extLogin = v.findViewById(R.id.ext_login);
+        searchView = v.findViewById(R.id.search_view);
     }
 
-    private class callBack implements Callback<ResponseBody> {
-
-        @Override
-        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            //ok
-        }
-
-        @Override
-        public void onFailure(Call<ResponseBody> call, Throwable t) {
-            // faild
-        }
-    }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home;
     }
 
-
-    @Override
-    protected void initView() {
-        extLogin = getActivity().findViewById(R.id.ext_login);
-        searchView = getActivity().findViewById(R.id.search_view);
-    }
-
     @Override
     protected void initData() {
         extLogin.setOnClickListener(this);
+
+        //check onCLick search view
+        searchView.setOnClickListener(this);
     }
 
     @Override
@@ -100,13 +78,21 @@ public class HomeFragment extends BaseFragment implements
             if ((MainActivity) getActivity() != null) {
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);
             }
+//            Intent intent = new Intent(getActivity(), MainIQActivity.class);
+//            startActivity(intent);
+        }
+        if (view.getId() == R.id.search_view) {
+            replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if ((MainActivity) getActivity() != null) {
+        if (getActivity() != null) {
             ((MainActivity) getActivity()).hideOrShowBottomView(true);
         }
     }

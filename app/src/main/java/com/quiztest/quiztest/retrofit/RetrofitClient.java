@@ -1,9 +1,14 @@
 package com.quiztest.quiztest.retrofit;
 
+import android.content.Context;
+
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.quiztest.quiztest.App;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -17,10 +22,17 @@ public class RetrofitClient {
 
     private static Retrofit ourInstance;
 
-    public static  OkHttpClient okHttpClient(long time) {
+    public static OkHttpClient okHttpClient(Context context, long time) {
+        String auth = SharePrefrenceUtils.getInstance(context).getAuth();
+        Interceptor interceptor;
+        if (auth != null && !"".contains(auth)) {
+            interceptor = new AuthenticationInterceptor(auth);
+        }else {
+            interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        }
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(time, TimeUnit.SECONDS)
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(interceptor)
                 .addNetworkInterceptor(new StethoInterceptor())
                 .readTimeout(time, TimeUnit.SECONDS)
                 .writeTimeout(time, TimeUnit.SECONDS)
@@ -31,7 +43,7 @@ public class RetrofitClient {
     public static Retrofit getInstance() {
         if (ourInstance == null)
             ourInstance = new Retrofit.Builder()
-                    .client(okHttpClient(30))
+                    .client(okHttpClient(App.getInstance(), 30))
                     .baseUrl("https://quiz-test.merryblue.llc/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

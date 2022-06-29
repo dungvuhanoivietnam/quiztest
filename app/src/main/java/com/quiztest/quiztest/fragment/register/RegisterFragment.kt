@@ -2,11 +2,11 @@ package com.quiztest.quiztest.fragment.register
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
@@ -20,39 +20,36 @@ import com.quiztest.quiztest.utils.Utils
 
 class RegisterFragment : BaseFragment() {
     private val viewModel by lazy {
-        ViewModelProvider(this)[RegisterViewmodel::class.java]
+        ViewModelProvider(this)[RegisterViewModel::class.java]
     }
     private lateinit var binding: FragmentRegisterBinding
     private var isSuccessEmail: Boolean = false
     private var isSuccessPass: Boolean = false
     private var isSuccessName: Boolean = false
 
-    var email = ""
-    var name = ""
-    var password = ""
-    var confirm_password = ""
+    private var email = ""
+    private var name = ""
+    private var password = ""
+    private var confirmPassword = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        initView(binding.root)
         return binding.root
 
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_register
 
+
     override fun initView(v: View?) {
-
-    }
-
-    override fun initView() {
         val height = Utils.getHeight(activity) * 220 / 800
-        var layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
+        val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
         binding.imvThum.layoutParams = layoutParams
 
-        setupView()
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isShowLoading ->
             if (isShowLoading) {
@@ -61,7 +58,8 @@ class RegisterFragment : BaseFragment() {
                 cancelLoading()
             }
         }
-        viewModel.resigterAccount.observe(viewLifecycleOwner) {
+
+        viewModel.registerAccount.observe(viewLifecycleOwner) {
             if (it.success == true) {
                 AppPreferences.apply {
                     setUserAccessToken("")
@@ -74,77 +72,66 @@ class RegisterFragment : BaseFragment() {
         }
 
 
-
-
-    }
-
-    private fun setupView() {
-        password = binding.edtPass.toString().trim()
-        confirm_password = binding.edtConfirmPass.toString().trim()
-
-        binding.edtName.initData(ExtEditTextApp.TYPE_VALIDATE.NAME,
+        binding.edtName.initData(
+            ExtEditTextApp.TYPE_VALIDATE.NAME,
             context?.getString(R.string.Your_name_cannot_exceed_32_characters)
-                ?: "",
-            InputType.TYPE_CLASS_TEXT,
-            { t ->
-                kotlin.run {
-                    isSuccessName = t
-                    initButtonRegister()
-                }
-            })
+                ?: "", InputType.TYPE_CLASS_TEXT
+        ) { t ->
+            kotlin.run {
+                isSuccessName = t
+                initButtonRegister()
+            }
+        }
+
 
         binding.edtMail.initData(
-            ExtEditTextApp.TYPE_VALIDATE.EMAIL,
-            context?.getString(R.string.Email_invalidate) ?: "",
-            InputType.TYPE_CLASS_TEXT,
-            { t ->
-                kotlin.run {
-                    isSuccessEmail = t
-                    initButtonRegister()
-                }
-            })
+            ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
+                ?: "",InputType.TYPE_CLASS_TEXT
+        ) { t ->
+            kotlin.run {
+                isSuccessEmail = t
+                initButtonRegister()
+            }
+        }
 
-        binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.PASSWORD,
+        binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
             context?.getString(R.string.incorrect_password)
                 ?: "",
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            { t ->
-                kotlin.run {
-                    isSuccessPass = t
-                    initButtonRegister()
-                }
-            })
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        ) { t ->
+            kotlin.run {
+                isSuccessPass = t
+                initButtonRegister()
+            }
+        }
 
-
-        if( password != confirm_password){
-            binding.edtConfirmPass.setBackgroundResource(R.drawable.bg_edt_error)
-            binding.txtRepassNotAvaible.isVisible = true
-
-        } else{
-            isSuccessPass = true
-            initButtonRegister()
+        binding.edtConfirmPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
+            context?.getString(R.string.incorrect_password)
+                ?: "",
+            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        ) { t ->
+            kotlin.run {
+                isSuccessPass = t
+                initButtonRegister()
+            }
         }
 
     }
 
 
-    override fun initData() {
-//        binding.btnRegister.setOnClickListener {
-//            if (isValidateSucess()){
-//                viewModel.registerAccount(email,name,password,confirm_password)
-//            }
-//
-//        }
-    }
 
-//    private fun isValidateSucess(): Boolean {
-//
-//        name = binding.edtName.toString().trim()
-//        email =binding.edtMail.toString().trim()
-//        password = binding.edtPass.toString().trim()
-//        confirm_password = binding.edtConfirmPass.toString().trim()
-//
-//    }
+    override fun initData() {
+        binding.btnRegister.setOnClickListener {
+            name = binding.edtName.toString().trim()
+            email =binding.edtMail.toString().trim()
+            password = binding.edtPass.toString().trim()
+            confirmPassword = binding.edtConfirmPass.toString().trim()
+
+            viewModel.registerAccount(email,name,password,confirmPassword)
+
+
+        }
+    }
 
     private fun initButtonRegister() {
         if (isSuccessEmail and isSuccessPass and isSuccessName)

@@ -1,5 +1,6 @@
 package com.quiztest.quiztest;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
@@ -34,6 +35,7 @@ import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.aemerse.onboard.ScreenUtils;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private BaseFragment fragmentProfile = new ProfileFragment();
     private List<Fragment> fragments = new ArrayList<>();
     private List<ExtTextView> btns = new ArrayList<>();
+
+    private boolean isKeyboardVisible;
 
 
     @Override
@@ -97,17 +101,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void onKeyBoardChange(boolean isShow) {
         if (isShow) {
-            hideOrShowBottomView(false);
+//            hideOrShowBottomView(false);
+            isKeyboardVisible = true;
         } else {
+            isKeyboardVisible = false;
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    hideOrShowBottomView(true);
+//                    hideOrShowBottomView(true);
                 }
             }, 100);
         }
     }
+
+    public boolean isKeyBoardVisible(){
+        return isKeyboardVisible;
+    }
+
+//    public static void hideKeyboard(Activity activity) {
+//        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+//        //Find the currently focused view, so we can grab the correct window token from it.
+//        View view = activity.getCurrentFocus();
+//        //If no view currently has focus, create a new one, just so we can grab a window token from it
+//        if (view == null) {
+//            view = new View(activity);
+//        }
+//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//    }
 
     private void initOnboarding() {
         Intent intent = new Intent(this, MyCustomOnboarder.class);
@@ -146,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 enableButton(btnProfile);
             }
         });
+        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJlMTUyYzljNDJiYzk1NzAyMjFkMjg5ZjQwZWQ2ZTg3MTc1OWRkMjBjZWNmM2ZmZTRiNjc3YzZiNmUxNjNjMGJlZTczMmQ0MTQxOTQzNGZjYyIsImlhdCI6MTY1NjM4NjMyMC40MTE2OTQsIm5iZiI6MTY1NjM4NjMyMC40MTE2OTgsImV4cCI6MTgxNDE1MjcyMC40MDg0OTcsInN1YiI6IjE0Iiwic2NvcGVzIjpbXX0.Ed0MVbv94YjVV-fGYffTGwC5ON-mw2y4vz8Hyb6D9dehLrzzLRFE_I3YjKbD7qbZ6m98Rj1PcC52z-DyfszPUYvvvXReNyLP2pZI4mRlWNjzwQD9mWPwkh97PHtvBWzFOGWuvYwJf_H9no4hO9nIhXWZfU7wGvZZvZwx5huSTALv7Q3K8akH5d395EKO2xLObrDPqmW5XJITWM3QDFK9Hp5TNaee7MoLm00_io-QnPSc7pReCHNeqna8Ef6pNar1RT57cdS4qkzBzkGj4-uNsUeZsCMqqbxOIvsc4A33-eav-GSkzaWLCrnlE_OYUgZPl7msR0WUjkBZuqhfa4nQZIheKBw6fUbPjrsHSP9MI5dFoj5EKLhnmNYONPv3gc5Fi9Of8agIeRRZABi-tRFeBfUf8iN7KWV3KbLtO-MIWcB2TfNVsl7VQ7AN-Ofuwy_QzvLlfTxCrd_eGMYMMu0k5ATH82OVxfzLcE-1N29RPX7ly_BfhWHplY7b9nU-t2E2UttNvgAW8wDXAcHO6YNSmO2HCR5S3FWo0UgH0UOuJmZhzQC1hjkycu6gtALXdSzmbn-p_63_ZRZkzQQuqkvoTaIbbrKA09cYTtcPyA9ddAa17_PyT5U8-CmUmWbSY1XtmiIXGCROFlrWGx4KfaXFuRz0nFQJzVt9J2MPk4-la4s");
     }
 
     private void enableButton(ExtTextView btnEnable) {
@@ -223,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentStates.add(tag);
         ft.addToBackStack(tag);
         ft.commit();
+        hideOrShowBottomView(tag.contains(HomeFragment.class.getSimpleName()) || tag.contains(ProfileFragment.class.getSimpleName()) || tag.contains(RankingFragment.class.getSimpleName()));
     }
 
     public boolean hasFragmentState(String tag) {
@@ -286,7 +309,6 @@ public class MainActivity extends AppCompatActivity {
         }
         transaction.commit();
     }
-
 
     @Override
     protected void onDestroy() {

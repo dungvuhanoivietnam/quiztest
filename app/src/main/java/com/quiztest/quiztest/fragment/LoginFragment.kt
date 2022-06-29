@@ -21,52 +21,40 @@ class LoginFragment : BaseFragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        initView()
-
+        initView(binding.root)
         return binding.root
     }
-
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_login
     }
 
     override fun initView(v: View?) {
-
-    }
-
-    override fun initView() {
         val height = Utils.getHeight(activity) * 220 / 800
-        var layoutParams: ViewGroup.LayoutParams =
-            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
+        val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
         binding.imvThum.layoutParams = layoutParams
-
         binding.edtMail.initData(
-            ExtEditTextApp.TYPE_VALIDATE.EMAIL,
-            context?.getString(R.string.malformed_account) ?: "",
-            InputType.TYPE_CLASS_TEXT,
-            { t ->
-                kotlin.run {
-                    isSuccessEmail = t
-                    initButtonLogin()
-                }
-            })
+            ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
+                ?: "", InputType.TYPE_CLASS_TEXT
+        ) { t ->
+            kotlin.run {
+                isSuccessEmail = t
+                initButtonLogin()
+            }
+        }
+        binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.PASSWORD, context?.getString(R.string.incorrect_password)
+            ?: "", InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        ) { t ->
+            kotlin.run {
+                isSuccessPass = t
+                initButtonLogin()
+            }
 
-        binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.PASSWORD,
-            context?.getString(R.string.incorrect_password)
-                ?: "",
-            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            { t ->
-                kotlin.run {
-                    isSuccessPass = t
-                    initButtonLogin()
-                }
-
-            })
+        }
         binding.ivBack.setOnClickListener {
             backstackFragment()
         }
@@ -80,13 +68,12 @@ class LoginFragment : BaseFragment() {
     override fun initData() {
     }
 
-    fun initButtonLogin() {
+    private fun initButtonLogin() {
         if (isSuccessEmail and isSuccessPass)
             binding.btnLogin.setBackgroundResource(R.drawable.bg_blue_21)
         else
             binding.btnLogin.setBackgroundResource(R.drawable.bg_gray_b8)
 
     }
-
-
+    
 }

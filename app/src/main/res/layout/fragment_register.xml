@@ -87,7 +87,7 @@
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_7sdp"
             android:drawableEnd="@drawable/ic_open_eye"
-            android:hint="@string/enter_your_password"
+            android:hint="@string/enter_your_password_again"
             android:inputType="textPassword"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,6 +103,7 @@
             android:text="@string/Re_entered_password_does_not_match"
             android:textSize="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_7sdp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/edt_confirm_pass"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +143,7 @@
             android:textColor="@color/color_8D959D"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/txt_login"
+            app:layout_constraintEnd_toStartOf="@id/txt_login"
             app:layout_constraintTop_toBottomOf="@+id/btn_register"
             app:layout_constraintHorizontal_chainStyle="packed"/>
 

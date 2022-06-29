@@ -21,48 +21,74 @@
         card_view:cardCornerRadius="15dp"
         card_view:cardElevation="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingHorizontal="@dimen/_8sdp"
             android:paddingVertical="@dimen/_10sdp">
 
-            <com.quiztest.quiztest.custom.ExtTextView
-                android:id="@+id/txt_title_create_acount"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/create_account"
-                android:textColor="@color/color_22313F"
-                android:textSize="@dimen/_14sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:src="@drawable/ic_arrow_right"
-                app:layout_constraintLeft_toRightOf="@+id/txt_title_create_acount"
-                app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <com.quiztest.quiztest.custom.ExtTextView
-                android:id="@+id/txt_content_create_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/create_an_account_and_take_the_quiz"
-                android:textColor="@color/color_8D959D"
-                android:textSize="@dimen/_11sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title_create_acount" />
+                    <LinearLayout
 
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_create_account_profile"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.quiztest.quiztest.custom.ExtTextView
+                            android:id="@+id/txt_title_create_acount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/create_account"
+                            android:textColor="@color/color_22313F"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <ImageView
+                            android:id="@+id/iv_create_account"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:layout_constraintLeft_toRightOf="@+id/txt_title_create_acount"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
+
+                    <com.quiztest.quiztest.custom.ExtTextView
+                        android:id="@+id/txt_content_create_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:text="@string/create_an_account_and_take_the_quiz"
+                        android:textColor="@color/color_8D959D"
+                        android:textSize="@dimen/_11sdp"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_45sdp"
+                    android:src="@drawable/ic_create_account_profile"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,7 +115,7 @@
             </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
