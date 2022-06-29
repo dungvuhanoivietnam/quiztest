@@ -20,6 +20,10 @@ class MainIQActivity : AppCompatActivity() {
                 getString(R.string.txt_description_home_test_iq),
                 HtmlCompat.FROM_HTML_MODE_LEGACY
             )
+
+        binding.toolbar.setOnClickListener {
+            finish()
+        }
     }
 
 }
