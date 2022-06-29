@@ -12,10 +12,13 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.adapter.HistoryAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -32,6 +35,8 @@ public class ProfileFragment extends BaseFragment {
     private ExtTextView txt_title_create_acount, txt_content_create_account;
     private ImageView iv_profile, iv_create_account;
     private LinearLayout llLogin;
+    private RecyclerView rcv_history;
+    private HistoryAdapter historyAdapter;
 
     private UserViewModel userViewModel;
 
@@ -56,11 +61,18 @@ public class ProfileFragment extends BaseFragment {
         v.findViewById(R.id.ic_right).setOnClickListener(v1 -> {
             replaceFragment(new SettingFragment(), SettingFragment.class.getSimpleName());
         });
+        v.findViewById(R.id.txt_view_all).setOnClickListener(view -> {
+
+        });
         txt_title_create_acount = v.findViewById(R.id.txt_title_create_acount);
         txt_content_create_account = v.findViewById(R.id.txt_content_create_account);
         iv_profile = v.findViewById(R.id.iv_profile);
         iv_create_account = v.findViewById(R.id.iv_create_account);
         llLogin = v.findViewById(R.id.llLogin);
+        rcv_history = v.findViewById(R.id.rcv_history);
+        rcv_history.setLayoutManager(new LinearLayoutManager(mContext));
+        historyAdapter = new HistoryAdapter(mContext,false);
+        rcv_history.setAdapter(historyAdapter);
     }
 
     @Override
@@ -71,6 +83,8 @@ public class ProfileFragment extends BaseFragment {
     @Override
     protected void initData() {
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+        rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);
+
         String auth = SharePrefrenceUtils.getInstance(getContext()).getAuth();
         if (auth != null && !"".equals(auth) && TextUtils.isEmpty(userViewModel.getUserInfoResponse().getEmail())) {
             showLoading();
@@ -85,6 +99,19 @@ public class ProfileFragment extends BaseFragment {
         } else if (!TextUtils.isEmpty(userViewModel.getUserInfoResponse().getEmail())) {
             updateView();
         }
+
+        if (auth != null && !"".equals(auth)) {
+            showLoading();
+            userViewModel.getHistory(requestAPI, 1, o -> {
+                cancelLoading();
+                rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);
+                historyAdapter.setData(userViewModel.getHistories());
+            });
+        } else if (!TextUtils.isEmpty(userViewModel.getUserInfoResponse().getEmail())) {
+            updateView();
+        }
+
+
     }
 
     private void updateView() {

@@ -1,5 +1,6 @@
 package com.quiztest.quiztest.retrofit;
 
+import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 
 import okhttp3.ResponseBody;
@@ -18,4 +19,7 @@ public interface RequestAPI {
 
     @GET("user")
     Call<UserInfoResponse> getUserInfo();
+
+    @GET("quiz/get-history-participation")
+    Call<HistoryResponse> getHistorys(@Query("page") String page);
 }
