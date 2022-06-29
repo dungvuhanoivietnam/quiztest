@@ -21,6 +21,9 @@ public class UserViewModel extends ViewModel {
 
     private UserInfoResponse.UserInfo userInfo = new UserInfoResponse.UserInfo();
 
+    public void clearViewModel(){
+        userInfo = new UserInfoResponse.UserInfo();
+    }
 
     public void getUserInfo(RequestAPI requestAPI, Consumer consumer) {
         requestAPI.getUserInfo().enqueue(new callBack(consumer));

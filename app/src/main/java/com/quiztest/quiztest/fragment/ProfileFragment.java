@@ -90,7 +90,7 @@ public class ProfileFragment extends BaseFragment {
     private void updateView() {
         UserInfoResponse.UserInfo userInfo = userViewModel.getUserInfoResponse();
         txt_title_create_acount.setText(userInfo.getName() != null ? userInfo.getName() : getString(R.string.create_account));
-        Glide.with(mContext).load(userInfo.getAvatar() != null ? userInfo.getAvatar() : R.drawable.ic_create_account_profile).placeholder(R.drawable.ic_create_account_profile).into(iv_profile);
+        Glide.with(mContext).load(userInfo.getAvatar() != null ? userInfo.getAvatar() : R.drawable.ic_create_account_profile).placeholder(R.drawable.ic_create_account_profile).circleCrop().into(iv_profile);
         txt_content_create_account.setText(userInfo.getEmail() != null ? userInfo.getEmail() : getString(R.string.create_an_account_and_take_the_quiz));
         llLogin.setVisibility(userInfo.getEmail() == null ? View.VISIBLE : View.GONE);
         iv_create_account.setVisibility(userInfo.getEmail() == null ? View.VISIBLE : View.GONE);

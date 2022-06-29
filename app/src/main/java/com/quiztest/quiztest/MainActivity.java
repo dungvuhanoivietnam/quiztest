@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 enableButton(btnProfile);
             }
         });
-        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJlMTUyYzljNDJiYzk1NzAyMjFkMjg5ZjQwZWQ2ZTg3MTc1OWRkMjBjZWNmM2ZmZTRiNjc3YzZiNmUxNjNjMGJlZTczMmQ0MTQxOTQzNGZjYyIsImlhdCI6MTY1NjM4NjMyMC40MTE2OTQsIm5iZiI6MTY1NjM4NjMyMC40MTE2OTgsImV4cCI6MTgxNDE1MjcyMC40MDg0OTcsInN1YiI6IjE0Iiwic2NvcGVzIjpbXX0.Ed0MVbv94YjVV-fGYffTGwC5ON-mw2y4vz8Hyb6D9dehLrzzLRFE_I3YjKbD7qbZ6m98Rj1PcC52z-DyfszPUYvvvXReNyLP2pZI4mRlWNjzwQD9mWPwkh97PHtvBWzFOGWuvYwJf_H9no4hO9nIhXWZfU7wGvZZvZwx5huSTALv7Q3K8akH5d395EKO2xLObrDPqmW5XJITWM3QDFK9Hp5TNaee7MoLm00_io-QnPSc7pReCHNeqna8Ef6pNar1RT57cdS4qkzBzkGj4-uNsUeZsCMqqbxOIvsc4A33-eav-GSkzaWLCrnlE_OYUgZPl7msR0WUjkBZuqhfa4nQZIheKBw6fUbPjrsHSP9MI5dFoj5EKLhnmNYONPv3gc5Fi9Of8agIeRRZABi-tRFeBfUf8iN7KWV3KbLtO-MIWcB2TfNVsl7VQ7AN-Ofuwy_QzvLlfTxCrd_eGMYMMu0k5ATH82OVxfzLcE-1N29RPX7ly_BfhWHplY7b9nU-t2E2UttNvgAW8wDXAcHO6YNSmO2HCR5S3FWo0UgH0UOuJmZhzQC1hjkycu6gtALXdSzmbn-p_63_ZRZkzQQuqkvoTaIbbrKA09cYTtcPyA9ddAa17_PyT5U8-CmUmWbSY1XtmiIXGCROFlrWGx4KfaXFuRz0nFQJzVt9J2MPk4-la4s");
+        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJiNDhiZTkzNjYyNWYxMmMzNTkwNjI0MTZjOGIwODI3ZDc2MjMxZWQ5NDk1YzkxMTI3NzI0MjM3MzhmNGI3NmRiYWVhZTI1M2M4NWMyYTg4NiIsImlhdCI6MTY1NjQ4ODM1Ny43MTMwODksIm5iZiI6MTY1NjQ4ODM1Ny43MTMwOTIsImV4cCI6MTgxNDI1NDc1Ny43MDU3NzEsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.aLEVhbBj_GL7Vi2_SyWBhtyZmajkUae2KR1vb-CDMO3G5myLfWf4nkPB-KVdfcTGpbhYquP_bokkXlPwKOiKSONidb7CX6jfGr6oK8V9Sup_VUoVcnK88gmcJvssGhiWDEIian4aRnmBygw-1iQ5cWXnPb_dUjxKT4yPLiKXfZvc6xfwJ4MLytW_8nWLH8DUBEh93Snv-AjcJM8uIzl6zSQCZqhj5NQBvuCvUewEfcvYcEtT4SUkAV8BL2_RCOWq-ifA-gBgfOeLsbkbQt7XdLgZAt5R0E8iIW1Jp2DgR0qN10cY_D3R2YJrroP8B1YhFRWXa-mmYsuZ8HlL4E1wRPZz-ws-m-5vET1jdHFCORyR212vaC6zAUr-XJJ1CAJ6tlHvQEEJDg3RmAuz3Kr9Rao4ngG2fZfm4A3dTk76y8XR5F05W1_nvmx79ywxIIYkvjbQX0D747kYIHadmYwHjzOC9iVzSzzwXevx5gXgWOK-S7zQW8JWGBdgB9JsWVS_LkJpyBjZW1E0pFRRm796oxqp9NDeGrn_hrYr6JQQr9fBvyGIJ40Xn8meRfxaQ_XcMm_LbbG_BqKh12tNtiXPQxYZZy7cCi9YWdrhihSHsvRci6yZNsYPFfTvpRxtm3wMhBMFlt9hHcZQ5RD75stnVPAj7JsWf3ikP4b7JRdstX8");
     }
 
     private void enableButton(ExtTextView btnEnable) {
@@ -212,6 +212,11 @@ public class MainActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.btn_profile);
         btns.add(btnProfile);
         ctsBottomNavigation = findViewById(R.id.cts_bottomNavigation);
+    }
+
+    public void actionLogout(){
+        showFragment(fragmentHome);
+        enableButton(btnHome);
     }
 
     private void addFragment(BaseFragment fmAdd) {
