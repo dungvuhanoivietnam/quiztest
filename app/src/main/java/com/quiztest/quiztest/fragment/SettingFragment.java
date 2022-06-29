@@ -11,8 +11,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.adapter.LanguageAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.callback.ActivityResultFragment;
 import com.quiztest.quiztest.custom.ExtEditText;
@@ -42,6 +45,10 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     private DialogChooseImage dialogChooseImage;
     private boolean isSave = false;
     private boolean isLogin = false;
+    private Spinner sp_language;
+
+    String[] countryNames = {"Tiếng Việt", "English"};
+    String [] countryFlag = {"https://manager-apps.merryblue.llc/storage/flags/Vietnam.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1920px-Flag_of_the_United_Kingdom.svg.png"};
 
     @Override
     protected int getLayoutId() {
@@ -102,6 +109,20 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
                 activity.actionLogout();
             }
         });
+        sp_language = v.findViewById(R.id.sp_language);
+        sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        LanguageAdapter customAdapter = new LanguageAdapter(getContext(), countryFlag, countryNames);
+        sp_language.setAdapter(customAdapter);
     }
 
     private void checkIsSave() {
