@@ -16,7 +16,7 @@
         <com.quiztest.quiztest.custom.ExtTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_26sdp"
+            android:layout_marginBottom="@dimen/_22sdp"
             android:elevation="@dimen/_5sdp"
             android:text="@string/ranking"
             android:textColor="@color/white"
@@ -27,7 +27,7 @@
         <ImageView
             android:id="@+id/img_bg_header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_300sdp"
+            android:layout_height="@dimen/_280sdp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_bg_header_ranking_frag"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,14 +183,18 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_ranking"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_18sdp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
         android:paddingStart="@dimen/_8sdp"
+        android:paddingTop="@dimen/_30sdp"
+        android:paddingBottom="@dimen/_60sdp"
         android:paddingEnd="@dimen/_8sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fr_option_view"
+        app:layout_constraintTop_toBottomOf="@id/cst_header"
         tools:itemCount="6"
         tools:listitem="@layout/item_list_ranking" />
 

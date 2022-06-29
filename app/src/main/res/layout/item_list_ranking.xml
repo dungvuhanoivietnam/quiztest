@@ -59,7 +59,6 @@
                 android:layout_alignBottom="@id/cv_avatar"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_toEndOf="@id/cv_avatar"
-                android:text="@string/score"
                 android:textColor="@color/color_22313F"
                 android:textSize="@dimen/_13sdp" />
 

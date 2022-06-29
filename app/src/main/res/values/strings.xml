@@ -51,5 +51,5 @@
     <string name="weekly_ranking">Weekly ranking</string>
     <string name="overall_rating">Overall rating</string>
     <string name="please_login_to_use_this_feature">Please login to use this feature</string>
-    <string name="score"><b>1034</b> điểm</string>
+    <string name="score"><b>%d</b> điểm</string>
 </resources>
