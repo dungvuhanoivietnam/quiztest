@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="Câu 1. Trong bài test của bạn có một số câu hỏi. Bạn đã trả lời sai 10 câu hỏi. Kết quả thang điểm của bạn chỉ đạt 60%. Vậy bài test của bạn có tất cả bao nhiêu câu hỏi?"
+        android:id="@+id/question_name"
+        android:layout_marginStart="@dimen/_11ssp"
+        android:layout_marginEnd="@dimen/_11ssp"
+        android:layout_width="0sp"
+        android:textSize="@dimen/_11ssp"
+        style="ink"
+        android:textColor="#22313F"
+        app:fontFamily="@font/roboto_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcl_options_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/question_name"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_answer_text" />
+
+    <CheckBox
+        android:id="@+id/check1"
+        app:layout_constraintTop_toBottomOf="@id/rcl_options_answer"
+        android:layout_width="match_parent"
+        android:text="545454"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/check2"
+        app:layout_constraintTop_toBottomOf="@id/check1"
+        android:layout_width="match_parent"
+        android:text="545454"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        app:layout_constraintTop_toBottomOf="@id/check2"
+        android:layout_width="match_parent"
+        android:text="545454"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
