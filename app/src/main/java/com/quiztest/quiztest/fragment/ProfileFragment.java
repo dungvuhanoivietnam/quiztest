@@ -57,7 +57,7 @@ public class ProfileFragment extends BaseFragment {
     protected void initView(View v) {
         v.findViewById(R.id.llLogin).setOnClickListener(v1 -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
         v.findViewById(R.id.ic_right).setOnClickListener(v1 -> replaceFragment(new SettingFragment(), SettingFragment.class.getSimpleName()));
-        v.findViewById(R.id.txt_view_all).setOnClickListener(view -> replaceFragment(new HistoryFragment(),HistoryFragment.class.getSimpleName()));
+        v.findViewById(R.id.txt_view_all).setOnClickListener(view -> replaceFragment(new HistoryFragment(), HistoryFragment.class.getSimpleName()));
         txt_title_create_acount = v.findViewById(R.id.txt_title_create_acount);
         txt_content_create_account = v.findViewById(R.id.txt_content_create_account);
         iv_profile = v.findViewById(R.id.iv_profile);
@@ -65,7 +65,7 @@ public class ProfileFragment extends BaseFragment {
         llLogin = v.findViewById(R.id.llLogin);
         rcv_history = v.findViewById(R.id.rcv_history);
         rcv_history.setLayoutManager(new LinearLayoutManager(mContext));
-        historyAdapter = new HistoryAdapter(mContext,false);
+        historyAdapter = new HistoryAdapter(mContext, false);
         rcv_history.setAdapter(historyAdapter);
     }
 
@@ -105,7 +105,10 @@ public class ProfileFragment extends BaseFragment {
             updateView();
         }
 
-
+        if (userViewModel.getHistories().size() > 0) {
+            rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);
+            historyAdapter.setData(userViewModel.getHistories());
+        }
     }
 
     private void updateView() {

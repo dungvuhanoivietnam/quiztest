@@ -1,5 +1,7 @@
 package com.quiztest.quiztest.fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,10 +24,10 @@ public class SettingFragment extends BaseFragment {
     private ImageView ivAvatar, ivUpload;
     private UserViewModel userViewModel;
     private UserInfoResponse.UserInfo userInfo;
-    private LinearLayout ll_setting_content, ll_login, ll_logout;
+    private LinearLayout ll_setting_content, ll_login, ll_logout, llSave;
     private ExtEditText edtName, edtGmail;
     private DialogChooseImage dialogChooseImage;
-
+    private boolean isSave = false;
     private boolean isLogin = false;
 
     @Override
@@ -50,13 +52,14 @@ public class SettingFragment extends BaseFragment {
         txt_link_google = v.findViewById(R.id.txt_link_google);
         txt_link_facebook = v.findViewById(R.id.txt_link_facebook);
         ll_logout = v.findViewById(R.id.ll_logout);
+        llSave = v.findViewById(R.id.llSave);
 
-        dialogChooseImage = new DialogChooseImage(getContext(), R.style.MaterialDialogSheet,type_select -> {
+        dialogChooseImage = new DialogChooseImage(getContext(), R.style.MaterialDialogSheet, type_select -> {
 
         });
 
         v.findViewById(R.id.txt_change_info).setOnClickListener(view -> {
-
+            showLoading();
         });
         v.findViewById(R.id.ivUpload).setOnClickListener(view -> {
             if (!dialogChooseImage.isShowing())
@@ -71,6 +74,43 @@ public class SettingFragment extends BaseFragment {
                 activity.actionLogout();
             }
         });
+        edtName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkIsSave();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        edtGmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                checkIsSave();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void checkIsSave() {
+        isSave = !edtName.getText().toString().contains(userInfo.getName()) || !edtGmail.getText().toString().contains(userInfo.getEmail());
+        llSave.setBackgroundResource(isSave ? R.drawable.bg_button_blue_21 : R.drawable.bg_gray_b8);
     }
 
     @Override
