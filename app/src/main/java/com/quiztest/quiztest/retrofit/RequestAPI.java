@@ -1,11 +1,14 @@
 package com.quiztest.quiztest.retrofit;
 
+import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -18,4 +21,10 @@ public interface RequestAPI {
 
     @GET("user")
     Call<UserInfoResponse> getUserInfo();
+
+    @GET("quiz/get-history-participation")
+    Call<HistoryResponse> getHistorys(@Query("page") String page);
+
+    @PUT("user/update-profile")
+    Call<BaseResponse>  updateProfile(@Query("name") String name, @Query("email") String email);
 }
