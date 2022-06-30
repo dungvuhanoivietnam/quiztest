@@ -33,5 +33,7 @@
     
     <dimen name="margin_top_layout_content_login">-8dp</dimen>
     <dimen name="dp_50">50dp</dimen>
+    <dimen name="margin_top_content">-12dp</dimen>
+
 
 </resources>
