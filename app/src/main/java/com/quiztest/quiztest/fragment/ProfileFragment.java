@@ -102,7 +102,6 @@ public class ProfileFragment extends BaseFragment {
         }
 
         if (auth != null && !"".equals(auth) && userViewModel.getHistories().size() == 0) {
-            showLoading();
             userViewModel.getHistory(requestAPI, 1, o -> {
                 cancelLoading();
                 rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);

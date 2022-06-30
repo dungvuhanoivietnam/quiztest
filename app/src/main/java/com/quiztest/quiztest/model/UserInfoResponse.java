@@ -3,6 +3,8 @@ package com.quiztest.quiztest.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class UserInfoResponse {
 
     @SerializedName("success")
@@ -10,7 +12,7 @@ public class UserInfoResponse {
     private Boolean success;
     @SerializedName("data")
     @Expose
-    private UserInfo data;
+    private Data data;
     @SerializedName("message")
     @Expose
     private String message;
@@ -23,11 +25,11 @@ public class UserInfoResponse {
         this.success = success;
     }
 
-    public UserInfo getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(UserInfo data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
@@ -39,7 +41,35 @@ public class UserInfoResponse {
         this.message = message;
     }
 
+    public static class Data {
+
+        @SerializedName("user_info")
+        @Expose
+        private UserInfo userInfo;
+        @SerializedName("history_participations")
+        @Expose
+        private List<HistoryResponse.History> historyParticipations = null;
+
+        public UserInfo getUserInfo() {
+            return userInfo;
+        }
+
+        public void setUserInfo(UserInfo userInfo) {
+            this.userInfo = userInfo;
+        }
+
+        public List<HistoryResponse.History> getHistoryParticipations() {
+            return historyParticipations;
+        }
+
+        public void setHistoryParticipations(List<HistoryResponse.History> historyParticipations) {
+            this.historyParticipations = historyParticipations;
+        }
+
+    }
+
     public static class UserInfo {
+
         @SerializedName("id")
         @Expose
         private Integer id;
