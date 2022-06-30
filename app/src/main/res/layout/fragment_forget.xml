@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.forgetpass.ForgetFragment">
+
+    <ImageView
+        android:id="@+id/imv_thum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:src="@drawable/ic_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_change_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/change_password"
+        android:textColor="@color/color_22313F"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf= "@id/imv_thum" />
+    <com.quiztest.quiztest.custom.ExtEditTextApp
+        android:id="@+id/edt_forget_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_change_pass"
+        tools:layout_editor_absoluteY="119dp" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/btn_background"
+        android:gravity="center"
+        android:text="@string/continuee"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_forget_email" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_do_you_already"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/do_you_already_have_an_account"
+        android:textColor="@color/color_8D959D"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toStartOf="@id/txt_login"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_continue" />
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/login"
+        android:textColor="@color/color_22313F"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@id/txt_do_you_already"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txt_do_you_already"
+        app:layout_constraintTop_toTopOf="@id/txt_do_you_already" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

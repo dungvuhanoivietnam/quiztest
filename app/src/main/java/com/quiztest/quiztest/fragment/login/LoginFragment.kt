@@ -1,4 +1,4 @@
-package com.quiztest.quiztest.fragment.Login
+package com.quiztest.quiztest.fragment.login
 
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
@@ -19,7 +19,6 @@ import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
@@ -164,7 +163,7 @@ class LoginFragment : BaseFragment() {
     private fun handleLogin() {
         if (isSuccessEmail and isSuccessPass) {
             binding.btnLogin.setBackgroundResource(R.drawable.btn_background_done)
-            SharePrefrenceUtils.getInstance(mContext).saveAuth("")
+
             viewModel.loginAccount(email, password)
 
         } else {
@@ -192,8 +191,15 @@ class LoginFragment : BaseFragment() {
 
         viewModel.loginAccount.observe(viewLifecycleOwner) {
             if (it.success == true) {
-                replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
-                (activity as MainActivity?)!!.hideOrShowBottomView(false)
+                it.data?.accessToken?.let {
+                    SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
+                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
+                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
+                }?: kotlin.run {
+                    Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT).show()
+                }
+
+
             }
 
         }

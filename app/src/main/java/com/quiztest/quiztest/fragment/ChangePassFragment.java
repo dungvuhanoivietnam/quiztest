@@ -1,7 +1,6 @@
 package com.quiztest.quiztest.fragment;
 
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -10,7 +9,6 @@ import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtEditTextApp;
 import com.quiztest.quiztest.custom.ExtTextView;
-import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.ChangePassResponse;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
@@ -33,7 +31,7 @@ public class ChangePassFragment extends BaseFragment {
         edt_current_pass = v.findViewById(R.id.edt_current_pass);
         edt_new_pass = v.findViewById(R.id.edt_new_pass);
         edt_re_pass = v.findViewById(R.id.edt_re_pass);
-        btn_save = v.findViewById(R.id.btn_save);
+        btn_save = v.findViewById(R.id.btn_continue);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.quiztest.quiztest.remote
 
 import com.quiztest.quiztest.App
+import com.quiztest.quiztest.model.AuthResponse
 import com.quiztest.quiztest.model.UserReponse
 import com.quiztest.quiztest.retrofit.RequestAPI
 import com.quiztest.quiztest.retrofit.RetrofitClient
@@ -22,7 +23,7 @@ class AuthRemote(
     fun loginAccount(
         email: String,
         password: String,
-    ): Call<UserReponse> {
+    ): Call<AuthResponse> {
         return apiUser.loginAccount(email, password)
     }
 }

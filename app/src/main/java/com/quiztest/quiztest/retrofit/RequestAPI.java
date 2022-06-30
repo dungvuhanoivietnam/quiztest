@@ -1,5 +1,6 @@
 package com.quiztest.quiztest.retrofit;
 
+import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
@@ -28,7 +29,7 @@ public interface RequestAPI {
     Call<UserInfoResponse> getUserInfo();
 
     @POST("auth/login")
-    Call<UserReponse> loginAccount(
+    Call<AuthResponse> loginAccount(
             @Query("email") String email,
             @Query("password") String password
     );

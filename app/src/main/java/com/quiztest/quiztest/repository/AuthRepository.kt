@@ -1,5 +1,6 @@
 package com.quiztest.quiztest.repository
 
+import com.quiztest.quiztest.model.AuthResponse
 import com.quiztest.quiztest.model.UserReponse
 import com.quiztest.quiztest.remote.AuthRemote
 
@@ -19,7 +20,7 @@ private val remoteUser:AuthRemote = AuthRemote()
     fun loginAccount(
         email: String,
         password: String,
-    ): Call<UserReponse> {
+    ): Call<AuthResponse> {
         return remoteUser.loginAccount(email, password)
     }
 }
