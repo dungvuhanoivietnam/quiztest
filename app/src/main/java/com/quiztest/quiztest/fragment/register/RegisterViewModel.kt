@@ -23,12 +23,12 @@ class RegisterViewModel(
         userRepository.registerAccount(email,name,password,confirm_password).enqueue(object  : Callback<ResponseBody>{
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 isLoading.postValue(false)
-                val data =  response.body() as AuthResponse
-                if (response.isSuccessful){
-                    registerAccount.postValue(data)
-                }else{
-                    errorMessage.postValue(response.message())
-                }
+//                val data =  response.body() as AuthResponse
+//                if (response.isSuccessful){
+//                    registerAccount.postValue(data)
+//                }else{
+//                    errorMessage.postValue(response.message())
+//                }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

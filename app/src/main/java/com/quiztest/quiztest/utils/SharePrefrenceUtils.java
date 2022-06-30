@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 public class SharePrefrenceUtils {
     public static final String KEY_SHARE = "KEY_SHARE";
     public static final String KEY_SHARE_AUTH = "KEY_SHARE_AUTH";
+    public static final String REFERENCES_NAME = "AppPreferences";
+    public static final String KEY_USER_ACCESS_TOKEN = "USER_ACCESS_TOKEN";
+
 
     private SharedPreferences mPreference;
     private SharedPreferences.Editor mPrefEditor;
@@ -27,4 +30,13 @@ public class SharePrefrenceUtils {
     public String getAuth() {
         return mPreference.getString(KEY_SHARE_AUTH, "");
     }
+
+    public boolean setUserAccessToken( String token){
+        mPrefEditor.putString(KEY_USER_ACCESS_TOKEN, token);
+        return mPrefEditor.commit();
+    }
+    public String getUserAccessToken(){
+        return mPreference.getString(KEY_USER_ACCESS_TOKEN, "");
+    }
+
 }

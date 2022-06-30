@@ -61,11 +61,16 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="search_quiz">Search quiz test</string>
     <string name="search">Search</string>
-    <string name="Email_invalidate">Email invalidate</string>
-    <string name="Email_already_in_use">Email already in use</string>
-    <string name="Re_entered_password_does_not_match">Re-entered password does not match</string>
+    <string name="email_invalidate">Email invalidate</string>
+    <string name="email_already_in_use">Email already in use</string>
+    <string name="re_entered_password_does_not_match">Re-entered password does not match</string>
     <string name="Your_name_cannot_exceed_32_characters">Your name cannot exceed 32 characters</string>
     <string name="enter_your_password_again">Enter your password again</string>
+    <string name="re_password">Re-Password</string>
+    <string name="email">Email</string>
+    <string name="password_cannot_less_8_characters">Password cannot less 8 characters</string>
+
+
 
 
 </resources>

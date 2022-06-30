@@ -1,12 +1,9 @@
 package com.quiztest.quiztest.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +13,9 @@ import androidx.appcompat.widget.SearchView;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
+import com.quiztest.quiztest.fragment.Login.LoginFragment;
 import com.quiztest.quiztest.retrofit.RequestAPI;
-import com.quiztest.quiztest.retrofit.RetrofitClient;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 import com.quiztest.quiztest.custom.ExtTextView;
 
 

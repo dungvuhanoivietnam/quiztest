@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_gray_df" android:state_enabled="false" />
+    <item android:drawable="@drawable/bg_blue_4c" android:state_enabled="true" />
+</selector>

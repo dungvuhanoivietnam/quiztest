@@ -84,7 +84,7 @@ public class ExtEditTextApp extends FrameLayout {
                     if (typeValidate == TYPE_VALIDATE.COMFIRNPASSWORD) {
                         boolean isSuccess = charSequence.toString().length() >= 8 && charSequence.toString().equals(passWord);
                         Log.e("=====>", "length:" + charSequence.toString().length());
-                        Log.e("=====>", "passWord:" + charSequence +"  " +passWord);
+                        Log.e("=====>", "passWord:" + charSequence + "  " + passWord);
                         consumer.accept(isSuccess);
                         addTextChange(isSuccess ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                         if (charSequence.toString().length() <= 8)
@@ -113,7 +113,7 @@ public class ExtEditTextApp extends FrameLayout {
      * inputType loại type mặc định
      */
 
-    public void initData(TYPE_VALIDATE typeValidate, String error, int inputType, Consumer<Boolean>consumer) {
+    public void initData(TYPE_VALIDATE typeValidate, String error, int inputType, Consumer<Boolean> consumer) {
         this.typeValidate = typeValidate;
         this.consumer = consumer;
         this.txtError.setText(error);
@@ -124,7 +124,7 @@ public class ExtEditTextApp extends FrameLayout {
     }
 
     public void validatePass(String passWord) {
-        Log.e("=====>", "validatePass:"+"  " +passWord.toString());
+        Log.e("=====>", "validatePass:" + "  " + passWord.toString());
         this.passWord = passWord;
     }
 
