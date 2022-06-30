@@ -1,16 +1,27 @@
 package com.quiztest.quiztest.viewmodel;
 
+import android.util.Log;
+
 import androidx.core.util.Consumer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.google.gson.Gson;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.ChangePassResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
+import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -103,7 +114,7 @@ public class UserViewModel extends ViewModel {
         requestAPI.updateProfile(name, email).enqueue(new callBackUpdateProfile(consumer));
     }
 
-    private class callBackUpdateProfile implements Callback<BaseResponse> {
+    private static class callBackUpdateProfile implements Callback<BaseResponse> {
 
         private Consumer consumer;
 
@@ -119,6 +130,101 @@ public class UserViewModel extends ViewModel {
 
         @Override
         public void onFailure(Call<BaseResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    public void logout(RequestAPI requestAPI, Consumer consumer) {
+        requestAPI.logOut().enqueue(new callBackLogout(consumer));
+    }
+
+    private static class callBackLogout implements Callback<BaseResponse> {
+
+        private Consumer consumer;
+
+        public callBackLogout(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            BaseResponse userInfoResponse = response.body();
+            if (userInfoResponse == null)
+            {
+                try {
+                    userInfoResponse = new Gson().fromJson(response.errorBody().string(),BaseResponse.class);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<BaseResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    private static class callBackUploadAvatar implements Callback<UploadAvatarResponse> {
+
+        private Consumer consumer;
+
+        public callBackUploadAvatar(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<UploadAvatarResponse> call, Response<UploadAvatarResponse> response) {
+            UploadAvatarResponse userInfoResponse = response.body();
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<UploadAvatarResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    public void uploadAvatar(RequestAPI requestAPI, String fileName, Consumer consumer) {
+        File file = new File(fileName);
+        if (!file.exists())
+            return;
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+        requestAPI.uploadAvatar(body).enqueue(new callBackUploadAvatar(consumer));
+    }
+
+    public void changePass(RequestAPI requestAPI, String currentPass, String pass, String rePass, Consumer consumer) {
+        requestAPI.changePassword(currentPass, pass, rePass).enqueue(new callBackLogout(consumer));
+    }
+
+    private static class callBackChangePass implements Callback<ChangePassResponse> {
+
+        private Consumer consumer;
+
+        public callBackChangePass(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<ChangePassResponse> call, Response<ChangePassResponse> response) {
+            ChangePassResponse userInfoResponse = response.body();
+            if (userInfoResponse == null)
+            {
+                try {
+                    consumer.accept(new Gson().fromJson(response.errorBody().string(),BaseResponse.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<ChangePassResponse> call, Throwable t) {
             consumer.accept(t);
         }
     }

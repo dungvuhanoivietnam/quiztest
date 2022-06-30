@@ -11,8 +11,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,14 +23,18 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.adapter.LanguageAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.callback.ActivityResultFragment;
 import com.quiztest.quiztest.custom.ExtEditText;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogChooseImage;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.utils.Const;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
+import com.quiztest.quiztest.utils.Utils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 public class SettingFragment extends BaseFragment implements ActivityResultFragment {
@@ -42,6 +48,10 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     private DialogChooseImage dialogChooseImage;
     private boolean isSave = false;
     private boolean isLogin = false;
+    private Spinner sp_language;
+
+    String[] countryNames = {"Tiếng Việt", "English"};
+    String[] countryFlag = {"https://manager-apps.merryblue.llc/storage/flags/Vietnam.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1920px-Flag_of_the_United_Kingdom.svg.png"};
 
     @Override
     protected int getLayoutId() {
@@ -66,6 +76,8 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         txt_link_facebook = v.findViewById(R.id.txt_link_facebook);
         ll_logout = v.findViewById(R.id.ll_logout);
         llSave = v.findViewById(R.id.llSave);
+
+        v.findViewById(R.id.txt_change_info).setOnClickListener(v1 -> replaceFragment(new ChangePassFragment(),ChangePassFragment.class.getSimpleName()));
 
         dialogChooseImage = new DialogChooseImage(getContext(), R.style.MaterialDialogSheet, type_select -> {
             if (type_select == DialogChooseImage.TYPE_SELECT.CAMERA)
@@ -96,12 +108,40 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
 
         ll_login.setOnClickListener(view -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
         ll_logout.setOnClickListener(view -> {
-            backstackFragment();
-            if (getActivity() instanceof MainActivity) {
-                MainActivity activity = (MainActivity) getActivity();
-                activity.actionLogout();
+            showLoading();
+            userViewModel.logout(requestAPI, o -> {
+                cancelLoading();
+                if (o instanceof BaseResponse) {
+                    BaseResponse baseResponse = (BaseResponse) o;
+                    if (baseResponse.getSuccess()) {
+                        SharePrefrenceUtils.getInstance(mContext).saveAuth("");
+                        userViewModel.clearViewModel();
+                        backstackFragment();
+                        if (getActivity() instanceof MainActivity) {
+                            MainActivity activity = (MainActivity) getActivity();
+                            activity.actionLogout();
+                        }
+                    }else{
+
+                    }
+                }
+            });
+
+        });
+        sp_language = v.findViewById(R.id.sp_language);
+        sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+        LanguageAdapter customAdapter = new LanguageAdapter(getContext(), countryFlag, countryNames);
+        sp_language.setAdapter(customAdapter);
     }
 
     private void checkIsSave() {
@@ -168,8 +208,9 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
 
     private void openCamera() {
         try {
-            if (Build.VERSION.SDK_INT >= 23 && mActivity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                mActivity.requestPermissions(new String[]{Manifest.permission.CAMERA}, Const.CAMERA_REQUEST_CODE);
+            if (Build.VERSION.SDK_INT >= 23 && mActivity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                    mActivity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                mActivity.requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Const.CAMERA_REQUEST_CODE);
                 return;
             }
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -183,7 +224,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             mActivity.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Const.ALBUM_REQUEST_CODE);
             return;
         }
-        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         mActivity.startActivityForResult(i, Const.ALBUM_REQUEST_CODE);
     }
 
@@ -191,11 +232,32 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     @Override
     public void result(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Const.CAMERA_REQUEST_CODE) {
+            if (data == null)
+                return;
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            Glide.with(mContext).load(photo).circleCrop().into(ivAvatar);
+            String path = Utils.saveImageFromCamera(getActivity(), photo);
+            if ("".equals(path))
+                return;
+            showLoading();
+            userViewModel.uploadAvatar(requestAPI, path, o -> {
+                cancelLoading();
+                Glide.with(mContext).load(photo).circleCrop().into(ivAvatar);
+                if (o instanceof UploadAvatarResponse) {
+                    UploadAvatarResponse uploadAvatarResponse = (UploadAvatarResponse) o;
+                    userViewModel.getUserInfoResponse().setAvatar(uploadAvatarResponse.getData());
+                }
+            });
         }
-        if (requestCode == Const.ALBUM_REQUEST_CODE){
-            Glide.with(mContext).load(data.getData()).circleCrop().into(ivAvatar);
+        if (requestCode == Const.ALBUM_REQUEST_CODE) {
+            showLoading();
+            userViewModel.uploadAvatar(requestAPI, Utils.getRealPathFromURI(mContext, data.getData()), o -> {
+                cancelLoading();
+                Glide.with(mContext).load(data.getData()).circleCrop().into(ivAvatar);
+                if (o instanceof UploadAvatarResponse) {
+                    UploadAvatarResponse uploadAvatarResponse = (UploadAvatarResponse) o;
+                    userViewModel.getUserInfoResponse().setAvatar(uploadAvatarResponse.getData());
+                }
+            });
         }
     }
 

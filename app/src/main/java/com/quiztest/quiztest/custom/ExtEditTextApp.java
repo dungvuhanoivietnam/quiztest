@@ -28,12 +28,12 @@ import java.util.regex.Pattern;
 
 public class ExtEditTextApp extends FrameLayout {
 
-    private enum TYPE_ERROR {
+    public enum TYPE_ERROR {
         ERROR, DONE, NOT_CHANGE
     }
 
     public enum TYPE_VALIDATE {
-        EMAIL, PASSWORD
+        EMAIL, PASSWORD, RE_PASSWORD
     }
 
     private TYPE_VALIDATE typeValidate;
@@ -41,6 +41,8 @@ public class ExtEditTextApp extends FrameLayout {
     private TextInputLayout etPasswordLayout;
     private ExtTextView txtError;
     private Consumer<Boolean> consumer;
+    private Consumer<String> consumerTextChange;
+    private String textFormat;
 
     public ExtEditTextApp(@NonNull Context context) {
         super(context);
@@ -66,14 +68,25 @@ public class ExtEditTextApp extends FrameLayout {
                     addTextChange(TYPE_ERROR.NOT_CHANGE);
                 } else {
                     if (typeValidate == TYPE_VALIDATE.EMAIL) {
-                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() );
+                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches());
                         addTextChange(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
                     if (typeValidate == TYPE_VALIDATE.PASSWORD) {
                         consumer.accept(charSequence.toString().length() >= 8);
                         addTextChange(charSequence.toString().length() >= 8 ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
+                    if (typeValidate == TYPE_VALIDATE.RE_PASSWORD) {
+                        if (charSequence.toString().length() >= 8 && textFormat != null) {
+                            consumer.accept(textFormat.equals(charSequence.toString()));
+                            addTextChange(textFormat.equals(charSequence.toString()) ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
+                        } else {
+                            addTextChange(TYPE_ERROR.ERROR);
+                        }
+                    }
                 }
+
+                if (consumerTextChange != null)
+                    consumerTextChange.accept(charSequence.toString());
             }
 
             @Override
@@ -101,7 +114,7 @@ public class ExtEditTextApp extends FrameLayout {
         }
     }
 
-    private void addTextChange(TYPE_ERROR typeError) {
+    public void addTextChange(TYPE_ERROR typeError) {
         txtError.setVisibility(GONE);
         switch (typeError) {
             case DONE:
@@ -117,5 +130,19 @@ public class ExtEditTextApp extends FrameLayout {
         }
     }
 
+    public void setTextFormat(String textFormat) {
+        this.textFormat = textFormat;
+    }
 
+    public String getText() {
+        return edtContent.getText().toString();
+    }
+
+    public void setHint(String hint) {
+        edtContent.setHint(hint);
+    }
+
+    public void setConsumerTextChange(Consumer<String> consumerTextChange) {
+        this.consumerTextChange = consumerTextChange;
+    }
 }

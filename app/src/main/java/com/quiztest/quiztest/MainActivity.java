@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private ExtTextView btnHome, btnRanking, btnProfile;
     private ConstraintLayout ctsBottomNavigation;
     private BaseFragment fragmentHome = new HomeFragment();
-    private BaseFragment fragmentRanking = new RankingFragment();
-    private BaseFragment fragmentProfile = new ProfileFragment();
+    private BaseFragment fragmentRanking;
+    private BaseFragment fragmentProfile;
     private List<Fragment> fragments = new ArrayList<>();
     private List<ExtTextView> btns = new ArrayList<>();
 
@@ -155,18 +155,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         btnRanking.setOnClickListener(v -> {
-            if (fragmentRanking.isAdded()) {
-                showFragment(fragmentRanking);
-                enableButton(btnRanking);
+            if (fragmentRanking == null) {
+                fragmentRanking = new RankingFragment();
             }
+            if (!fragments.contains(fragmentRanking)) {
+                fragments.add(fragmentRanking);
+                addFragment(fragmentRanking);
+            }
+            showFragment(fragmentRanking);
+            enableButton(btnRanking);
         });
         btnProfile.setOnClickListener(v -> {
-            if (fragmentProfile.isAdded()) {
-                showFragment(fragmentProfile);
-                enableButton(btnProfile);
+            if (fragmentProfile == null) {
+                fragmentProfile = new ProfileFragment();
             }
+            if (!fragments.contains(fragmentProfile)) {
+                fragments.add(fragmentProfile);
+                addFragment(fragmentProfile);
+            }
+            showFragment(fragmentProfile);
+            enableButton(btnProfile);
+
         });
-        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJiNDhiZTkzNjYyNWYxMmMzNTkwNjI0MTZjOGIwODI3ZDc2MjMxZWQ5NDk1YzkxMTI3NzI0MjM3MzhmNGI3NmRiYWVhZTI1M2M4NWMyYTg4NiIsImlhdCI6MTY1NjQ4ODM1Ny43MTMwODksIm5iZiI6MTY1NjQ4ODM1Ny43MTMwOTIsImV4cCI6MTgxNDI1NDc1Ny43MDU3NzEsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.aLEVhbBj_GL7Vi2_SyWBhtyZmajkUae2KR1vb-CDMO3G5myLfWf4nkPB-KVdfcTGpbhYquP_bokkXlPwKOiKSONidb7CX6jfGr6oK8V9Sup_VUoVcnK88gmcJvssGhiWDEIian4aRnmBygw-1iQ5cWXnPb_dUjxKT4yPLiKXfZvc6xfwJ4MLytW_8nWLH8DUBEh93Snv-AjcJM8uIzl6zSQCZqhj5NQBvuCvUewEfcvYcEtT4SUkAV8BL2_RCOWq-ifA-gBgfOeLsbkbQt7XdLgZAt5R0E8iIW1Jp2DgR0qN10cY_D3R2YJrroP8B1YhFRWXa-mmYsuZ8HlL4E1wRPZz-ws-m-5vET1jdHFCORyR212vaC6zAUr-XJJ1CAJ6tlHvQEEJDg3RmAuz3Kr9Rao4ngG2fZfm4A3dTk76y8XR5F05W1_nvmx79ywxIIYkvjbQX0D747kYIHadmYwHjzOC9iVzSzzwXevx5gXgWOK-S7zQW8JWGBdgB9JsWVS_LkJpyBjZW1E0pFRRm796oxqp9NDeGrn_hrYr6JQQr9fBvyGIJ40Xn8meRfxaQ_XcMm_LbbG_BqKh12tNtiXPQxYZZy7cCi9YWdrhihSHsvRci6yZNsYPFfTvpRxtm3wMhBMFlt9hHcZQ5RD75stnVPAj7JsWf3ikP4b7JRdstX8");
+        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJhMWMxYmVlNGY1ODI2MGJmNjUyZmM0MGU4NmJlYWM5NWM2NmUxOTdjYzc1ZjNhZDc0YmUxZmFkNzc4NWQ4OTlmN2M5YjA3Y2VjYmExMzYyOCIsImlhdCI6MTY1NjU1Nzk4Mi40MjI1NTcsIm5iZiI6MTY1NjU1Nzk4Mi40MjI1NjMsImV4cCI6MTgxNDMyNDM4Mi40MTM5NjEsInN1YiI6IjIyIiwic2NvcGVzIjpbXX0.C7Cwng_0h55aA7m8M2neYCWcIFTrIdQr1c01l5eKJT3FYWlOP0nX0goy9KqNIfiehzbTnRFF6XVBxJzUw1UPyneIVKnlU2Hkyx_gBRpu3w_URv9mjGPhnGKT7fZcahFDiOS49SDUdsk_U4-4rN7vwv0b1l1MgseSTMB7f6MKhZNQmtJD2khFBOMyORX1YIjcjtgwJxbAuZW76Gz_iKLcaRbl7rCHl4v-Ty_-cXs0Wu_EgAoeqH9zpaF0xmn_68IHM9S4W_PoZEvaYJB5klioRtyNV9YU0w8VaUL6RRiYiPLkgCiPUQnRre-SqbXkCdMKvQpQZCix88QE4OLmm5iq0572r7OguWlxtLQwMi-39qfxL8MTnzBuOnNgt2x73kRX70v1kuQOqSxyafr-saHoVwPj2UwY8aX2WZO6NRRf1QFlw86aDD-r5wZpl8T8CvKn2JW8MDwxfALciNAosOloq4CS_ASS0v7XcX21gDt2jf__GOun_UzV2n5WdUlBge_FALcxAVBtyuywLDrgezjFxchnmOY5dQSBUmxvHVWqf6kgtRRLXRt4X3RFbx-yvRLU5_EJSJwbN9RaH8EfeyBXTr4N-JR9nL5Pp2ioYPpLDSh1TRGvv51_7eOUbipEK57imJIQkCAWill-o4l1sB24a3q_-X91gorl8_9l8bT5SOg");
     }
 
     private void enableButton(ExtTextView btnEnable) {
@@ -191,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         fragments.add(fragmentHome);
-        fragments.add(fragmentRanking);
-        fragments.add(fragmentProfile);
+//        fragments.add(fragmentRanking);
+//        fragments.add(fragmentProfile);
 
 //        fragmentStates.add(HomeFragment.class.getSimpleName());
 //        ft = getSupportFragmentManager().beginTransaction();
@@ -201,8 +212,8 @@ public class MainActivity extends AppCompatActivity {
 //        ft.commit();
 
         addFragment(fragmentHome);
-        addFragment(fragmentRanking);
-        addFragment(fragmentProfile);
+//        addFragment(fragmentRanking);
+//        addFragment(fragmentProfile);
 
         btnHome = findViewById(R.id.btn_home);
         btns.add(btnHome);

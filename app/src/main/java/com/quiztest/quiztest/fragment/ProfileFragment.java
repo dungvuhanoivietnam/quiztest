@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.HistoryAdapter;
+import com.quiztest.quiztest.adapter.LanguageAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -38,9 +41,12 @@ public class ProfileFragment extends BaseFragment {
     private RecyclerView rcv_history;
     private HistoryAdapter historyAdapter;
 
+
     private UserViewModel userViewModel;
 
     public static final String TAG = ProfileFragment.class.getSimpleName();
+
+
 
     @Nullable
     @Override
@@ -76,6 +82,7 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);
 

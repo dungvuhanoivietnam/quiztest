@@ -65,4 +65,19 @@
     <string name="no_search_results_found">No search results found</string>
     <string name="search_quiz">Search quiz test</string>
     <string name="search">Search</string>
+    <string name="stars">0 Stars</string>
+    <string name="not_update">Not update</string>
+    <string name="weekly_ranking">Weekly ranking</string>
+    <string name="overall_rating">Overall rating</string>
+    <string name="please_login_to_use_this_feature">Please login to use this feature</string>
+    <string name="score"><b>%d</b> điểm</string>
+
+    <string name="change_password">Change password</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="reset">Reset</string>
+    <string name="password_does_not_match">Re-entered password does not match</string>
+    <string name="current_password">Current password</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="enter_your_new_password_again">Enter your new password again</string>
+
 </resources>
