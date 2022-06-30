@@ -1,14 +1,15 @@
 package com.quiztest.quiztest.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class AuthResponse (
     val success: Boolean?,
-    val data: Data?,
-    val message: String?
+    val data: DataAuth?,
+    val message: String?,
 )
 
-data class Data (
+data class DataAuth (
     @SerializedName("access_token")
     val accessToken: String?,
 

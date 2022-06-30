@@ -20,18 +20,18 @@ class RegisterViewModel(
 
     fun registerAccount(email: String, name: String, password: String, confirm_password: String){
         isLoading.postValue(true)
-        userRepository.registerAccount(email,name,password,confirm_password).enqueue(object  : Callback<ResponseBody>{
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+        userRepository.registerAccount(email,name,password,confirm_password).enqueue(object  : Callback<AuthResponse>{
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 isLoading.postValue(false)
-//                val data =  response.body() as AuthResponse
-//                if (response.isSuccessful){
-//                    registerAccount.postValue(data)
-//                }else{
-//                    errorMessage.postValue(response.message())
-//                }
+                val data =  response.body() as AuthResponse
+                if (response.isSuccessful){
+                    registerAccount.postValue(data)
+                }else{
+                    errorMessage.postValue(response.message())
+                }
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                 isLoading.postValue(false)
                 errorMessage.postValue(t.message)
             }

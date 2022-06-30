@@ -1,7 +1,8 @@
 package com.quiztest.quiztest.remote
 
-import com.quiztest.quiztest.App
+import com.quiztest.quiztest.model.AuthResponse
 import com.quiztest.quiztest.model.UserReponse
+import com.quiztest.quiztest.model.VerifyEmailResponse
 import com.quiztest.quiztest.retrofit.RequestAPI
 import com.quiztest.quiztest.retrofit.RetrofitClient
 import okhttp3.ResponseBody
@@ -15,14 +16,18 @@ class AuthRemote(
         name: String,
         password: String,
         confirm_password: String
-    ): Call<ResponseBody> {
+    ): Call<AuthResponse> {
         return apiUser.registerAccount(email, name, password, confirm_password)
     }
 
     fun loginAccount(
         email: String,
         password: String,
-    ): Call<UserReponse> {
+    ): Call<AuthResponse> {
         return apiUser.loginAccount(email, password)
+    }
+
+    fun verifyEmail( email: String): Call< VerifyEmailResponse>{
+        return apiUser.verifyMail(email)
     }
 }

@@ -1,6 +1,8 @@
 package com.quiztest.quiztest.repository
 
+import com.quiztest.quiztest.model.AuthResponse
 import com.quiztest.quiztest.model.UserReponse
+import com.quiztest.quiztest.model.VerifyEmailResponse
 import com.quiztest.quiztest.remote.AuthRemote
 
 import okhttp3.ResponseBody
@@ -13,13 +15,16 @@ private val remoteUser:AuthRemote = AuthRemote()
         name: String,
         password: String,
         confirm_password: String
-    ): Call<ResponseBody> {
+    ): Call<AuthResponse> {
         return remoteUser.registerAccount(email, name, password, confirm_password)
     }
     fun loginAccount(
         email: String,
         password: String,
-    ): Call<UserReponse> {
+    ): Call<AuthResponse> {
         return remoteUser.loginAccount(email, password)
+    }
+    fun verifyEmail( email: String): Call<VerifyEmailResponse>{
+        return remoteUser.verifyEmail(email)
     }
 }

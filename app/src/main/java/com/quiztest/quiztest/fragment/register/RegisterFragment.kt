@@ -69,9 +69,6 @@ class RegisterFragment : BaseFragment() {
         setupView()
         setupObserver()
 
-
-
-
     }
 
 
@@ -160,9 +157,8 @@ class RegisterFragment : BaseFragment() {
     private fun handleRegister() {
         if (isSuccessEmail && isSuccessName && isSuccessPass && isSuccessConfirmPass) {
             binding.btnRegister.setBackgroundResource(R.drawable.btn_background_done)
-            binding.btnRegister.setOnClickListener {
-                viewModel.registerAccount(email, name, password, confirmPassword)
-            }
+            viewModel.registerAccount(email, name, password, confirmPassword)
+
 
 
         } else {
@@ -177,7 +173,7 @@ class RegisterFragment : BaseFragment() {
 
     private fun validateEmail() {
 
-        if (email.matches(emailPattern) && email.length > 0) {
+        if (email.matches(emailPattern) && email.length <100) {
             binding.txtErrorEmail.isVisible = false
             binding.edtMail.setBackgroundResource(R.drawable.boarde_blue_21)
             isSuccessEmail = true
@@ -192,7 +188,7 @@ class RegisterFragment : BaseFragment() {
     }
 
     private fun validateName() {
-        if (name.length > 32) {
+        if (name.length > 100) {
             binding.txtErrorName.isVisible = true
             binding.txtErrorName.setText(R.string.Your_name_cannot_exceed_32_characters)
             binding.edtName.setBackgroundResource(R.drawable.boarde_red)
@@ -208,14 +204,14 @@ class RegisterFragment : BaseFragment() {
     }
 
     private fun validatePassWord() {
-        if (password.length < 8) {
+        if (password.length < 6) {
             binding.txtErrorPass.isVisible = true
-            binding.txtErrorPass.setText(R.string.password_cannot_less_8_characters)
+            binding.txtErrorPass.setText(R.string.password_cannot_less_6_characters)
             binding.edtPass.setBackgroundResource(R.drawable.boarde_red)
             isSuccessPass = false
             return
         }
-        if (password.length >= 8) {
+        if (password.length >= 6) {
             binding.txtErrorPass.isVisible = false
             binding.edtPass.setBackgroundResource(R.drawable.boarde_blue_21)
             isSuccessPass = true
@@ -225,9 +221,9 @@ class RegisterFragment : BaseFragment() {
 
 
     private fun validateConfirmPassword() {
-        if (confirmPassword.length < 8) {
+        if (confirmPassword.length < 6) {
             binding.txtErrorConfirmpass.isVisible = true
-            binding.txtErrorConfirmpass.setText(R.string.password_cannot_less_8_characters)
+            binding.txtErrorConfirmpass.setText(R.string.password_cannot_less_6_characters)
             binding.edtConfirmPass.setBackgroundResource(R.drawable.boarde_red)
             isSuccessConfirmPass = false
             return
@@ -238,9 +234,11 @@ class RegisterFragment : BaseFragment() {
             isSuccessConfirmPass = false
             return
         } else {
-        binding.txtErrorConfirmpass.isVisible = false
-        binding.edtPass.setBackgroundResource(R.drawable.boarde_blue_21)
-        isSuccessConfirmPass = true}
+            binding.txtErrorConfirmpass.isVisible = false
+            binding.edtConfirmPass.setBackgroundResource(R.drawable.boarde_blue_21)
+            isSuccessConfirmPass = true
+        }
+
 
     }
 
@@ -272,7 +270,6 @@ class RegisterFragment : BaseFragment() {
     }
 
     private fun String.matches(regex: String): Boolean {
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return Pattern.matches(emailPattern, this)
 
     }

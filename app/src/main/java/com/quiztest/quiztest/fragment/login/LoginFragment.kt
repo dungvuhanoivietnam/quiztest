@@ -16,6 +16,7 @@ import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
 import com.quiztest.quiztest.fragment.HomeFragment
+import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
@@ -92,6 +93,12 @@ class LoginFragment : BaseFragment() {
             replaceFragment(RegisterFragment(), RegisterFragment::class.java.simpleName)
             (activity as MainActivity?)!!.hideOrShowBottomView(false)
         }
+
+        binding.txtFogotPass.setOnClickListener {
+            replaceFragment(VerifyMailFragment(), VerifyMailFragment::class.java.simpleName)
+            (activity as MainActivity?)!!.hideOrShowBottomView(false)
+        }
+
         binding.imvEyePass.setOnClickListener {
             if (ishowPassword) {
                 binding.edtPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
@@ -121,11 +128,13 @@ class LoginFragment : BaseFragment() {
         binding.btnLogin.setOnClickListener {
             handleLogin()
         }
+
     }
 
 
+
     private fun validateEmail() {
-        if (email.matches(emailPattern) && email.length > 0) {
+        if (email.matches(emailPattern) && email.length < 100) {
             binding.txtErrorEmail.isVisible = false
             binding.edtMail.setBackgroundResource(R.drawable.boarde_blue_21)
             isSuccessEmail = true
@@ -142,14 +151,14 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun validatePassWord() {
-        if (password.length < 8) {
+        if (password.length < 6) {
             binding.txtErrorPass.isVisible = true
-            binding.txtErrorPass.setText(R.string.password_cannot_less_8_characters)
+            binding.txtErrorPass.setText(R.string.password_cannot_less_6_characters)
             binding.edtPass.setBackgroundResource(R.drawable.boarde_red)
             isSuccessPass = false
             return
         }
-        if (password.length >= 8) {
+        if (password.length >= 6) {
             binding.txtErrorPass.isVisible = false
             binding.edtPass.setBackgroundResource(R.drawable.boarde_blue_21)
             isSuccessPass = true
