@@ -70,50 +70,7 @@ class RegisterFragment : BaseFragment() {
         setupObserver()
 
 
-//
-//     binding.edtName.initData(
-//            ExtEditTextApp.TYPE_VALIDATE.NAME,
-//            context?.getString(R.string.Your_name_cannot_exceed_32_characters)
-//                ?: "", InputType.TYPE_CLASS_TEXT
-//        ) { t ->
-//            kotlin.run {
-//                isSuccessName = t
-//                initButtonRegister()
-//            }
-//        }
-//
-//
-//        binding.edtMail.initData(
-//            ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
-//                ?: "",InputType.TYPE_CLASS_TEXT
-//        ) { t ->
-//            kotlin.run {
-//                isSuccessEmail = t
-//                initButtonRegister()
-//            }
-//        }
-//
-//        binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
-//            context?.getString(R.string.incorrect_password)
-//                ?: "",
-//            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-//        ) { t ->
-//            kotlin.run {
-//                isSuccessPass = t
-//                initButtonRegister()
-//            }
-//        }
-//
-//        binding.edtConfirmPass.initData(ExtEditTextApp.TYPE_VALIDATE.COMFIRNPASSWORD,
-//            context?.getString(R.string.incorrect_password)
-//                ?: "",
-//            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-//        ) { t ->
-//            kotlin.run {
-//                isSuccessPass = t
-//                initButtonRegister()
-//            }
-//
+
 
     }
 
@@ -139,12 +96,10 @@ class RegisterFragment : BaseFragment() {
                 binding.edtConfirmPass.transformationMethod =
                     HideReturnsTransformationMethod.getInstance()
                 binding.imvEyeRepass.setImageResource(R.drawable.ic_open_eye)
-                Log.e("---...", "repass: 1", )
 
             } else {
                 binding.edtConfirmPass.transformationMethod = PasswordTransformationMethod.getInstance()
                 binding.imvEyeRepass.setImageResource(R.drawable.ic_close_eye)
-                Log.e("---...", "repass: 2", )
             }
 
         }
@@ -162,7 +117,6 @@ class RegisterFragment : BaseFragment() {
         }
         binding.edtPass.doOnTextChanged { text, start, before, count ->
             password = text.toString().trim()
-            Log.e("---...", "mpass: ${password} ", )
             validatePassWord()
             checkButtonRegister()
         }
@@ -170,7 +124,6 @@ class RegisterFragment : BaseFragment() {
             confirmPassword = text.toString().trim()
             validateConfirmPassword()
             checkButtonRegister()
-            Log.e("---...", "confirmpass: ${confirmPassword} ", )
         }
 
         binding.btnRegister.setOnClickListener {
@@ -295,30 +248,6 @@ class RegisterFragment : BaseFragment() {
         binding.btnRegister.isEnabled = isSuccessEmail && isSuccessPass && isSuccessName && isSuccessConfirmPass
     }
 
-
-    //    fun hotlineDescriptionText(textView: TextView, boolean: Boolean){
-//        val pattern1 = requireContext().getString(R.string.when_you_click_register_you_agree_to)+ " "
-//        val pattern2 = requireContext().getString(R.string.our_terms_and_conditions_of_use)
-//
-//
-//        val clickableSpan = object : ClickableSpan(){
-//            override fun onClick(widget: View) {
-//
-//            }
-//
-//            override fun updateDrawState(ds: TextPaint) {
-//                super.updateDrawState(ds)
-//                ds.isUnderlineText = true
-//            }
-//        }
-//
-//        textView.setClickSpan(
-//            clickableSpan,
-//            pattern1 + pattern2,
-//            pattern2
-//        )
-//
-//    }
     private fun setupObserver() {
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isShowLoading ->
