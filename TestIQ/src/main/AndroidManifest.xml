@@ -20,6 +20,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".ActivityQuestion"/>
     </application>
 
 </manifest>
