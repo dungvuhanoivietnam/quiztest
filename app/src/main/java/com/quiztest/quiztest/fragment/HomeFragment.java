@@ -16,15 +16,8 @@ import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
-import com.quiztest.quiztest.retrofit.RequestAPI;
-import com.quiztest.quiztest.retrofit.RetrofitClient;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.retrofit.RequestAPI;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -87,6 +80,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);
             }
         }
+
     }
 
     @Override
