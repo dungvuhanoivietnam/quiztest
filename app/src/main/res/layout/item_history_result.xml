@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:textColor="@color/color_8D959D"
+                android:textSize="@dimen/_10sdp" />
+
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_22313F"
+                android:textSize="@dimen/_14sdp" />
+
+        </LinearLayout>
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/txt_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:textColor="@color/color_21C3FF"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_EDEFF1" />
+
+
+</LinearLayout>

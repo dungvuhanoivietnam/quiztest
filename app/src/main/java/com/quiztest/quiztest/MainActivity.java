@@ -1,6 +1,5 @@
 package com.quiztest.quiztest;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,14 +25,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.aemerse.onboard.OnboardAdvanced;
 import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
+import com.quiztest.quiztest.callback.ActivityResultFragment;
+import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
-import com.quiztest.quiztest.custom.ExtTextView;
-import com.aemerse.onboard.ScreenUtils;
+import com.quiztest.quiztest.fragment.SettingFragment;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.ArrayList;
@@ -47,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
     private ExtTextView btnHome, btnRanking, btnProfile;
     private ConstraintLayout ctsBottomNavigation;
     private BaseFragment fragmentHome = new HomeFragment();
-    private BaseFragment fragmentRanking = new RankingFragment();
-    private BaseFragment fragmentProfile = new ProfileFragment();
+    private BaseFragment fragmentRanking;
+    private BaseFragment fragmentProfile;
     private List<Fragment> fragments = new ArrayList<>();
     private List<ExtTextView> btns = new ArrayList<>();
 
     private boolean isKeyboardVisible;
+    private ActivityResultFragment activityResultFragment;
 
 
     @Override
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isKeyBoardVisible(){
+    public boolean isKeyBoardVisible() {
         return isKeyboardVisible;
     }
 
@@ -156,18 +155,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         btnRanking.setOnClickListener(v -> {
-            if (fragmentRanking.isAdded()) {
-                showFragment(fragmentRanking);
-                enableButton(btnRanking);
+            if (fragmentRanking == null) {
+                fragmentRanking = new RankingFragment();
             }
+            if (!fragments.contains(fragmentRanking)) {
+                fragments.add(fragmentRanking);
+                addFragment(fragmentRanking);
+            }
+            showFragment(fragmentRanking);
+            enableButton(btnRanking);
         });
         btnProfile.setOnClickListener(v -> {
-            if (fragmentProfile.isAdded()) {
-                showFragment(fragmentProfile);
-                enableButton(btnProfile);
+            if (fragmentProfile == null) {
+                fragmentProfile = new ProfileFragment();
             }
+            if (!fragments.contains(fragmentProfile)) {
+                fragments.add(fragmentProfile);
+                addFragment(fragmentProfile);
+            }
+            showFragment(fragmentProfile);
+            enableButton(btnProfile);
+
         });
-        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJlMTUyYzljNDJiYzk1NzAyMjFkMjg5ZjQwZWQ2ZTg3MTc1OWRkMjBjZWNmM2ZmZTRiNjc3YzZiNmUxNjNjMGJlZTczMmQ0MTQxOTQzNGZjYyIsImlhdCI6MTY1NjM4NjMyMC40MTE2OTQsIm5iZiI6MTY1NjM4NjMyMC40MTE2OTgsImV4cCI6MTgxNDE1MjcyMC40MDg0OTcsInN1YiI6IjE0Iiwic2NvcGVzIjpbXX0.Ed0MVbv94YjVV-fGYffTGwC5ON-mw2y4vz8Hyb6D9dehLrzzLRFE_I3YjKbD7qbZ6m98Rj1PcC52z-DyfszPUYvvvXReNyLP2pZI4mRlWNjzwQD9mWPwkh97PHtvBWzFOGWuvYwJf_H9no4hO9nIhXWZfU7wGvZZvZwx5huSTALv7Q3K8akH5d395EKO2xLObrDPqmW5XJITWM3QDFK9Hp5TNaee7MoLm00_io-QnPSc7pReCHNeqna8Ef6pNar1RT57cdS4qkzBzkGj4-uNsUeZsCMqqbxOIvsc4A33-eav-GSkzaWLCrnlE_OYUgZPl7msR0WUjkBZuqhfa4nQZIheKBw6fUbPjrsHSP9MI5dFoj5EKLhnmNYONPv3gc5Fi9Of8agIeRRZABi-tRFeBfUf8iN7KWV3KbLtO-MIWcB2TfNVsl7VQ7AN-Ofuwy_QzvLlfTxCrd_eGMYMMu0k5ATH82OVxfzLcE-1N29RPX7ly_BfhWHplY7b9nU-t2E2UttNvgAW8wDXAcHO6YNSmO2HCR5S3FWo0UgH0UOuJmZhzQC1hjkycu6gtALXdSzmbn-p_63_ZRZkzQQuqkvoTaIbbrKA09cYTtcPyA9ddAa17_PyT5U8-CmUmWbSY1XtmiIXGCROFlrWGx4KfaXFuRz0nFQJzVt9J2MPk4-la4s");
+        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJiZTgyMjBiMWQyMGVhODM5MDUyMWM2MGZhZDllMjFjOWNhZGNiZDEwZTViNmRhYjFiYTlmNmUzYzI1OTJlODIyMDMzYjI5YzJlYzczODk5MyIsImlhdCI6MTY1NjU4MTUwMS43MzA5NjQsIm5iZiI6MTY1NjU4MTUwMS43MzA5NjksImV4cCI6MTgxNDM0NzkwMS43MjUzNjYsInN1YiI6IjI0Iiwic2NvcGVzIjpbXX0.TiYJ1lHFU3cOOdepgkh2WcWmokEOFB59Jbf-RRvxBp2li857MkeSZtUb0BirpxpU_vxw8WfONHq6isjx5y2Q4hiA-GlW2bHIlBU109DFbuVIZOE7TC4I7Elj7PgVJIXvyEaCtGHc5Q_iwTtPWDa-gIGnEu2IoxDK48q4bxTWUd73afX0PV8zUajXn1XUwGrSMzz9oJXOLm8-X8LCCuJRDtnCcH9zuSewToEQeFEiAQxO_VWeYKGfBW15CY--RwlwXQdt5sfG-hMMIT5qkVEGJcGhkhZSXxT1TJGIstSSm5rRxdmf36Tmy22LxeH5vV9-9LpvlMnS6BMLJPBBBjpLzkU-QCNiLKewEVNgt6kDzO8mwY5ZjO17RyWvP-bDcmpSJeZmW_6yOSwwaFL3Q3r3Fe_U9eIkXkEqS3DI5-JyFpIJnEsLoJGELyWkCczCPFh3FGDDtSg4ILI4CEwQXx4yqyTC7Z96SJ6aQZ_2N3NX6bghru3R7dXiSeh2Z2qySYR6SWJKqtOUrIayF5A3oFd6dMX2v_x_kq-L6GmULJeuG-LWNodZSD1s3eGdFYShRvdWtPmnGcBiwa4cbM3Uch1JEKSORRpUcuZlC0aHjBAWXswjezyUqdmS8_rDtjwid1jLjvvDm285aG2Qv8PBMDqMBy1FX9_hj9UJ66-YO7CG_Ho");
     }
 
     private void enableButton(ExtTextView btnEnable) {
@@ -192,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         fragments.add(fragmentHome);
-        fragments.add(fragmentRanking);
-        fragments.add(fragmentProfile);
+//        fragments.add(fragmentRanking);
+//        fragments.add(fragmentProfile);
 
 //        fragmentStates.add(HomeFragment.class.getSimpleName());
 //        ft = getSupportFragmentManager().beginTransaction();
@@ -202,8 +212,8 @@ public class MainActivity extends AppCompatActivity {
 //        ft.commit();
 
         addFragment(fragmentHome);
-        addFragment(fragmentRanking);
-        addFragment(fragmentProfile);
+//        addFragment(fragmentRanking);
+//        addFragment(fragmentProfile);
 
         btnHome = findViewById(R.id.btn_home);
         btns.add(btnHome);
@@ -212,6 +222,11 @@ public class MainActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.btn_profile);
         btns.add(btnProfile);
         ctsBottomNavigation = findViewById(R.id.cts_bottomNavigation);
+    }
+
+    public void actionLogout() {
+        showFragment(fragmentHome);
+        enableButton(btnHome);
     }
 
     private void addFragment(BaseFragment fmAdd) {
@@ -239,6 +254,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(Fragment fragment, String tag) {
+        if (tag.contains(SettingFragment.class.getSimpleName())) {
+            activityResultFragment = (SettingFragment) fragment;
+        }
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frContent, fragment);
         if (!fragmentStates.contains(tag))
@@ -332,5 +350,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d("LOGGGGG", "LOGGGGG onPause NativeLogin");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        activityResultFragment.result(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        activityResultFragment.result(requestCode,permissions,grantResults);
     }
 }

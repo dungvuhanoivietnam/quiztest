@@ -6,7 +6,6 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +28,12 @@ import java.util.regex.Pattern;
 
 public class ExtEditTextApp extends FrameLayout {
 
-    private enum TYPE_ERROR {
+    public enum TYPE_ERROR {
         ERROR, DONE, NOT_CHANGE
     }
 
     public enum TYPE_VALIDATE {
-        EMAIL, PASSWORD, NAME, COMFIRNPASSWORD
+        EMAIL, PASSWORD, RE_PASSWORD
     }
 
     private TYPE_VALIDATE typeValidate;
@@ -42,7 +41,8 @@ public class ExtEditTextApp extends FrameLayout {
     private TextInputLayout etPasswordLayout;
     private ExtTextView txtError;
     private Consumer<Boolean> consumer;
-    private String passWord;
+    private Consumer<String> consumerTextChange;
+    private String textFormat;
 
     public ExtEditTextApp(@NonNull Context context) {
         super(context);
@@ -55,7 +55,6 @@ public class ExtEditTextApp extends FrameLayout {
         edtContent = view.findViewById(R.id.edtContent);
         txtError = view.findViewById(R.id.txtError);
         etPasswordLayout = view.findViewById(R.id.etPasswordLayout);
-
         edtContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -68,34 +67,26 @@ public class ExtEditTextApp extends FrameLayout {
                 if ("".equals(charSequence.toString())) {
                     addTextChange(TYPE_ERROR.NOT_CHANGE);
                 } else {
-
                     if (typeValidate == TYPE_VALIDATE.EMAIL) {
-                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches());
+                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() );
                         addTextChange(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
                     if (typeValidate == TYPE_VALIDATE.PASSWORD) {
                         consumer.accept(charSequence.toString().length() >= 8);
                         addTextChange(charSequence.toString().length() >= 8 ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
-                    if (typeValidate == TYPE_VALIDATE.NAME) {
-                        consumer.accept(charSequence.toString().length() <= 32);
-                        addTextChange(charSequence.toString().length() <= 32 ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
-                    }
-                    if (typeValidate == TYPE_VALIDATE.COMFIRNPASSWORD) {
-                        boolean isSuccess = charSequence.toString().length() >= 8 && charSequence.toString().equals(passWord);
-                        Log.e("=====>", "length:" + charSequence.toString().length());
-                        Log.e("=====>", "passWord:" + charSequence + "  " + passWord);
-                        consumer.accept(isSuccess);
-                        addTextChange(isSuccess ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
-                        if (charSequence.toString().length() <= 8)
-                            txtError.setText("Password cannot less 8 characters");
-                        if (!charSequence.toString().equals(passWord)) {
-                            txtError.setText("Re-entered password does not match");
+                    if (typeValidate == TYPE_VALIDATE.RE_PASSWORD) {
+                        if (charSequence.toString().length() >= 8 && textFormat != null) {
+                            consumer.accept(textFormat.equals(charSequence.toString()));
+                            addTextChange(textFormat.equals(charSequence.toString()) ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
+                        } else {
+                            addTextChange(TYPE_ERROR.ERROR);
                         }
                     }
-
-
                 }
+
+                if (consumerTextChange != null)
+                    consumerTextChange.accept(charSequence.toString());
             }
 
             @Override
@@ -123,16 +114,7 @@ public class ExtEditTextApp extends FrameLayout {
         }
     }
 
-    public void validatePass(String passWord) {
-        Log.e("=====>", "validatePass:" + "  " + passWord.toString());
-        this.passWord = passWord;
-    }
-
-    public void setHintEditText(String hint) {
-        this.edtContent.setHint(hint);
-    }
-
-    private void addTextChange(TYPE_ERROR typeError) {
+    public void addTextChange(TYPE_ERROR typeError) {
         txtError.setVisibility(GONE);
         switch (typeError) {
             case DONE:
@@ -148,5 +130,19 @@ public class ExtEditTextApp extends FrameLayout {
         }
     }
 
+    public void setTextFormat(String textFormat) {
+        this.textFormat = textFormat;
+    }
 
+    public String getText() {
+        return edtContent.getText().toString();
+    }
+
+    public void setHint(String hint) {
+        edtContent.setHint(hint);
+    }
+
+    public void setConsumerTextChange(Consumer<String> consumerTextChange) {
+        this.consumerTextChange = consumerTextChange;
+    }
 }

@@ -2,6 +2,7 @@ package com.quiztest.quiztest.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.callback.ActivityResultFragment;
 import com.quiztest.quiztest.dialog.DialogProgressLoading;
 import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -37,6 +39,9 @@ public abstract class BaseFragment extends Fragment {
     private DialogProgressLoading dialogProgressLoading;
     protected RequestAPI requestAPI;
 
+    // cái này cần set mới có nhé
+    protected ActivityResultFragment activityResultFragment;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,7 +52,6 @@ public abstract class BaseFragment extends Fragment {
         );
         initView(v);
         initData();
-        dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
         return v;
     }
 
@@ -175,15 +179,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showLoading() {
-        if (dialogProgressLoading != null && !dialogProgressLoading.isShowing()) {
+        dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
+        if (!dialogProgressLoading.isShowing()) {
             dialogProgressLoading.show();
         }
     }
 
     protected void cancelLoading() {
-        if (dialogProgressLoading != null && dialogProgressLoading.isShowing()) {
-            dialogProgressLoading.hide();
+        if (dialogProgressLoading != null) {
+            dialogProgressLoading.dismiss();
         }
     }
 
+    public void setActivityResultFragment(ActivityResultFragment activityResultFragment) {
+        this.activityResultFragment = activityResultFragment;
+    }
 }
