@@ -31,7 +31,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin;
-    private SearchView searchView;
+//    private SearchView searchView;
     private RequestAPI requestAPI;
 
     @Override
@@ -54,7 +54,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View v) {
         extLogin = v.findViewById(R.id.ext_login);
-        searchView = v.findViewById(R.id.search_view);
+//        searchView = v.findViewById(R.id.search_view);
     }
 
 
@@ -68,7 +68,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         extLogin.setOnClickListener(this);
 
         //check onCLick search view
-        searchView.setOnClickListener(this);
+//        searchView.setOnClickListener(this);
     }
 
     @Override

@@ -79,5 +79,10 @@
     <string name="current_password">Current password</string>
     <string name="enter_your_new_password">Enter your new password</string>
     <string name="enter_your_new_password_again">Enter your new password again</string>
+    <string name="get_more">Get more</string>
+    <string name="open">Open</string>
+    <string name="earning_tasks">Earning Tasks</string>
+    <string name="get_more_stars">Get more stars</string>
+    <string name="get_more_star_chances">Get more star chances</string>
 
 </resources>
