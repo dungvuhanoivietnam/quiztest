@@ -186,8 +186,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void cancelLoading() {
-        if (dialogProgressLoading != null && dialogProgressLoading.isShowing()) {
-            dialogProgressLoading.hide();
+        if (dialogProgressLoading != null) {
+            dialogProgressLoading.dismiss();
         }
     }
 

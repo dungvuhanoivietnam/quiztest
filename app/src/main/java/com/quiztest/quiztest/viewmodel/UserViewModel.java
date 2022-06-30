@@ -6,7 +6,9 @@ import androidx.core.util.Consumer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
+import com.google.gson.Gson;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.ChangePassResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -112,7 +114,7 @@ public class UserViewModel extends ViewModel {
         requestAPI.updateProfile(name, email).enqueue(new callBackUpdateProfile(consumer));
     }
 
-    private class callBackUpdateProfile implements Callback<BaseResponse> {
+    private static class callBackUpdateProfile implements Callback<BaseResponse> {
 
         private Consumer consumer;
 
@@ -136,7 +138,7 @@ public class UserViewModel extends ViewModel {
         requestAPI.logOut().enqueue(new callBackLogout(consumer));
     }
 
-    private class callBackLogout implements Callback<BaseResponse> {
+    private static class callBackLogout implements Callback<BaseResponse> {
 
         private Consumer consumer;
 
@@ -147,6 +149,14 @@ public class UserViewModel extends ViewModel {
         @Override
         public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
             BaseResponse userInfoResponse = response.body();
+            if (userInfoResponse == null)
+            {
+                try {
+                    userInfoResponse = new Gson().fromJson(response.errorBody().string(),BaseResponse.class);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             consumer.accept(userInfoResponse);
         }
 
@@ -156,7 +166,7 @@ public class UserViewModel extends ViewModel {
         }
     }
 
-    private class callBackUploadAvatar implements Callback<UploadAvatarResponse> {
+    private static class callBackUploadAvatar implements Callback<UploadAvatarResponse> {
 
         private Consumer consumer;
 
@@ -185,5 +195,37 @@ public class UserViewModel extends ViewModel {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
         requestAPI.uploadAvatar(body).enqueue(new callBackUploadAvatar(consumer));
+    }
+
+    public void changePass(RequestAPI requestAPI, String currentPass, String pass, String rePass, Consumer consumer) {
+        requestAPI.changePassword(currentPass, pass, rePass).enqueue(new callBackLogout(consumer));
+    }
+
+    private static class callBackChangePass implements Callback<ChangePassResponse> {
+
+        private Consumer consumer;
+
+        public callBackChangePass(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<ChangePassResponse> call, Response<ChangePassResponse> response) {
+            ChangePassResponse userInfoResponse = response.body();
+            if (userInfoResponse == null)
+            {
+                try {
+                    consumer.accept(new Gson().fromJson(response.errorBody().string(),BaseResponse.class));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<ChangePassResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
     }
 }

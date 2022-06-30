@@ -77,6 +77,8 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         ll_logout = v.findViewById(R.id.ll_logout);
         llSave = v.findViewById(R.id.llSave);
 
+        v.findViewById(R.id.txt_change_info).setOnClickListener(v1 -> replaceFragment(new ChangePassFragment(),ChangePassFragment.class.getSimpleName()));
+
         dialogChooseImage = new DialogChooseImage(getContext(), R.style.MaterialDialogSheet, type_select -> {
             if (type_select == DialogChooseImage.TYPE_SELECT.CAMERA)
                 openCamera();
@@ -110,12 +112,17 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             userViewModel.logout(requestAPI, o -> {
                 cancelLoading();
                 if (o instanceof BaseResponse) {
-                    SharePrefrenceUtils.getInstance(mContext).saveAuth("");
-                    userViewModel.clearViewModel();
-                    backstackFragment();
-                    if (getActivity() instanceof MainActivity) {
-                        MainActivity activity = (MainActivity) getActivity();
-                        activity.actionLogout();
+                    BaseResponse baseResponse = (BaseResponse) o;
+                    if (baseResponse.getSuccess()) {
+                        SharePrefrenceUtils.getInstance(mContext).saveAuth("");
+                        userViewModel.clearViewModel();
+                        backstackFragment();
+                        if (getActivity() instanceof MainActivity) {
+                            MainActivity activity = (MainActivity) getActivity();
+                            activity.actionLogout();
+                        }
+                    }else{
+
                     }
                 }
             });

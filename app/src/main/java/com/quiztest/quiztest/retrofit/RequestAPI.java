@@ -38,4 +38,7 @@ public interface RequestAPI {
     @Multipart
     @POST("user/change-avatar")
     Call<UploadAvatarResponse> uploadAvatar(@Part MultipartBody.Part avatar);
+
+    @PUT("user/change-password")
+    Call<BaseResponse> changePassword(@Query("current_password") String current_password, @Query("password") String password, @Query("confirm_password") String confirm_password);
 }
