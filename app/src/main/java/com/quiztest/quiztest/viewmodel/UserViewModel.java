@@ -1,16 +1,25 @@
 package com.quiztest.quiztest.viewmodel;
 
+import android.util.Log;
+
 import androidx.core.util.Consumer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
+import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -145,5 +154,36 @@ public class UserViewModel extends ViewModel {
         public void onFailure(Call<BaseResponse> call, Throwable t) {
             consumer.accept(t);
         }
+    }
+
+    private class callBackUploadAvatar implements Callback<UploadAvatarResponse> {
+
+        private Consumer consumer;
+
+        public callBackUploadAvatar(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<UploadAvatarResponse> call, Response<UploadAvatarResponse> response) {
+            UploadAvatarResponse userInfoResponse = response.body();
+            consumer.accept(userInfoResponse);
+        }
+
+        @Override
+        public void onFailure(Call<UploadAvatarResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    public void uploadAvatar(RequestAPI requestAPI, String fileName, Consumer consumer) {
+        File file = new File(fileName);
+        if (!file.exists())
+            return;
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+        requestAPI.uploadAvatar(body).enqueue(new callBackUploadAvatar(consumer));
     }
 }

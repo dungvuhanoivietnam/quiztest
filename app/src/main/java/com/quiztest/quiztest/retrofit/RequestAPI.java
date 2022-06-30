@@ -2,13 +2,17 @@ package com.quiztest.quiztest.retrofit;
 
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
+import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -30,4 +34,8 @@ public interface RequestAPI {
 
     @GET("user/logout")
     Call<BaseResponse> logOut();
+
+    @Multipart
+    @POST("user/change-avatar")
+    Call<UploadAvatarResponse> uploadAvatar(@Part MultipartBody.Part avatar);
 }

@@ -30,9 +30,11 @@ import com.quiztest.quiztest.custom.ExtEditText;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogChooseImage;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
+import com.quiztest.quiztest.utils.Utils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 public class SettingFragment extends BaseFragment implements ActivityResultFragment {
@@ -199,8 +201,9 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
 
     private void openCamera() {
         try {
-            if (Build.VERSION.SDK_INT >= 23 && mActivity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                mActivity.requestPermissions(new String[]{Manifest.permission.CAMERA}, Const.CAMERA_REQUEST_CODE);
+            if (Build.VERSION.SDK_INT >= 23 && mActivity.checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                    mActivity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                mActivity.requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Const.CAMERA_REQUEST_CODE);
                 return;
             }
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -222,11 +225,32 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     @Override
     public void result(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Const.CAMERA_REQUEST_CODE) {
+            if (data == null)
+                return;
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            Glide.with(mContext).load(photo).circleCrop().into(ivAvatar);
+            String path = Utils.saveImageFromCamera(getActivity(), photo);
+            if ("".equals(path))
+                return;
+            showLoading();
+            userViewModel.uploadAvatar(requestAPI, path, o -> {
+                cancelLoading();
+                Glide.with(mContext).load(photo).circleCrop().into(ivAvatar);
+                if (o instanceof UploadAvatarResponse) {
+                    UploadAvatarResponse uploadAvatarResponse = (UploadAvatarResponse) o;
+                    userViewModel.getUserInfoResponse().setAvatar(uploadAvatarResponse.getData());
+                }
+            });
         }
         if (requestCode == Const.ALBUM_REQUEST_CODE) {
-            Glide.with(mContext).load(data.getData()).circleCrop().into(ivAvatar);
+            showLoading();
+            userViewModel.uploadAvatar(requestAPI, Utils.getRealPathFromURI(mContext, data.getData()), o -> {
+                cancelLoading();
+                Glide.with(mContext).load(data.getData()).circleCrop().into(ivAvatar);
+                if (o instanceof UploadAvatarResponse) {
+                    UploadAvatarResponse uploadAvatarResponse = (UploadAvatarResponse) o;
+                    userViewModel.getUserInfoResponse().setAvatar(uploadAvatarResponse.getData());
+                }
+            });
         }
     }
 
