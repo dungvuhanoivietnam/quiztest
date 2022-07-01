@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.forgotPass.OtpFragment">
+    <androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/imv_thum"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_180sdp"
+    android:scaleType="fitXY"
+    android:src="@drawable/bg_background"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:src="@drawable/ic_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_verify_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/verify_account"
+        android:textColor="@color/color_22313F"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/imv_thum" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_we_sent_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:text="@string/we_sent_a_6_digit_otp_to_email"
+        android:textColor="@color/color_8D959D"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_verify_account" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_mail_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        tools:text="alexanderstupid@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_we_sent_a" />
+    <com.goodiebag.pinview.Pinview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt_mail_verify"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/pinview"
+        app:pinWidth="40dp"
+        app:pinHeight="40dp"
+        app:pinLength="6"
+        app:cursorVisible="false"
+        app:forceKeyboard="true"
+        app:inputType="text"
+        app:password="false"/>
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_you_đi_not"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/you_did_not_receive_the_code"
+        android:textColor="@color/color_8D959D"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toStartOf="@id/txt_send_again"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pinview" />
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_send_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/send_again"
+        android:textColor="@color/color_22313F"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_you_đi_not"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_you_đi_not"
+        app:layout_constraintTop_toTopOf="@+id/txt_you_đi_not" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_resendcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/you_did_not_receive_the_code"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toStartOf="@id/txt_time_resend"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_you_đi_not" />
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_time_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/_80"
+        android:textColor="@color/color_21C3FF"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_resendcode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_resendcode"
+        app:layout_constraintTop_toTopOf="@+id/txt_resendcode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

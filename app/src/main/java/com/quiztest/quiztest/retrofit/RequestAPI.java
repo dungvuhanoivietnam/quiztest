@@ -6,6 +6,7 @@ import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserReponse;
+import com.quiztest.quiztest.model.VerifyEmailResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -15,12 +16,11 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RequestAPI {
     @POST("auth/register-account")
-    Call<ResponseBody> registerAccount(@Query("email") String email,
+    Call<AuthResponse> registerAccount(@Query("email") String email,
                                        @Query("name") String name,
                                        @Query("password") String password,
                                        @Query("confirm_password") String confirm_password);
@@ -50,4 +50,9 @@ public interface RequestAPI {
 
     @PUT("user/change-password")
     Call<BaseResponse> changePassword(@Query("current_password") String current_password, @Query("password") String password, @Query("confirm_password") String confirm_password);
+
+    @POST("auth/request-set-password")
+    Call<VerifyEmailResponse> verifyMail(@Query("email") String email);
+
+
 }
