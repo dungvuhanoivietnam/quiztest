@@ -50,10 +50,14 @@ class AnswerAdapter(
     @SuppressLint("NotifyDataSetChanged")
     private fun updateViewT(index: Int, optionsAnswer: OptionsAnswer) {
         lstAnswer.forEach { item ->
-            item.selected = false
+            if (item.id == optionsAnswer.id){
+                item.selected = !item.selected
+            }else{
+                item.selected = false
+            }
+
         }
 
-        optionsAnswer.selected = !(optionsAnswer.selected)
         notifyDataSetChanged()
     }
 
