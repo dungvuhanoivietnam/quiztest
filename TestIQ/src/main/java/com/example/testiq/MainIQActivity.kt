@@ -1,9 +1,12 @@
 package com.example.testiq
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.example.testiq.databinding.ActivityMainIqBinding
+import com.androidnetworking.AndroidNetworking
+
 
 class MainIQActivity : AppCompatActivity() {
 
@@ -15,11 +18,19 @@ class MainIQActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.start.setOnClickListener {
+            startActivity(Intent(this, ActivityQuestion::class.java))
+        }
+
         binding.description.text =
             HtmlCompat.fromHtml(
                 getString(R.string.txt_description_home_test_iq),
                 HtmlCompat.FROM_HTML_MODE_LEGACY
             )
+
+        binding.toolbar.setOnClickListener {
+            finish()
+        }
     }
 
 }

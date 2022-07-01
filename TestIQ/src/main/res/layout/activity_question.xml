@@ -10,8 +10,8 @@
         android:id="@+id/iv_back"
         android:layout_width="@dimen/_45sdp"
         android:layout_height="@dimen/_45sdp"
-        android:paddingBottom="@dimen/_16sdp"
         android:paddingTop="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_16sdp"
         android:tint="#22313F"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_11sdp"
         android:padding="@dimen/_4sdp"
         android:text="1/40"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,20 +71,45 @@
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:max="100"
-        android:progress="30"
+        tools:progress="30"
         android:progressDrawable="@drawable/customer_progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/page_question"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        app:layout_constraintBottom_toTopOf="@id/line2"
-        app:layout_constraintTop_toBottomOf="@id/pb_money"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-48dp" />
+        app:layout_constraintBottom_toTopOf="@id/iv_up"
+        app:layout_constraintTop_toBottomOf="@+id/pb_money">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/question_name"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_11ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_11ssp"
+            android:text="Câu 1. Trong bài test của bạn có một số câu hỏi. Bạn đã trả lời sai 10 câu hỏi. Kết quả thang điểm của bạn chỉ đạt 60%. Vậy bài test của bạn có tất cả bao nhiêu câu hỏi?"
+            android:textColor="#22313F"
+            android:textSize="@dimen/_14ssp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_options_answer"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/question_name"
+            tools:listitem="@layout/item_answer_image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/line2"
@@ -109,10 +134,10 @@
         android:gravity="center_vertical"
         android:text="Previous"
         android:textColor="#22313F"
-        app:layout_constraintEnd_toStartOf="@id/iv_up"
         android:textSize="@dimen/_16ssp"
         app:fontFamily="@font/roboto_regular"
         app:layout_constraintBottom_toBottomOf="@id/iv_previous"
+        app:layout_constraintEnd_toStartOf="@id/iv_up"
         app:layout_constraintStart_toEndOf="@id/iv_previous"
         app:layout_constraintTop_toTopOf="@id/iv_previous" />
 
@@ -121,25 +146,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_3sdp"
-        android:src="@drawable/ic_frame_39742"
+        android:src="@drawable/ic_frame_39744"
         app:layout_constraintBottom_toBottomOf="@id/iv_previous"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_previous" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        app:layout_constraintStart_toEndOf="@id/iv_up"
-        android:layout_width="0sp"
-        app:layout_constraintEnd_toStartOf="@id/iv_next"
-        app:layout_constraintBottom_toBottomOf="@id/iv_next"
-        app:layout_constraintTop_toTopOf="@id/iv_next"
         android:id="@+id/txt_next"
-        android:text="Next"
+        android:layout_width="0sp"
         android:layout_height="0dp"
         android:gravity="center_vertical|end"
+        android:text="Next"
         android:textColor="#22313F"
         android:textSize="@dimen/_16ssp"
-        app:fontFamily="@font/roboto_regular" />
+        app:fontFamily="@font/roboto_regular"
+        app:layout_constraintBottom_toBottomOf="@id/iv_next"
+        app:layout_constraintEnd_toStartOf="@id/iv_next"
+        app:layout_constraintStart_toEndOf="@id/iv_up"
+        app:layout_constraintTop_toTopOf="@id/iv_next" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_next"

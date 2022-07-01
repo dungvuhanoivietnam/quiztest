@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt"
         app:layout_constraintTop_toTopOf="@id/iv_"
         app:fontFamily="@font/roboto_medium"
         app:layout_constraintBottom_toBottomOf="@id/iv_"
