@@ -97,6 +97,10 @@
     <string name="continuee">Continue</string>
     <string name="verify_account">Verify account</string>
     <string name="we_sent_a_6_digit_otp_to_email">We sent a 6 digit OTP to email</string>
+    <string name="you_did_not_receive_the_code">You did not receive the code?</string>
+    <string name="send_again">Send again</string>
+    <string name="_80">80s</string>
+    <string name="create_password">Create password</string>
 
 
 </resources>

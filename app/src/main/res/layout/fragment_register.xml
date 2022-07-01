@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/imv_thum"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_240sdp"
+            android:layout_height="@dimen/_180sdp"
             android:scaleType="fitXY"
             android:src="@drawable/bg_background"
             app:layout_constraintEnd_toEndOf="parent"
@@ -270,13 +270,13 @@
                 android:text="@string/do_you_already_have_an_account"
                 android:textColor="@color/color_8D959D"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@id/txt_login"
+                app:layout_constraintEnd_toStartOf="@id/txt_send_again"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
             <com.quiztest.quiztest.custom.ExtTextView
-                android:id="@+id/txt_login"
+                android:id="@+id/txt_send_again"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_2sdp"
