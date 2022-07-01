@@ -27,7 +27,7 @@ import com.quiztest.quiztest.callback.ActivityResultFragment;
 import com.quiztest.quiztest.custom.ExtEditText;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogChooseImage;
-import com.quiztest.quiztest.fragment.Login.LoginFragment;
+import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;

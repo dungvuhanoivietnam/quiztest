@@ -1,12 +1,10 @@
-package com.quiztest.quiztest.fragment.Login
+package com.quiztest.quiztest.fragment.login
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.quiztest.quiztest.model.AuthResponse
 import com.quiztest.quiztest.model.UserReponse
 import com.quiztest.quiztest.repository.AuthRepository
-import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

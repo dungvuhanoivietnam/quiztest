@@ -1,4 +1,4 @@
-package com.quiztest.quiztest.fragment.Login
+package com.quiztest.quiztest.fragment.login
 
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
@@ -19,7 +19,6 @@ import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 

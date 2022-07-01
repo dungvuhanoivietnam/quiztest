@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.forgotPass.OtpFragment">
+    <androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/imv_thum"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_180sdp"
+    android:scaleType="fitXY"
+    android:src="@drawable/bg_background"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
+        android:src="@drawable/ic_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_verify_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/verify_account"
+        android:textColor="@color/color_22313F"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/imv_thum" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_we_sent_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:text="@string/we_sent_a_6_digit_otp_to_email"
+        android:textColor="@color/color_8D959D"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_verify_account" />
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/txt_mail_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        tools:text="alexanderstupid@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_we_sent_a" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -94,8 +94,9 @@
     <string name="re_password">Re-Password</string>
     <string name="email">Email</string>
     <string name="password_cannot_less_8_characters">Password cannot less 8 characters</string>
-
-
+    <string name="continuee">Continue</string>
+    <string name="verify_account">Verify account</string>
+    <string name="we_sent_a_6_digit_otp_to_email">We sent a 6 digit OTP to email</string>
 
 
 </resources>
