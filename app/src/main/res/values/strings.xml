@@ -84,5 +84,14 @@
     <string name="earning_tasks">Earning Tasks</string>
     <string name="get_more_stars">Get more stars</string>
     <string name="get_more_star_chances">Get more star chances</string>
+    <string name="get_more_money_chances">Get more money chances</string>
+    <string name="withdraw_money">Withdraw Money</string>
+    <string name="payment_method">Payment method</string>
+    <string name="your_account_address">Your account address</string>
+    <string name="withdrawal_amount">Withdrawal amount</string>
+    <string name="all">All</string>
+    <string name="withdraw_now">Withdraw Now</string>
+    <string name="input_your_account">Input your account</string>
+    <string name="please_enter_withdrawal_amount">Please enter withdrawal amount</string>
 
 </resources>

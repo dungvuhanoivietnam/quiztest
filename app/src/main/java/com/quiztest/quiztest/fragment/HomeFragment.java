@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,14 +25,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
 import com.quiztest.quiztest.custom.ExtTextView;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
-    private ExtTextView extLogin;
-//    private SearchView searchView;
+    private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney;
+    private ImageView ivSearch;
     private RequestAPI requestAPI;
 
     @Override
@@ -54,7 +56,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View v) {
         extLogin = v.findViewById(R.id.ext_login);
-//        searchView = v.findViewById(R.id.search_view);
+        ivGetMoreStar = v.findViewById(R.id.iv_get_more_star);
+        ivGetMoreMoney = v.findViewById(R.id.iv_get_more_money);
+        ivSearch = v.findViewById(R.id.iv_search);
     }
 
 
@@ -66,9 +70,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData() {
         extLogin.setOnClickListener(this);
-
-        //check onCLick search view
-//        searchView.setOnClickListener(this);
+        ivGetMoreStar.setOnClickListener(this);
+        ivGetMoreMoney.setOnClickListener(this);
+        ivSearch.setOnClickListener(this);
     }
 
     @Override
@@ -82,6 +86,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             startActivity(intent);
         }
         if (view.getId() == R.id.search_view) {
+            replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
+        if (view.getId() == R.id.iv_get_more_money) {
+            replaceFragment(new GetMoreChancesFragment(GetMoreChancesFragment.TYPE_GET_MORE_MONEY), GetMoreChancesFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
+        if (view.getId() == R.id.iv_get_more_star) {
+            replaceFragment(new GetMoreChancesFragment(GetMoreChancesFragment.TYPE_GET_MORE_STAR), GetMoreChancesFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
+        if (view.getId() == R.id.iv_search) {
             replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
             if (getActivity() != null) {
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);
