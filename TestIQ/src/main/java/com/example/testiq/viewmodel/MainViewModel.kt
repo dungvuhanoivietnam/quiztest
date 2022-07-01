@@ -24,6 +24,7 @@ class MainViewModel(
     var lstQuestion = ArrayList<QuestionModel>()
     var questionModel : QuestionModel? = null
     var index : Int = 0
+    var quizTestResponse : QuizTestResponse?= null
 
     val questions: LiveData<Resource<QuizTestResponse>>
         get() = _users
@@ -51,5 +52,30 @@ class MainViewModel(
                      _users.postValue(Resource.error(error.message.toString(),null))
                  }
              })
+    }
+
+    fun submitQuizTest(answers : ArrayList<Int>, keyQuizTest : String){
+        AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/submit-quiz-test")
+            .addHeaders("Authorization", token)
+            .addHeaders("key-app", "quiztest")
+            .addQueryParameter("answers", answers.toString())
+            .addQueryParameter("key_quiz_test", keyQuizTest)
+            .setTag("test")
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject?) {
+                    val response: QuizTestResponse = Gson().fromJson(
+                        response.toString(),
+                        QuizTestResponse::class.java
+                    )
+                    _users.postValue(Resource.success(response))
+                }
+
+                override fun onError(error: ANError) {
+                    // handle error
+                    _users.postValue(Resource.error(error.message.toString(),null))
+                }
+            })
     }
 }
