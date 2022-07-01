@@ -70,56 +70,73 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:max="100"
-        tools:progress="30"
+        android:max="5"
         android:progressDrawable="@drawable/customer_progressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/result" />
+        app:layout_constraintTop_toBottomOf="@id/result"
+        tools:progress="1" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/page_question"
         android:layout_width="match_parent"
         android:layout_height="0sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/line2"
         app:layout_constraintTop_toBottomOf="@id/pb_money"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="-48dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:visibility="gone"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0sp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@id/iv_up"
         app:layout_constraintTop_toBottomOf="@+id/pb_money">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/question_name"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_11ssp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_11ssp"
-            android:text="Câu 1. Trong bài test của bạn có một số câu hỏi. Bạn đã trả lời sai 10 câu hỏi. Kết quả thang điểm của bạn chỉ đạt 60%. Vậy bài test của bạn có tất cả bao nhiêu câu hỏi?"
-            android:textColor="#22313F"
-            android:textSize="@dimen/_14ssp"
-            app:fontFamily="@font/roboto_medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcl_options_answer"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_13sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question_name"
-            tools:listitem="@layout/item_answer_image" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/question_name"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_11ssp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_11ssp"
+                tools:text="Câu 1. Trong bài test của bạn có một số câu hỏi. Bạn đã trả lời sai 10 câu hỏi. Kết quả thang điểm của bạn chỉ đạt 60%. Vậy bài test của bạn có tất cả bao nhiêu câu hỏi?"
+                android:textColor="#22313F"
+                android:textSize="@dimen/_14ssp"
+                app:fontFamily="@font/roboto_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_question"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_margin="@dimen/_11ssp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:src="@drawable/image_quetstion"
+                app:layout_constraintTop_toBottomOf="@+id/question_name" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_options_answer"
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_question"
+                tools:listitem="@layout/item_answer_image" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <View
         android:id="@+id/line2"
@@ -188,20 +205,20 @@
 
     <View
         android:id="@+id/view_next"
-        app:layout_constraintStart_toEndOf="@+id/iv_up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_up"
-        app:layout_constraintTop_toTopOf="@id/iv_up"
         android:layout_width="0sp"
-        android:layout_height="0sp"/>
+        android:layout_height="0sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_up"
+        app:layout_constraintTop_toTopOf="@id/iv_up" />
 
     <View
         android:id="@+id/view_previous"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/iv_up"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_up"
-        app:layout_constraintTop_toTopOf="@id/iv_up"
         android:layout_width="0sp"
-        android:layout_height="0sp"/>
+        android:layout_height="0sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_up"
+        app:layout_constraintEnd_toStartOf="@+id/iv_up"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_up" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_6sdp"
     android:layout_marginTop="@dimen/_6sdp"
     android:layout_marginStart="@dimen/_5sdp"
     android:layout_marginEnd="@dimen/_5sdp">
@@ -11,7 +12,7 @@
         android:id="@+id/iv_"
         android:layout_width="@dimen/_36sdp"
         android:layout_height="@dimen/_36sdp"
-        android:src="@drawable/bg_oval_"
+        android:src="@drawable/bg_oval_active"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
