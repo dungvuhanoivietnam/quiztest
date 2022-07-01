@@ -116,5 +116,7 @@
     <string name="withdraw_now">Withdraw Now</string>
     <string name="input_your_account">Input your account</string>
     <string name="please_enter_withdrawal_amount">Please enter withdrawal amount</string>
+    <string name="notification">Notification</string>
+    <string name="no_announcements">No announcements</string>
 
 </resources>
