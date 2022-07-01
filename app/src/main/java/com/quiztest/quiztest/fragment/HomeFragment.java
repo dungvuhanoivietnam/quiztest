@@ -25,7 +25,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney;
-    private ImageView ivSearch;
+    private ImageView ivSearch, ivNotify;
     private RequestAPI requestAPI;
 
     @Override
@@ -51,6 +51,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreStar = v.findViewById(R.id.iv_get_more_star);
         ivGetMoreMoney = v.findViewById(R.id.iv_get_more_money);
         ivSearch = v.findViewById(R.id.iv_search);
+        ivNotify = v.findViewById(R.id.iv_notify);
     }
 
 
@@ -65,6 +66,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreStar.setOnClickListener(this);
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
+        ivNotify.setOnClickListener(this);
     }
 
     @Override
@@ -77,12 +79,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //            Intent intent = new Intent(getActivity(), MainIQActivity.class);
 //            startActivity(intent);
         }
-        if (view.getId() == R.id.search_view) {
-            replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
-            if (getActivity() != null) {
-                ((MainActivity) getActivity()).hideOrShowBottomView(false);
-            }
-        }
+//        if (view.getId() == R.id.search_view) {
+//            replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
+//            if (getActivity() != null) {
+//                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+//            }
+//        }
         if (view.getId() == R.id.iv_get_more_money) {
             replaceFragment(new GetMoreChancesFragment(GetMoreChancesFragment.TYPE_GET_MORE_MONEY), GetMoreChancesFragment.class.getSimpleName());
             if (getActivity() != null) {
@@ -97,6 +99,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
         if (view.getId() == R.id.iv_search) {
             replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
+        if (view.getId() == R.id.iv_notify) {
+            replaceFragment(new NotificationFragment(), NotificationFragment.class.getSimpleName());
             if (getActivity() != null) {
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);
             }
