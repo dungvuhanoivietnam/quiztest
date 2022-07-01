@@ -22,9 +22,11 @@ class BottomSheetAnswer(private var lstResult: ArrayList<QuestionModel>) : Botto
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = AdapterSelectQuestion(requireContext())
+        adapter = AdapterSelectQuestion(requireContext(),{
+
+        })
         binding.rclResult.adapter = adapter
-        adapter.setData(lstResult)
+        adapter.updateData(lstResult)
 
         Log.d("AAAAAAAAAAAA", "${lstResult.size}")
         binding.ivBack.setOnClickListener {

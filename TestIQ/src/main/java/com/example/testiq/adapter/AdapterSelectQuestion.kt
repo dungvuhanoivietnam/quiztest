@@ -10,36 +10,38 @@ import com.example.testiq.databinding.ItemCheckBottomSheetBinding
 import com.example.testiq.databinding.ItemPageBinding
 import com.example.testiq.model.QuestionModel
 
-class AdapterSelectQuestion(var context: Context) : RecyclerView.Adapter<ViewHolderCheckBox>() {
 
-    private var questions: ArrayList<QuestionModel> = ArrayList()
+class AdapterSelectQuestion(
+    var context: Context,
+    var onClickItem: (QuestionModel) -> Unit,
+) : RecyclerView.Adapter<AdapterSelectQuestion.ViewHolder>() {
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(lstData : ArrayList<QuestionModel>){
-        if (questions.isNotEmpty()){
-            questions.clear()
-            questions.addAll(lstData)
-        }
+    private var listLanguage = ArrayList<QuestionModel>()
+
+    fun updateData(list: ArrayList<QuestionModel>) {
+        listLanguage.clear()
+        listLanguage.addAll(list)
         notifyDataSetChanged()
     }
 
+    inner class ViewHolder(var binding: ItemCheckBottomSheetBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
+    override fun getItemCount(): Int = listLanguage.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderCheckBox {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding =
-            ItemCheckBottomSheetBinding.inflate(LayoutInflater.from(context), parent, false)
-        return ViewHolderCheckBox(itemBinding)
+            ItemCheckBottomSheetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(itemBinding)
     }
 
-    override fun getItemCount(): Int {
-       return questions.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolderCheckBox, position: Int) {
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val binding = holder.binding
-        val item = questions[position]
+        val item = listLanguage[position]
         binding.txt.text = "$position"
+
     }
+
 }
 
-class ViewHolderCheckBox(var binding: ItemCheckBottomSheetBinding) : RecyclerView.ViewHolder(binding.root)

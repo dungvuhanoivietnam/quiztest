@@ -77,7 +77,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result" />
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/page_question"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        app:layout_constraintBottom_toTopOf="@id/line2"
+        app:layout_constraintTop_toBottomOf="@id/pb_money"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-48dp" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         app:layout_constraintBottom_toTopOf="@id/iv_up"
@@ -175,5 +185,23 @@
         android:tint="#22313F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/view_next"
+        app:layout_constraintStart_toEndOf="@+id/iv_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_up"
+        app:layout_constraintTop_toTopOf="@id/iv_up"
+        android:layout_width="0sp"
+        android:layout_height="0sp"/>
+
+    <View
+        android:id="@+id/view_previous"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_up"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_up"
+        app:layout_constraintTop_toTopOf="@id/iv_up"
+        android:layout_width="0sp"
+        android:layout_height="0sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
