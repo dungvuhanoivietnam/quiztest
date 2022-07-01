@@ -68,7 +68,7 @@ public class ExtEditTextApp extends FrameLayout {
                     addTextChange(TYPE_ERROR.NOT_CHANGE);
                 } else {
                     if (typeValidate == TYPE_VALIDATE.EMAIL) {
-                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches());
+                        consumer.accept(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() );
                         addTextChange(Patterns.EMAIL_ADDRESS.matcher(charSequence).matches() ? TYPE_ERROR.DONE : TYPE_ERROR.ERROR);
                     }
                     if (typeValidate == TYPE_VALIDATE.PASSWORD) {

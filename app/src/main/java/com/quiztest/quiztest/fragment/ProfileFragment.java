@@ -2,14 +2,11 @@ package com.quiztest.quiztest.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,20 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.HistoryAdapter;
-import com.quiztest.quiztest.adapter.LanguageAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -102,7 +93,6 @@ public class ProfileFragment extends BaseFragment {
         }
 
         if (auth != null && !"".equals(auth) && userViewModel.getHistories().size() == 0) {
-            showLoading();
             userViewModel.getHistory(requestAPI, 1, o -> {
                 cancelLoading();
                 rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);
