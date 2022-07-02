@@ -68,7 +68,7 @@ public class UserViewModel extends ViewModel {
         public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
             UserInfoResponse userInfoResponse = response.body();
             if (userInfoResponse != null) {
-                userInfo = userInfoResponse.getData();
+                userInfo = userInfoResponse.getData().getUserInfo();
             }
             consumer.accept(new Object());
         }

@@ -25,12 +25,17 @@
     <string name="recommend_for_you">Recommend for you</string>
     <string name="search_recent">Search recent</string>
     <string name="show_all_history">Show all history</string>
+    <string name="do_you_already_have_an_account">Do you already have an account?</string>
+    <string name="when_you_click_register_you_agree_to">When you click register, you agree to </string>
+    <string name="our_terms_and_conditions_of_use">Our Terms and Conditions of Use </string>
+
     <string name="create_account">Create account</string>
     <string name="create_an_account_and_take_the_quiz">Create an account and take the quiz</string>
     <string name="you_are_using_guest_mode">You are using guest mode</string>
     <string name="upgrade_to_the_pro_version">Upgrade to the pro version</string>
     <string name="analyzing_data">Analyzing data...</string>
     <string name="ok">OK</string>
+    <string name="close">close</string>
     <string name="history_result">History Result</string>
     <string name="view_all">View all</string>
     <string name="language">Language</string>
@@ -79,5 +84,39 @@
     <string name="current_password">Current password</string>
     <string name="enter_your_new_password">Enter your new password</string>
     <string name="enter_your_new_password_again">Enter your new password again</string>
+    <string name="error">Error</string>
+
+    <string name="email_invalidate">Email invalidate</string>
+    <string name="email_already_in_use">Email already in use</string>
+    <string name="re_entered_password_does_not_match">Re-entered password does not match</string>
+    <string name="Your_name_cannot_exceed_32_characters">Your name cannot exceed 32 characters</string>
+    <string name="enter_your_password_again">Enter your password again</string>
+    <string name="re_password">Re-Password</string>
+    <string name="email">Email</string>
+    <string name="password_cannot_less_6_characters">Password cannot less 6 characters</string>
+    <string name="continuee">Continue</string>
+    <string name="verify_account">Verify account</string>
+    <string name="we_sent_a_6_digit_otp_to_email">We sent a 6 digit OTP to email</string>
+    <string name="you_did_not_receive_the_code">You did not receive the code?</string>
+    <string name="send_again">Send again</string>
+    <string name="_80">80s</string>
+    <string name="create_password">Create password</string>
+
+    <string name="get_more">Get more</string>
+    <string name="open">Open</string>
+    <string name="earning_tasks">Earning Tasks</string>
+    <string name="get_more_stars">Get more stars</string>
+    <string name="get_more_star_chances">Get more star chances</string>
+    <string name="get_more_money_chances">Get more money chances</string>
+    <string name="withdraw_money">Withdraw Money</string>
+    <string name="payment_method">Payment method</string>
+    <string name="your_account_address">Your account address</string>
+    <string name="withdrawal_amount">Withdrawal amount</string>
+    <string name="all">All</string>
+    <string name="withdraw_now">Withdraw Now</string>
+    <string name="input_your_account">Input your account</string>
+    <string name="please_enter_withdrawal_amount">Please enter withdrawal amount</string>
+    <string name="notification">Notification</string>
+    <string name="no_announcements">No announcements</string>
 
 </resources>

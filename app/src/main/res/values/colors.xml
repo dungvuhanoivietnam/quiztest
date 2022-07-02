@@ -11,21 +11,21 @@
     <color name="color_8D959D">#8D959D</color>
     <color name="color_22313F">#22313F</color>
     <color name="color_F5F5F5">#F5F5F5</color>
-    <color name="Ink10">#E3E5E7</color>
-    <color name="Ink30">#B8BDC2</color>
-    <color name="Ink50">#8D959D</color>
-    <color name="Ink100">#22313F</color>
     <color name="color_F4F4F4">#F4F4F4</color>
     <color name="color_EDEFF1">#EDEFF1</color>
     <color name="color_EDF6FA">#EDF6FA</color>
     <color name="color_E3E5E7">#E3E5E7</color>
     <color name="color_B8BDC2">#B8BDC2</color>
     <color name="color_DC2323">#DC2323</color>
-
     <color name="transparent">#00000000</color>
     <color name="color_3C3C3C">#353E37</color>
     <color name="color_4CCEFE">#4CCEFE</color>
     <color name="color_DFE0E1">#DFE0E1</color>
     <color name="color_E3F4FB">#E3F4FB</color>
     <color name="color_4BA2DE">#4BA2DE</color>
+    <color name="color_2F6BFF">#2F6BFF</color>
+    <color name="color_FEF8EA">#FEF8EA</color>
+    <color name="color_DEF5E8">#DEF5E8</color>
+    <color name="color_ECE8FD">#ECE8FD</color>
+    <color name="color_FBE8E7">#FBE8E7</color>
 </resources>

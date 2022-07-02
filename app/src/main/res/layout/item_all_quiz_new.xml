@@ -64,6 +64,7 @@
                 app:layout_constraintTop_toTopOf="@id/star_can_get" />
 
             <com.quiztest.quiztest.custom.ExtTextView
+                android:visibility="gone"
                 android:id="@+id/money_can_get"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

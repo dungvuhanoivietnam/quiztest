@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/_16sdp"
+    android:layout_marginEnd="@dimen/_16sdp"
+    android:backgroundTint="@color/white"
+    android:background="@drawable/bg_search_corner_8"
+    android:padding="@dimen/_20sdp">
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/ext_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/withdraw_money"
+        android:textColor="@color/color_22313F"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold" />
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/ext_content_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Content money..."
+        android:textSize="@dimen/_12sdp" />
+
+    <LinearLayout
+        android:id="@+id/ll_payment_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:orientation="horizontal">
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_method"
+            android:textColor="@color/color_22313F"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_paypal_logo" />
+    </LinearLayout>
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/your_account_address"
+        android:textSize="@dimen/_12sdp" />
+
+    <com.quiztest.quiztest.custom.ExtEditTextApp
+        android:id="@+id/edt_account_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_16sdp" />
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/withdrawal_amount"
+        android:textSize="@dimen/_12sdp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.quiztest.quiztest.custom.ExtEditTextApp
+            android:id="@+id/edt_withdrawal_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_16sdp" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom |end"
+            android:padding="@dimen/_12sdp"
+            android:text="@string/all"
+            android:textColor="@color/color_21C3FF"
+            android:textSize="@dimen/_14sdp" />
+    </FrameLayout>
+
+    <com.quiztest.quiztest.custom.ExtTextView
+        android:id="@+id/ext_withdraw_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:background="@drawable/bg_search_corner_8"
+        android:backgroundTint="@color/color_21C3FF"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        android:text="@string/withdraw_now"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold" />
+</LinearLayout>

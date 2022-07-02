@@ -9,8 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/_24sdp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"

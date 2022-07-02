@@ -1,30 +1,31 @@
 package com.quiztest.quiztest.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.testiq.MainIQActivity;
+//import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
-import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.retrofit.RequestAPI;
+
+import com.quiztest.quiztest.custom.ExtTextView;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
-    private ExtTextView extLogin;
-    private SearchView searchView;
+    private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney;
+    private ImageView ivSearch, ivNotify;
     private RequestAPI requestAPI;
 
     @Override
@@ -47,7 +48,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initView(View v) {
         extLogin = v.findViewById(R.id.ext_login);
-        searchView = v.findViewById(R.id.search_view);
+        ivGetMoreStar = v.findViewById(R.id.iv_get_more_star);
+        ivGetMoreMoney = v.findViewById(R.id.iv_get_more_money);
+        ivSearch = v.findViewById(R.id.iv_search);
+        ivNotify = v.findViewById(R.id.iv_notify);
     }
 
 
@@ -59,28 +63,52 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     protected void initData() {
         extLogin.setOnClickListener(this);
-
-        //check onCLick search view
-        searchView.setOnClickListener(this);
+        ivGetMoreStar.setOnClickListener(this);
+        ivGetMoreMoney.setOnClickListener(this);
+        ivSearch.setOnClickListener(this);
+        ivNotify.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.ext_login) {
-//            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
-//            if ((MainActivity) getActivity() != null) {
+            replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
+            if ((MainActivity) getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+//            Intent intent = new Intent(getActivity(), MainIQActivity.class);
+//            startActivity(intent);
+        }
+//        if (view.getId() == R.id.search_view) {
+//            replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
+//            if (getActivity() != null) {
 //                ((MainActivity) getActivity()).hideOrShowBottomView(false);
 //            }
-            Intent intent = new Intent(getActivity(), MainIQActivity.class);
-            startActivity(intent);
+//        }
+        if (view.getId() == R.id.iv_get_more_money) {
+            replaceFragment(new GetMoreChancesFragment(GetMoreChancesFragment.TYPE_GET_MORE_MONEY), GetMoreChancesFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
         }
-        if (view.getId() == R.id.search_view) {
+        if (view.getId() == R.id.iv_get_more_star) {
+            replaceFragment(new GetMoreChancesFragment(GetMoreChancesFragment.TYPE_GET_MORE_STAR), GetMoreChancesFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
+        if (view.getId() == R.id.iv_search) {
             replaceFragment(new SearchFragment(), SearchFragment.class.getSimpleName());
             if (getActivity() != null) {
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);
             }
         }
-
+        if (view.getId() == R.id.iv_notify) {
+            replaceFragment(new NotificationFragment(), NotificationFragment.class.getSimpleName());
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).hideOrShowBottomView(false);
+            }
+        }
     }
 
     @Override

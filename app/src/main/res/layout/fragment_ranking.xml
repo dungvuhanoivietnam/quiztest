@@ -27,7 +27,7 @@
         <ImageView
             android:id="@+id/img_bg_header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_280sdp"
+            android:layout_height="@dimen/_240sdp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_bg_header_ranking_frag"
             app:layout_constraintStart_toStartOf="parent"

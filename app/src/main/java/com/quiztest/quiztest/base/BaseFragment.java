@@ -52,7 +52,6 @@ public abstract class BaseFragment extends Fragment {
         );
         initView(v);
         initData();
-        dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
         return v;
     }
 
@@ -90,7 +89,7 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
         mContext = getContext();
-        Retrofit retrofit = RetrofitClient.getInstance(mContext);
+        Retrofit retrofit = RetrofitClient.getInstance();
         requestAPI = retrofit.create(RequestAPI.class);
     }
 
@@ -180,7 +179,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showLoading() {
-        if (dialogProgressLoading != null && !dialogProgressLoading.isShowing()) {
+        dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
+        if (!dialogProgressLoading.isShowing()) {
             dialogProgressLoading.show();
         }
     }
