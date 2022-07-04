@@ -9,14 +9,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.example.testiq.R
-import com.example.testiq.databinding.DialogResultApiBinding
-import com.example.testiq.utils.Status
+import com.example.testiq.databinding.DialogConfirmBackBinding
+import com.example.testiq.databinding.ProcessLoadingBinding
 
-class DialogResultCallApi(
-    internal var context: Context, var status : Status, var description : String
+class DialogConfirmBack(
+    internal var context: Context, private var onClickSubmit : () -> Unit
 ) : Dialog(context, R.style.MaterialDialogSheet) {
 
-    private val binding = DialogResultApiBinding.inflate(LayoutInflater.from(context))
+    private val binding = DialogConfirmBackBinding.inflate(LayoutInflater.from(context))
 
     init {
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -28,11 +28,15 @@ class DialogResultCallApi(
     }
 
     private fun initUI() {
-        binding.label.text = if (Status.SUCCESS == status) "Success" else "Error"
-        binding.description.text = description
+        with(binding){
+            cancelButton.setOnClickListener {
+                dismiss()
+            }
 
-        binding.submit.setOnClickListener {
-            dismiss()
+            submit.setOnClickListener {
+                onClickSubmit.invoke()
+                dismiss()
+            }
         }
     }
 }

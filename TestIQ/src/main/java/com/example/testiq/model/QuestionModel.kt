@@ -42,3 +42,9 @@ data class SubmitDataResponse(
     @SerializedName("money_bonus") var money_bonus: Int?,
     @SerializedName("star_bonus") var star_bonus: Int?,
 )
+
+data class ConfirmOpenGifResponse(
+    @SerializedName("success") var success: Boolean?,
+    @SerializedName("data") var data: String? = "",
+    @SerializedName("message") var message: String?
+)
