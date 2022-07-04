@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@android:color/white">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -19,9 +21,10 @@
         tools:ignore="RtlSymmetry" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="22:00"
+        tools:text="22:00"
         android:textColor="#22313F"
         android:textSize="@dimen/_16ssp"
         app:fontFamily="@font/roboto_medium"
@@ -116,12 +119,15 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_question"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_120sdp"
                 android:layout_margin="@dimen/_11ssp"
                 android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scaleType="fitXY"
                 tools:visibility="visible"
-                android:src="@drawable/image_quetstion"
+                tools:src="@drawable/image_quetstion"
                 app:layout_constraintTop_toBottomOf="@+id/question_name" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -129,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
