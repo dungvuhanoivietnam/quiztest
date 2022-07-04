@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#8F29353D">
+    android:background="#8F29353D"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,16 +15,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_marginTop="@dimen/_26sdp"
-            android:id="@+id/icon"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:src="@drawable/ic_success"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label"
             android:layout_width="0sp"
@@ -32,23 +22,23 @@
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
-            android:gravity="center"
-            android:text="Success"
+            android:text="Exit the test"
             android:textColor="#22313F"
             android:textSize="@dimen/_16ssp"
             app:fontFamily="@font/roboto_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="Successful connection..."
+            android:text="You have not completed the test. If you exit now, all results will not be saved"
             android:textColor="@color/color_8D959D"
             android:textSize="@dimen/_14sdp"
+            android:lineSpacingExtra="@dimen/_4sdp"
             app:layout_constraintEnd_toEndOf="@id/label"
             app:layout_constraintStart_toStartOf="@id/label"
             app:layout_constraintTop_toBottomOf="@id/label" />
@@ -58,17 +48,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_18sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:fontFamily="@font/roboto_medium"
-            android:lineSpacingExtra="8sp"
             android:padding="@dimen/_13sdp"
-            android:text="CLOSE"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="Continue"
             android:textAllCaps="true"
             android:textColor="#21C3FF"
+            android:lineSpacingExtra="8sp"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0sp"
+            app:layout_constraintBottom_toBottomOf="@id/submit"
+            android:padding="@dimen/_12sdp"
+            android:text="back"
+            android:textAllCaps="true"
+            android:textSize="@dimen/_13ssp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/submit"
+            app:layout_constraintTop_toTopOf="@+id/submit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

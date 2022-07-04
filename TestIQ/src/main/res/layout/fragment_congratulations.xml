@@ -100,6 +100,7 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:text="Reward"
+        android:background="@drawable/boder_stroke_textview"
         android:textColor="@color/color_21C3FF"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintEnd_toStartOf="@id/guideline"

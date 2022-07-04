@@ -12,18 +12,9 @@
         android:background="@drawable/bg_white"
         android:gravity="center"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/_16sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_marginTop="@dimen/_26sdp"
-            android:id="@+id/icon"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:src="@drawable/ic_success"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/label"
@@ -33,42 +24,57 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
             android:gravity="center"
-            android:text="Success"
+            android:text="Login"
             android:textColor="#22313F"
             android:textSize="@dimen/_16ssp"
             app:fontFamily="@font/roboto_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="Successful connection..."
+            android:lineSpacingExtra="@dimen/_4sdp"
+            android:text="You need to login to receive this reward"
             android:textColor="@color/color_8D959D"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="@id/label"
             app:layout_constraintStart_toStartOf="@id/label"
             app:layout_constraintTop_toBottomOf="@id/label" />
 
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cancel_button"
+            android:layout_width="0sp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/boder_stroke_textview_disable"
+            android:drawableTint="#00f"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textSize="@dimen/_13ssp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintEnd_toEndOf="@id/submit"
+            app:layout_constraintStart_toStartOf="@id/submit"
+            app:layout_constraintTop_toBottomOf="@+id/submit" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@drawable/customer_border"
             android:fontFamily="@font/roboto_medium"
-            android:lineSpacingExtra="8sp"
-            android:padding="@dimen/_13sdp"
-            android:text="CLOSE"
-            android:textAllCaps="true"
-            android:textColor="#21C3FF"
-            android:textSize="@dimen/_13ssp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:text="Login"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintTop_toBottomOf="@+id/description" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
