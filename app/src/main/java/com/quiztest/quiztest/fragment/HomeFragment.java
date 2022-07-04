@@ -1,24 +1,23 @@
 package com.quiztest.quiztest.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 
-//import com.example.testiq.MainIQActivity;
+import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
+import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.custom.ItemViewEarningTask;
 import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.retrofit.RequestAPI;
-
-import com.quiztest.quiztest.custom.ExtTextView;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -26,6 +25,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney;
     private ImageView ivSearch, ivNotify;
+    private ItemViewEarningTask itemIQ, itemMBI, itemEQ;
     private RequestAPI requestAPI;
 
     @Override
@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreMoney = v.findViewById(R.id.iv_get_more_money);
         ivSearch = v.findViewById(R.id.iv_search);
         ivNotify = v.findViewById(R.id.iv_notify);
+        itemIQ = v.findViewById(R.id.item_test_iq);
     }
 
 
@@ -67,6 +68,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivNotify.setOnClickListener(this);
+        itemIQ.setListener(() -> startActivity(new Intent(getActivity(), MainIQActivity.class)));
     }
 
     @Override

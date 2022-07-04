@@ -16,7 +16,7 @@ import com.example.testiq.databinding.DialogConfirmSubmitBinding
 class DialogConfirm(
     internal var context: Context,
     var value: String,
-    var onclick: () -> Unit
+    var onclick: () -> Unit, var description : String = ""
 ) : Dialog(context, R.style.MaterialDialogSheet) {
 
     private val binding = DialogConfirmSubmitBinding.inflate(LayoutInflater.from(context))
@@ -32,11 +32,16 @@ class DialogConfirm(
 
     private fun initUI() {
 
-        binding.description.text =
-            HtmlCompat.fromHtml(
-                context.resources.getString(R.string.txt_description_confirm, value),
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+        if (description.isNotEmpty()){
+            binding.description.text = description
+        }else {
+            binding.description.text =
+                HtmlCompat.fromHtml(
+                    context.resources.getString(R.string.txt_description_confirm, value),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+        }
+
 
         binding.cancelButton.setOnClickListener {
             dismiss()

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class QuizTestResponse(
     @SerializedName("success") var success: Boolean?,
     @SerializedName("data") var data: Data?,
-    @SerializedName("message") var message : String?,
+    @SerializedName("message") var message: String?,
 )
 
 data class Data(
@@ -27,4 +27,18 @@ data class OptionsAnswer(
     @SerializedName("type") var type: String?,
     @SerializedName("id") var id: Int?,
     var selected: Boolean = false,
+)
+
+data class SubmitQuizTestResponse(
+    @SerializedName("success") var success: Boolean?,
+    @SerializedName("data") var submitData: SubmitDataResponse?,
+    @SerializedName("message") var message: String?,
+)
+
+data class SubmitDataResponse(
+    @SerializedName("answer_correct") var questions: Int?,
+    @SerializedName("total_score") var total_score: Int? = 0,
+    @SerializedName("review") var review: String?,
+    @SerializedName("money_bonus") var money_bonus: Int?,
+    @SerializedName("star_bonus") var star_bonus: Int?,
 )

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.testiq.R
 import com.example.testiq.databinding.ItemAnswerImageBinding
 import com.example.testiq.databinding.ItemAnswerTextBinding
@@ -50,9 +51,9 @@ class AnswerAdapter(
     @SuppressLint("NotifyDataSetChanged")
     private fun updateViewT(index: Int, optionsAnswer: OptionsAnswer) {
         lstAnswer.forEach { item ->
-            if (item.id == optionsAnswer.id){
+            if (item.id == optionsAnswer.id) {
                 item.selected = !item.selected
-            }else{
+            } else {
                 item.selected = false
             }
 
@@ -125,6 +126,11 @@ class AnswerAdapter(
                     )
                 }
 
+                // load image
+                item.image?.let {
+                    Glide.with(context).load(item.image ?: "").into(binding.image)
+                }
+
                 when (position) {
                     0 -> binding.txt.text = "A. "
                     1 -> binding.txt.text = "B. "
@@ -132,7 +138,7 @@ class AnswerAdapter(
                     3 -> binding.txt.text = "D. "
                 }
                 binding.root.setOnClickListener {
-                    onclick.invoke(Pair(position,item))
+                    onclick.invoke(Pair(position, item))
                     updateViewT(position, item)
                 }
             }
@@ -140,7 +146,7 @@ class AnswerAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (lstAnswer[position].type === "TEXT") {
+        if (lstAnswer[position].type == "TEXT") {
             (holder as ViewHolder1).bind(position)
         } else {
             (holder as ViewHolder2).bind(position)

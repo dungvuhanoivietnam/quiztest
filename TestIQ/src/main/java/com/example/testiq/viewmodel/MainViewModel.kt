@@ -1,33 +1,38 @@
 package com.example.testiq.viewmodel
 
-import android.R.attr.data
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.testiq.model.QuestionModel
 import com.example.testiq.model.QuizTestResponse
-import com.example.testiq.utils.NetworkHelper
+import com.example.testiq.model.SubmitQuizTestResponse
 import com.example.testiq.utils.Resource
 import com.google.gson.Gson
 import org.json.JSONObject
-
 
 class MainViewModel(
 
 ) : ViewModel() {
 
-    var token : String = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJiNDhiZTkzNjYyNWYxMmMzNTkwNjI0MTZjOGIwODI3ZDc2MjMxZWQ5NDk1YzkxMTI3NzI0MjM3MzhmNGI3NmRiYWVhZTI1M2M4NWMyYTg4NiIsImlhdCI6MTY1NjQ4ODM1Ny43MTMwODksIm5iZiI6MTY1NjQ4ODM1Ny43MTMwOTIsImV4cCI6MTgxNDI1NDc1Ny43MDU3NzEsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.aLEVhbBj_GL7Vi2_SyWBhtyZmajkUae2KR1vb-CDMO3G5myLfWf4nkPB-KVdfcTGpbhYquP_bokkXlPwKOiKSONidb7CX6jfGr6oK8V9Sup_VUoVcnK88gmcJvssGhiWDEIian4aRnmBygw-1iQ5cWXnPb_dUjxKT4yPLiKXfZvc6xfwJ4MLytW_8nWLH8DUBEh93Snv-AjcJM8uIzl6zSQCZqhj5NQBvuCvUewEfcvYcEtT4SUkAV8BL2_RCOWq-ifA-gBgfOeLsbkbQt7XdLgZAt5R0E8iIW1Jp2DgR0qN10cY_D3R2YJrroP8B1YhFRWXa-mmYsuZ8HlL4E1wRPZz-ws-m-5vET1jdHFCORyR212vaC6zAUr-XJJ1CAJ6tlHvQEEJDg3RmAuz3Kr9Rao4ngG2fZfm4A3dTk76y8XR5F05W1_nvmx79ywxIIYkvjbQX0D747kYIHadmYwHjzOC9iVzSzzwXevx5gXgWOK-S7zQW8JWGBdgB9JsWVS_LkJpyBjZW1E0pFRRm796oxqp9NDeGrn_hrYr6JQQr9fBvyGIJ40Xn8meRfxaQ_XcMm_LbbG_BqKh12tNtiXPQxYZZy7cCi9YWdrhihSHsvRci6yZNsYPFfTvpRxtm3wMhBMFlt9hHcZQ5RD75stnVPAj7JsWf3ikP4b7JRdstX8"
+    var token : String = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJiYjM5YzMwMTBkYjQxOTI3M2FkMWZiZGI4NDZkZTJmMzhkOGEzZmQwNjM3NDI3ZDUxNjYwODNmZjY5ZTBlY2FmOWY3Y2QxNTc2YjgzZmE4YyIsImlhdCI6MTY1NjY2OTk3Ny4zMDYyNjksIm5iZiI6MTY1NjY2OTk3Ny4zMDYyNzEsImV4cCI6MTgxNDQzNjM3Ny4yOTkwNiwic3ViIjoiMjkiLCJzY29wZXMiOltdfQ.m4QHGTCmrq5_4dhQj-qsCm7IIKpzsFz3O-7d-aF9Ye0szTbcCfLmqi2u1R7wzPrO2GJd-o0kT9cgcgZQgNHPfYwJrlBkfETcSk1nLHDKHTATvU1V0lVgv5yHvaZ2vNt37ZPCWxjvRUgOljC1qUZTGzKRTXd3uwAnQlxSLNSI6RC8T8HVDT7mFc5aAE_OUeJBAooN-pKmAD_lW1wfXIes8osSE5aQRHHYI-df_Sl2bIz2pWfOixblpkNuIbBGuPsUnPYJtVbnCXgDlQ0FJl5cC2cQH2BCjPOW9CPjv5vKTyCLWJ_tShH9Z1pKVh7V4s3rCfKjT5rYtaRYiFER5gp9aJ81teWFSzQx-TV_b_9Km6RiA2S0nmoEUAlTWnO5X3HA21A3JLZZaPanLhKZAFg0C6Faau3Ql-ycFcYM5E56m8gpjPxRRHxIC0qIelPaHOY4x8y4x080uOj0MIhUN0sedDePVhO8MEBN29BavJAgieTv0E4CPHCfqEOCVTzCzKc3nx5m_My2S0i-v3DaNbT2W9ZJAXFWljcWLf7BCiDGqmJcN58Vsx14Wi_EZ6WXMZ3fpQASIYa7iVwwXPG7fvLElT0wOyZFIMM79beS0Lol9n7kRayqkmY_tSJYO3pXsukGPRYC7grZEbwr4_XkEi4Ijz61usy3fy05RhSyCz3HbNw"
     private val _users = MutableLiveData<Resource<QuizTestResponse>>()
     var lstQuestion = ArrayList<QuestionModel>()
     var questionModel : QuestionModel? = null
     var index : Int = 0
     var quizTestResponse : QuizTestResponse?= null
+    var submitResponse  : SubmitQuizTestResponse?= null
+    var lstJSONObject  = JSONObject()
+    private val _submit = MutableLiveData<Resource<SubmitQuizTestResponse>>()
 
     val questions: LiveData<Resource<QuizTestResponse>>
         get() = _users
+
+    val submitQuizTests: LiveData<Resource<SubmitQuizTestResponse>>
+        get() = _submit
 
      fun fetchQuestion() {
          _users.postValue(Resource.loading(null))
@@ -40,11 +45,11 @@ class MainViewModel(
              .build()
              .getAsJSONObject(object : JSONObjectRequestListener {
                  override fun onResponse(response: JSONObject?) {
-                     val response: QuizTestResponse = Gson().fromJson(
+                     val dataResponse : QuizTestResponse = Gson().fromJson(
                          response.toString(),
                          QuizTestResponse::class.java
                      )
-                     _users.postValue(Resource.success(response))
+                     _users.postValue(Resource.success(dataResponse))
                  }
 
                  override fun onError(error: ANError) {
@@ -54,27 +59,28 @@ class MainViewModel(
              })
     }
 
-    fun submitQuizTest(answers : ArrayList<Int>, keyQuizTest : String){
+    fun submitQuizTest(keyQuizTest : String){
+        _submit.postValue(Resource.loading(null))
         AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/submit-quiz-test")
             .addHeaders("Authorization", token)
             .addHeaders("key-app", "quiztest")
-            .addQueryParameter("answers", answers.toString())
+            .addQueryParameter("answers", lstJSONObject.toString())
             .addQueryParameter("key_quiz_test", keyQuizTest)
             .setTag("test")
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
-                    val response: QuizTestResponse = Gson().fromJson(
+                    val submitResponse : SubmitQuizTestResponse = Gson().fromJson(
                         response.toString(),
-                        QuizTestResponse::class.java
+                        SubmitQuizTestResponse::class.java
                     )
-                    _users.postValue(Resource.success(response))
+                    _submit.postValue(Resource.success(submitResponse))
                 }
 
                 override fun onError(error: ANError) {
                     // handle error
-                    _users.postValue(Resource.error(error.message.toString(),null))
+                    _submit.postValue(Resource.error(error.message.toString(),null))
                 }
             })
     }
