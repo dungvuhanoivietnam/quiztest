@@ -14,8 +14,12 @@ import com.example.testiq.databinding.FragmentQuestionIqBinding
 import com.example.testiq.model.QuestionModel
 import com.example.testiq.ui.*
 import com.example.testiq.utils.NetworkHelper
+import com.example.testiq.utils.SharePrefrenceUtils
 import com.example.testiq.utils.Status
+import com.example.testiq.viewmodel.MainIQViewModel
 import com.example.testiq.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
@@ -23,14 +27,20 @@ class FragmentQuestion :
     BaseFragment<MainViewModel, FragmentQuestionIqBinding>(R.layout.fragment_question_iq) {
 
     override val viewModel: MainViewModel by viewModels()
+
     private var adapterAnswer: AnswerAdapter? = null
 
     override fun setupViews() {
+
+        if (MainIQActivity.token.isNotEmpty()) {
+            viewModel.token = MainIQActivity.token
+        }
+
         if (NetworkHelper(requireContext()).isNetworkConnected()) {
             // khi da login
-            if (viewModel.token.isNotEmpty()){
+            if (viewModel.token.isNotEmpty()) {
                 viewModel.fetchQuestion()
-            }else{
+            } else {
                 // khi chua login
                 viewModel.fetChQuestionNoToken()
             }
@@ -47,7 +57,7 @@ class FragmentQuestion :
     override fun setupListeners() {
         with(binding) {
             viewNext.setOnClickListener {
-                if (viewModel.index == viewModel.lstQuestion.size - 1){
+                if (viewModel.index == viewModel.lstQuestion.size - 1) {
                     return@setOnClickListener
                 }
                 viewModel.index++
@@ -55,7 +65,7 @@ class FragmentQuestion :
             }
 
             viewPrevious.setOnClickListener {
-                if (viewModel.index == 0){
+                if (viewModel.index == 0) {
                     return@setOnClickListener
                 }
                 viewModel.index--
@@ -63,13 +73,17 @@ class FragmentQuestion :
             }
 
             submit.setOnClickListener {
-                DialogConfirm(requireContext(), "${checkDataSelect()}",viewModel.lstQuestion, {
+                DialogConfirm(requireContext(), "${checkDataSelect()}", viewModel.lstQuestion, {
                     filterListSubmit()
                     // khi chua login
-                    if (viewModel.token.isNotEmpty()){
-                        viewModel.submitQuizTest(viewModel.quizTestResponse?.data?.key_quiz_test ?: "")
-                    }else{
-                        viewModel.submitQuizTestNoToken(viewModel.quizTestResponse?.data?.key_quiz_test ?: "")
+                    if (viewModel.token.isNotEmpty()) {
+                        viewModel.submitQuizTest(
+                            viewModel.quizTestResponse?.data?.key_quiz_test ?: ""
+                        )
+                    } else {
+                        viewModel.submitQuizTestNoToken(
+                            viewModel.quizTestResponse?.data?.key_quiz_test ?: ""
+                        )
                     }
                     // da login
                 }).show()
@@ -99,7 +113,11 @@ class FragmentQuestion :
             when (it.status) {
                 Status.SUCCESS -> {
                     cancelLoading()
-                    DialogResultCallApi(requireContext(), Status.SUCCESS, "Start Test successfully.").show()
+                    DialogResultCallApi(
+                        requireContext(),
+                        Status.SUCCESS,
+                        "Start Test successfully."
+                    ).show()
                     if (it.data?.success == true) {
                         viewModel.quizTestResponse = it.data
                         it.data.data?.questions?.let { it1 ->
@@ -108,7 +126,7 @@ class FragmentQuestion :
                     }
                 }
                 Status.ERROR -> {
-                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?:"").show()
+                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?: "").show()
                     cancelLoading()
                 }
                 Status.LOADING -> {
@@ -126,14 +144,17 @@ class FragmentQuestion :
                         it.data.submitData?.let { submitDataResponse ->
                             (Objects.requireNonNull(requireActivity()) as MainIQActivity).addFragment(
                                 R.id.frame_layout,
-                                FragmentCongratulation(submitDataResponse,viewModel.quizTestResponse),
+                                FragmentCongratulation(
+                                    submitDataResponse,
+                                    viewModel.quizTestResponse
+                                ),
                                 FragmentQuestion::class.java.simpleName
                             )
                         }
                     }
                 }
                 Status.ERROR -> {
-                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?:"").show()
+                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?: "").show()
                     cancelLoading()
                 }
                 Status.LOADING -> {
@@ -201,7 +222,7 @@ class FragmentQuestion :
         Log.d("AAAAAAAAAAAAAAAAA", viewModel.lstJSONObject.toString())
     }
 
-    private fun checkDataSelect() : Int{
+    private fun checkDataSelect(): Int {
         var checkSelected: Boolean
         var countSelect = 0
         viewModel.lstQuestion.forEach { question ->

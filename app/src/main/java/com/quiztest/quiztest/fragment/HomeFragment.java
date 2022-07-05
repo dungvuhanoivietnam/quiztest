@@ -18,6 +18,7 @@ import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.custom.ItemViewEarningTask;
 import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.retrofit.RequestAPI;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -68,7 +69,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivNotify.setOnClickListener(this);
-        itemIQ.setListener(() -> startActivity(new Intent(getActivity(), MainIQActivity.class)));
+        itemIQ.setListener(() -> {
+            Intent intent = new Intent(getContext(), MainIQActivity.class);
+            intent.putExtra("token", SharePrefrenceUtils.getInstance(requireActivity()).getUserAccessToken());
+            startActivity(intent);
+        });
     }
 
     @Override

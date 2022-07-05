@@ -18,6 +18,7 @@ abstract class BaseActivity<VM : ViewModel, B : ViewBinding> : AppCompatActivity
 
     lateinit var binding: B
     private var loading : DialogLoading? = null
+    protected abstract val viewModel: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

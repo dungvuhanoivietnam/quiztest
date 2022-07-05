@@ -56,7 +56,6 @@ class AnswerAdapter(
             } else {
                 item.selected = false
             }
-
         }
 
         notifyDataSetChanged()
@@ -131,12 +130,8 @@ class AnswerAdapter(
                     Glide.with(context).load(item.image ?: "").into(binding.image)
                 }
 
-                when (position) {
-                    0 -> binding.txt.text = "A. "
-                    1 -> binding.txt.text = "B. "
-                    2 -> binding.txt.text = "C. "
-                    3 -> binding.txt.text = "D. "
-                }
+                binding.txt.text = convertPosition(position)
+
                 binding.root.setOnClickListener {
                     onclick.invoke(Pair(position, item))
                     updateViewT(position, item)
@@ -150,6 +145,19 @@ class AnswerAdapter(
             (holder as ViewHolder1).bind(position)
         } else {
             (holder as ViewHolder2).bind(position)
+        }
+    }
+
+    fun convertPosition(position : Int) : String{
+        return when (position) {
+            0 -> "A. "
+            1 -> "B. "
+            2 -> "C. "
+            3 -> "D. "
+            4 -> "E. "
+            5 -> "F. "
+            6 -> "F. "
+            else -> ""
         }
     }
 

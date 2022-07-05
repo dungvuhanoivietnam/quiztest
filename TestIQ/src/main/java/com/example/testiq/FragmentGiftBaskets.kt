@@ -20,6 +20,9 @@ class FragmentGiftBaskets(
     override val viewModel: MainViewModel by viewModels()
 
     override fun setupViews() {
+        if (MainIQActivity.token.isNotEmpty()) {
+            viewModel.token = MainIQActivity.token
+        }
     }
 
     override fun setupListeners() {
@@ -29,7 +32,15 @@ class FragmentGiftBaskets(
             }
 
             imgGift.setOnClickListener {
-                viewModel.confirmOpenGif(quizTestResponse?.data?.key_quiz_test ?: "")
+                if (MainIQActivity.token.isNotEmpty()){
+                    viewModel.confirmOpenGif(quizTestResponse?.data?.key_quiz_test ?: "")
+                }else{
+                    (Objects.requireNonNull(requireActivity()) as MainIQActivity).addFragment(
+                        R.id.frame_layout,
+                        FragmentGiftBasketsResult(submitQuizTestResponse,quizTestResponse),
+                        FragmentQuestion::class.java.simpleName
+                    )
+                }
             }
         }
     }

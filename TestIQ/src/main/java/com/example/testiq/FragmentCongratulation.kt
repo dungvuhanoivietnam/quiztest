@@ -1,5 +1,6 @@
 package com.example.testiq
 
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import com.example.testiq.databinding.FragmentCongratulationsBinding
@@ -17,12 +18,15 @@ class FragmentCongratulation(
     override val viewModel: ViewModel by viewModels()
 
     override fun setupViews() {
+
     }
 
     override fun setupListeners() {
         with(binding){
             back.setOnClickListener {
-                Objects.requireNonNull(requireActivity()).supportFragmentManager.popBackStack()
+                val fm = activity
+                    ?.supportFragmentManager
+                fm?.popBackStack(FragmentQuestion::class.java.simpleName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             }
             total.text = "${submitQuizTestResponse?.total_score}"
             review.text = fromHtml(submitQuizTestResponse?.review)

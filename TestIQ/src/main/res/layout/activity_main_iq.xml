@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/background"
@@ -147,13 +147,14 @@
                 app:layout_constraintTop_toTopOf="@id/money" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:paddingBottom="@dimen/_16sdp"
                 android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
                 android:textColor="@android:color/white"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_16sdp"
                 android:fontFamily="@font/roboto_medium"
                 android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center_vertical"
                 android:drawableEnd="@drawable/ic_money_"
                 android:drawablePadding="@dimen/_3sdp"
                 android:text="Get 2"
@@ -162,11 +163,12 @@
                 app:layout_constraintTop_toBottomOf="@id/money" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:paddingBottom="@dimen/_16sdp"
                 android:id="@+id/tv_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
                 android:drawableEnd="@drawable/ic_vector_1"
                 android:drawablePadding="@dimen/_3sdp"
                 android:text="Get 2"
