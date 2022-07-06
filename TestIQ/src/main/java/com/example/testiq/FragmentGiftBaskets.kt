@@ -1,5 +1,6 @@
 package com.example.testiq
 
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import com.example.testiq.databinding.FragmentGiftBasketsBinding
@@ -28,7 +29,9 @@ class FragmentGiftBaskets(
     override fun setupListeners() {
         with(binding) {
             back.setOnClickListener {
-                Objects.requireNonNull(requireActivity()).supportFragmentManager.popBackStack()
+                val fm = activity
+                    ?.supportFragmentManager
+                fm?.popBackStack(FragmentQuestion::class.java.simpleName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             }
 
             imgGift.setOnClickListener {

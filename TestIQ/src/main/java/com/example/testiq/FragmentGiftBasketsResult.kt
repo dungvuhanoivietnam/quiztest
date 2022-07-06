@@ -7,12 +7,14 @@ import com.example.testiq.databinding.DialogConfirmLoginBinding
 import com.example.testiq.databinding.FragmentCongratulationsBinding
 import com.example.testiq.databinding.FragmentGiftBasketsBinding
 import com.example.testiq.databinding.FragmentGiftBasketsResultBinding
+import com.example.testiq.model.Event
 import com.example.testiq.model.QuizTestResponse
 import com.example.testiq.model.SubmitDataResponse
 import com.example.testiq.ui.BaseFragment
 import com.example.testiq.ui.DialogRequestLogin
 import com.example.testiq.utils.SharePrefrenceUtils
 import com.example.testiq.viewmodel.MainViewModel
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class FragmentGiftBasketsResult(
@@ -37,10 +39,12 @@ class FragmentGiftBasketsResult(
 
             getGift.setOnClickListener {
                 if (MainIQActivity.token.isNotEmpty()){
-                    DialogRequestLogin(requireContext()) {
-                    }.show()
-                }else {
                     activity?.finish()
+                }else {
+                    DialogRequestLogin(requireContext()) {
+                        activity?.finish()
+                        EventBus.getDefault().postSticky(Event())
+                    }.show()
                 }
             }
 

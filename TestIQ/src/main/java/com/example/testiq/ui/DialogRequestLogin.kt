@@ -33,8 +33,8 @@ class DialogRequestLogin(
             }
 
             submit.setOnClickListener {
-                onClickSubmit.invoke()
                 dismiss()
+                onClickSubmit.invoke()
             }
         }
     }
