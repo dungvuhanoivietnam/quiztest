@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -36,6 +37,12 @@ public class RetrofitClient {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .readTimeout(time, TimeUnit.SECONDS)
                 .writeTimeout(time, TimeUnit.SECONDS)
+                .addInterceptor(chain -> {
+                    Request newRequest = chain.request().newBuilder()
+                            .addHeader("key-app","quiztest")
+                            .build();
+                    return chain.proceed(newRequest);
+                })
                 .build();
         return okHttpClient;
     }

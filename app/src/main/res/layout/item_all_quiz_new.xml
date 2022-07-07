@@ -8,7 +8,7 @@
     android:layout_marginEnd="@dimen/_16sdp"
     android:layout_marginBottom="@dimen/_8sdp"
     app:cardCornerRadius="@dimen/_8sdp"
-    app:cardElevation="@dimen/_8sdp">
+    app:cardElevation="@dimen/_3sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:padding="@dimen/_10sdp"
             android:src="@drawable/img_test_iq" />
 
-        <TextView
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:layout_toEndOf="@id/iv_item"
             android:text="Test IQ"
             android:textColor="@color/color_22313F"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,10 @@
                 android:id="@+id/star_can_get"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Get 200 star"
+                android:text="@string/get_s_star"
+                android:drawablePadding="@dimen/_3sdp"
+                android:drawableEnd="@drawable/ic_star_mini"
+                android:textSize="@dimen/_11sdp"
                 android:textColor="@color/color_22313F"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
