@@ -203,7 +203,7 @@ class LoginFragment : BaseFragment() {
                 it.data?.accessToken?.let {
                     SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
                     replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
-                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
+//                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
                 }?: kotlin.run {
                     Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT).show()
                 }
