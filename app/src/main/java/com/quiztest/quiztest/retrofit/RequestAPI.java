@@ -3,6 +3,8 @@ package com.quiztest.quiztest.retrofit;
 import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
+import com.quiztest.quiztest.model.HomeDataResponse;
+import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserReponse;
@@ -16,6 +18,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RequestAPI {
@@ -27,6 +30,9 @@ public interface RequestAPI {
 
     @GET("user")
     Call<UserInfoResponse> getUserInfo();
+
+    @GET("user-guest")
+    Call<UserInfoResponse> getGuestUserInfo();
 
     @POST("auth/login")
     Call<AuthResponse> loginAccount(
@@ -43,6 +49,12 @@ public interface RequestAPI {
 
     @GET("user/logout")
     Call<BaseResponse> logOut();
+
+    @GET("quiz/get-data-for-home")
+    Call<HomeDataResponse> getDataForHome();
+
+    @GET("quiz/topic-list-by-type/{type}")
+    Call<TopicListResponse> getTopicByType(@Path("type") int type);
 
     @Multipart
     @POST("user/change-avatar")

@@ -57,6 +57,13 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    protected void addFragment(Fragment fragment, String tag) {
+        if (getActivity() instanceof MainActivity) {
+            MainActivity nativeLoginActivity = (MainActivity) getActivity();
+            nativeLoginActivity.addFragment(fragment, tag);
+        }
+    }
+
     protected void backstackFragment() {
         if (getActivity() instanceof MainActivity) {
             MainActivity nativeLoginActivity = (MainActivity) getActivity();

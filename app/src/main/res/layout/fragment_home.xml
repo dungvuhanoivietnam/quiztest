@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_180sdp"
+        android:layout_height="@dimen/_200sdp"
         android:background="@drawable/bg_header_home"
         android:elevation="@dimen/_2sdp">
 
@@ -118,7 +118,7 @@
                             android:id="@+id/ext_star_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="16"
+                            android:text="@string/value_"
                             android:textColor="@color/color_22313F"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -188,7 +188,7 @@
                             android:id="@+id/ext_money_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="56"
+                            android:text="@string/value_"
                             android:textColor="@color/color_22313F"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
@@ -353,7 +353,7 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:text="@string/earning_tasks"
                     android:textColor="@color/color_22313F"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
 
                 <com.quiztest.quiztest.custom.ExtTextView
@@ -366,20 +366,22 @@
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone" />
 
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_below="@id/tv_view_all_recommend"-->
-                <!--                    android:layout_centerHorizontal="true"-->
-                <!--                    android:layout_marginStart="-6dp"-->
-                <!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-                <!--                    tools:itemCount="5"-->
-                <!--                    tools:listitem="@layout/item_recommend_for_you" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_earning_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/label_recommend"
+                    android:layout_centerHorizontal="true"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:spanCount="2"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_earning_task" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/label_recommend">
+                    android:layout_below="@+id/label_recommend"
+                    android:visibility="gone">
 
                     <com.quiztest.quiztest.custom.ItemViewEarningTask
                         android:id="@+id/item_test_iq"
@@ -444,7 +446,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/get_more_stars"
                     android:textColor="@color/color_22313F"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView

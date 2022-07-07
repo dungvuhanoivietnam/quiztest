@@ -17,6 +17,19 @@ public class UserInfoResponse {
     @Expose
     private String message;
 
+    public static UserInfoResponse currentUser;
+
+    public static UserInfoResponse getInstance() {
+        if (currentUser != null) {
+            return currentUser;
+        }
+        return null;
+    }
+
+    public static void setCurrentUser(UserInfoResponse currentUser) {
+        UserInfoResponse.currentUser = currentUser;
+    }
+
     public Boolean getSuccess() {
         return success;
     }

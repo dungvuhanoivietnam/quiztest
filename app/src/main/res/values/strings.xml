@@ -118,5 +118,9 @@
     <string name="please_enter_withdrawal_amount">Please enter withdrawal amount</string>
     <string name="notification">Notification</string>
     <string name="no_announcements">No announcements</string>
+    <string name="get_s_star">Get %d star</string>
+    <string name="money_get">Get %d$</string>
+    <string name="star_pay">Cost %d</string>
+    <string name="value_">%d</string>
 
 </resources>
