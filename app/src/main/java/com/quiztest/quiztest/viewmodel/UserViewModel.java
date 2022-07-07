@@ -1,7 +1,5 @@
 package com.quiztest.quiztest.viewmodel;
 
-import android.util.Log;
-
 import androidx.core.util.Consumer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
@@ -10,6 +8,8 @@ import com.google.gson.Gson;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.ChangePassResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
+import com.quiztest.quiztest.model.HomeDataResponse;
+import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +46,10 @@ public class UserViewModel extends ViewModel {
         requestAPI.getUserInfo().enqueue(new callBack(consumer));
     }
 
+    public void getGuestUserInfo(RequestAPI requestAPI, Consumer consumer) {
+        requestAPI.getGuestUserInfo().enqueue(new callBack(consumer));
+    }
+
     public void getHistory(RequestAPI requestAPI, int page, Consumer consumer) {
         pageHistory = page;
         requestAPI.getHistorys(page + "").enqueue(new callBackHistory(consumer));
@@ -69,12 +72,55 @@ public class UserViewModel extends ViewModel {
             UserInfoResponse userInfoResponse = response.body();
             if (userInfoResponse != null) {
                 userInfo = userInfoResponse.getData().getUserInfo();
+                consumer.accept(userInfoResponse);
             }
-            consumer.accept(new Object());
+
         }
 
         @Override
         public void onFailure(Call<UserInfoResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    private class callBackGetDataHome implements Callback<HomeDataResponse> {
+
+        private Consumer consumer;
+
+        public callBackGetDataHome(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<HomeDataResponse> call, Response<HomeDataResponse> response) {
+            HomeDataResponse homeDataResponse = response.body();
+            if (homeDataResponse != null) {
+                consumer.accept(homeDataResponse);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<HomeDataResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    private class callBackGetTopicByType implements Callback<TopicListResponse> {
+
+        private Consumer consumer;
+
+        public callBackGetTopicByType(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<TopicListResponse> call, Response<TopicListResponse> response) {
+            TopicListResponse topicListResponse = response.body();
+            consumer.accept(topicListResponse);
+        }
+
+        @Override
+        public void onFailure(Call<TopicListResponse> call, Throwable t) {
             consumer.accept(t);
         }
     }
@@ -136,6 +182,14 @@ public class UserViewModel extends ViewModel {
 
     public void logout(RequestAPI requestAPI, Consumer consumer) {
         requestAPI.logOut().enqueue(new callBackLogout(consumer));
+    }
+
+    public void getDataForHome(RequestAPI requestAPI, Consumer consumer){
+        requestAPI.getDataForHome().enqueue(new callBackGetDataHome(consumer));
+    }
+
+    public void getTopicListByType(RequestAPI requestAPI, int type, Consumer consumer){
+        requestAPI.getTopicByType(type).enqueue(new callBackGetTopicByType(consumer));
     }
 
     private static class callBackLogout implements Callback<BaseResponse> {

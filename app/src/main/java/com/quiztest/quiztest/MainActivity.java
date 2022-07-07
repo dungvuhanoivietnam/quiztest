@@ -137,11 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void hideOrShowBottomView(boolean show) {
-        if (show) {
-            if (ctsBottomNavigation.getVisibility() != View.VISIBLE)
-                ctsBottomNavigation.setVisibility(View.VISIBLE);
-        } else {
-            ctsBottomNavigation.setVisibility(View.GONE);
+        if (ctsBottomNavigation != null) {
+            if (show) {
+                if (ctsBottomNavigation.getVisibility() != View.VISIBLE)
+                    ctsBottomNavigation.setVisibility(View.VISIBLE);
+            } else {
+                ctsBottomNavigation.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (!fragments.contains(fragmentRanking)) {
                 fragments.add(fragmentRanking);
-                addFragment(fragmentRanking);
+                addFragment(fragmentRanking, fragmentRanking.getClass().getSimpleName());
             }
             showFragment(fragmentRanking);
             enableButton(btnRanking);
@@ -171,13 +173,13 @@ public class MainActivity extends AppCompatActivity {
             }
             if (!fragments.contains(fragmentProfile)) {
                 fragments.add(fragmentProfile);
-                addFragment(fragmentProfile);
+                addFragment(fragmentProfile, fragmentProfile.getClass().getSimpleName());
             }
             showFragment(fragmentProfile);
             enableButton(btnProfile);
 
         });
-        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiJiZTgyMjBiMWQyMGVhODM5MDUyMWM2MGZhZDllMjFjOWNhZGNiZDEwZTViNmRhYjFiYTlmNmUzYzI1OTJlODIyMDMzYjI5YzJlYzczODk5MyIsImlhdCI6MTY1NjU4MTUwMS43MzA5NjQsIm5iZiI6MTY1NjU4MTUwMS43MzA5NjksImV4cCI6MTgxNDM0NzkwMS43MjUzNjYsInN1YiI6IjI0Iiwic2NvcGVzIjpbXX0.TiYJ1lHFU3cOOdepgkh2WcWmokEOFB59Jbf-RRvxBp2li857MkeSZtUb0BirpxpU_vxw8WfONHq6isjx5y2Q4hiA-GlW2bHIlBU109DFbuVIZOE7TC4I7Elj7PgVJIXvyEaCtGHc5Q_iwTtPWDa-gIGnEu2IoxDK48q4bxTWUd73afX0PV8zUajXn1XUwGrSMzz9oJXOLm8-X8LCCuJRDtnCcH9zuSewToEQeFEiAQxO_VWeYKGfBW15CY--RwlwXQdt5sfG-hMMIT5qkVEGJcGhkhZSXxT1TJGIstSSm5rRxdmf36Tmy22LxeH5vV9-9LpvlMnS6BMLJPBBBjpLzkU-QCNiLKewEVNgt6kDzO8mwY5ZjO17RyWvP-bDcmpSJeZmW_6yOSwwaFL3Q3r3Fe_U9eIkXkEqS3DI5-JyFpIJnEsLoJGELyWkCczCPFh3FGDDtSg4ILI4CEwQXx4yqyTC7Z96SJ6aQZ_2N3NX6bghru3R7dXiSeh2Z2qySYR6SWJKqtOUrIayF5A3oFd6dMX2v_x_kq-L6GmULJeuG-LWNodZSD1s3eGdFYShRvdWtPmnGcBiwa4cbM3Uch1JEKSORRpUcuZlC0aHjBAWXswjezyUqdmS8_rDtjwid1jLjvvDm285aG2Qv8PBMDqMBy1FX9_hj9UJ66-YO7CG_Ho");
+//        SharePrefrenceUtils.getInstance(this).saveAuth("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5Njk5ZjAxMS1iYmY4LTRlNjUtOWMyOS1kNTQ0NWM3MWRmMjYiLCJqdGkiOiI2NTdmMjE3NmI0YmY5OWQyNzBmM2NkNzQxNzNlNDhlNWVmNGE1ZTNkOTdmMGQ5OTJkNTBhYmE5ZDlhMDk3ODRhMTFjOTM4OTk0MjViYWI5MiIsImlhdCI6MTY1NzE5Mjc5NS40NjU3MDEsIm5iZiI6MTY1NzE5Mjc5NS40NjU3MDQsImV4cCI6MTgxNDk1OTE5NS40NjAyODgsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.m1oqyNO1p3eLFFJPe3ehyZOh1z8XbWNLwdYUNmwlA5A4T9HtrkV9p4huYvJQ524SOplOAn3bNDzCIvem9OPDAPPYKzYesdXflxOfuKFWbk3gWjNebKRYt0sCeIGVWIdDqfN211Eiiz_P8mKwTH73uPcUD9ub_-34XqDkQGizincWYYdnLlyrzAQ4rRhu6puwoSWG52fe6Srkbb54nT0IHFLN9i6x-MYV6yEL98kdk14iHxRxNme22kDG9Y92WwTQ_s6rAzyBjJs-xczHcn0uuHBpYDyEqmXYtWVzbqIbXuJJpZcTmhj3aAYewSYwd0RdTx5mg87-EsS59CGuseO8ZjmS6SzGV4CQCj1QB5gfCyFN5nqa8vnZdAzUAI2V6XAQjcHV7aM17e5BNNBGZCgMwhIPpFmaa48WOmRTVRR7pXNRgRHy00U8F5j-CmtibgPcodj0uEWusDo47y7HdB0nzeUWYJmZwjI2-B_9X8BdePXICWUSkUSL9Imy3gcub9rcaYerz6GatG3-hcHTmvdACG18T1I6eDqGdCs3rsdycT5LUCIXt3CdQyxCaxvPLgjL7USvv6W2sh249qnT2Wg-JDx8fReyAwTAWzaXxoVfVJGn9lcANi0TYcklE5DZVmbjUMI0CIVwSUg0DIqdYnjUT43viCnjt6W96oYKHe1OWVI");
     }
 
     private void enableButton(ExtTextView btnEnable) {
@@ -211,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 //        ft.addToBackStack(null);
 //        ft.commit();
 
-        addFragment(fragmentHome);
+        addFragment(fragmentHome, fragmentHome.getClass().getSimpleName());
 //        addFragment(fragmentRanking);
 //        addFragment(fragmentProfile);
 
@@ -229,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         enableButton(btnHome);
     }
 
-    private void addFragment(BaseFragment fmAdd) {
+    private void addFragment(BaseFragment fmAdd, String tag) {
         getFragmentManager().executePendingTransactions();
         if (!fmAdd.isAdded()) {
             if (fmAdd instanceof HomeFragment) {
@@ -246,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
             }
             transaction.commit();
         }
+        hideOrShowBottomView(tag.contains(HomeFragment.class.getSimpleName()) || tag.contains(ProfileFragment.class.getSimpleName()) || tag.contains(RankingFragment.class.getSimpleName()));
     }
 
     @Override
@@ -281,9 +284,12 @@ public class MainActivity extends AppCompatActivity {
 //            replaceFragment(new SplashLoginFragment(), SplashLoginFragment.TAG);
 //            return;
 //        }
+
         if (fragmentStates.size() > 1) {
             fragmentStates.remove(fragmentStates.size() - 1);
             getSupportFragmentManager().popBackStack();
+            String tagg = fragmentStates.get(fragmentStates.size()-1);
+            hideOrShowBottomView(tagg.contains(HomeFragment.class.getSimpleName()) || tagg.contains(ProfileFragment.class.getSimpleName()) || tagg.contains(RankingFragment.class.getSimpleName()));
             return;
         } else {
 //            setResult(MainActivity.REQUEST_CODE_BACK_LOGIN);
@@ -362,5 +368,18 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         activityResultFragment.result(requestCode,permissions,grantResults);
+    }
+
+    public void addFragment(Fragment fragment, String tag) {
+        if (tag.contains(SettingFragment.class.getSimpleName())) {
+            activityResultFragment = (SettingFragment) fragment;
+        }
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.frContent, fragment);
+        if (!fragmentStates.contains(tag))
+            fragmentStates.add(tag);
+        ft.addToBackStack(tag);
+        ft.commit();
+        hideOrShowBottomView(tag.contains(HomeFragment.class.getSimpleName()) || tag.contains(ProfileFragment.class.getSimpleName()) || tag.contains(RankingFragment.class.getSimpleName()));
     }
 }
