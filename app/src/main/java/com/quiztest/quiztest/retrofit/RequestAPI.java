@@ -7,6 +7,7 @@ import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.model.UserRankingResponse;
 import com.quiztest.quiztest.model.UserReponse;
 import com.quiztest.quiztest.model.VerifyEmailResponse;
 
@@ -52,6 +53,9 @@ public interface RequestAPI {
 
     @GET("quiz/get-data-for-home")
     Call<HomeDataResponse> getDataForHome();
+
+    @GET("user/get-ranking/{type}")
+    Call<UserRankingResponse> getRankingStarByType(@Path("type") String type);
 
     @GET("quiz/topic-list-by-type/{type}")
     Call<TopicListResponse> getTopicByType(@Path("type") int type);
