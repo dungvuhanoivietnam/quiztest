@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_4sdp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_back"
@@ -29,6 +30,7 @@
         app:layout_constraintTop_toTopOf="@id/iv_back" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="0sp"
         android:layout_marginEnd="@dimen/_16sdp"
@@ -50,14 +52,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcl_result"
-        android:padding="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        tools:itemCount="40"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:spanCount="6"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:padding="@dimen/_3sdp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/line"
+        app:spanCount="6"
         tools:listitem="@layout/item_check_bottom_sheet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

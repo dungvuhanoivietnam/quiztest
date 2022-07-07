@@ -1,34 +1,37 @@
 package com.quiztest.quiztest.fragment;
 
-import android.os.Bundle;
+import android.content.Intent;
+import android.os.Handler;
+
 import android.text.TextUtils;
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
+import com.example.testiq.MainIQActivity;
+import com.example.testiq.model.Event;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.example.testiq.MainIQActivity;
 import com.bumptech.glide.Glide;
+import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.EarningTasksAdapter;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
+import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.custom.ItemViewEarningTask;
 import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
-
-import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView ivSearch, ivNotify, ivAvatar;
     private RecyclerView rcvGetMoreStar;
     private RecyclerView rcvEarningTask;
+    private ItemViewEarningTask itemIQ, itemMBI, itemEQ , itemOT;
 
     private UserViewModel userViewModel;
     private ArrayList<TestItem> currentListEarningTasks;
@@ -51,24 +55,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
     protected void initView(View v) {
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         extLogin = v.findViewById(R.id.ext_login);
         ivGetMoreStar = v.findViewById(R.id.iv_get_more_star);
         ivGetMoreMoney = v.findViewById(R.id.iv_get_more_money);
@@ -81,8 +71,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         rcvGetMoreStar = v.findViewById(R.id.rcv_get_more_star);
         rcvEarningTask = v.findViewById(R.id.rcv_earning_task);
+        itemIQ = v.findViewById(R.id.item_test_iq);
+        itemEQ = v.findViewById(R.id.item_test_eq);
+        itemMBI = v.findViewById(R.id.item_test_mbi);
+        itemOT = v.findViewById(R.id.item_test_other);
     }
-
 
     @Override
     protected int getLayoutId() {
@@ -96,6 +89,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivNotify.setOnClickListener(this);
+        itemIQ.setListener(() -> {
+            startActTestIQ("IQ");
+        });
+
+        itemEQ.setListener(() -> {
+            startActTestIQ("EQ");
+        });
+
+        itemMBI.setListener(() -> {
+            startActTestIQ("MBI");
+        });
+
+        itemOT.setListener(() -> {
+            startActTestIQ("OT");
+        });
+
         getMoreStarsAdapter = new GetMoreStarsAdapter(mContext);
         earningTasksAdapter = new EarningTasksAdapter(mContext);
         if (getActivity() != null) {
@@ -117,6 +126,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 cancelLoading();
             });
         }
+    }
+
+    private void startActTestIQ(String type){
+        Intent intent = new Intent(getContext(), MainIQActivity.class);
+        intent.putExtra("token", SharePrefrenceUtils.getInstance(requireActivity()).getUserAccessToken());
+        intent.putExtra("type", type);
+        startActivity(intent);
     }
 
     private void initDataUser() {
@@ -211,6 +227,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (getActivity() != null) {
             ((MainActivity) getActivity()).hideOrShowBottomView(true);
         }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEvent(Event event) {
+        if (event != null){
+           new Handler().postDelayed(() -> {
+               replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
+               if (getActivity() != null) {
+                   ((MainActivity) getActivity()).hideOrShowBottomView(false);
+               }
+           },500);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

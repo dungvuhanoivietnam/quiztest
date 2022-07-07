@@ -7,19 +7,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0sp"
+        android:paddingBottom="@dimen/_16sdp"
         android:fillViewport="true"
-        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/amod"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/background"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rate"
                 android:background="@drawable/bg_asset"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -32,29 +33,160 @@
                 android:layout_width="@dimen/_36sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:src="@drawable/ic_frame_39742"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_"
-                android:layout_width="199dp"
-                android:layout_height="199dp"
-                android:layout_marginTop="45dp"
-                android:src="@drawable/other_04"
+            <LinearLayout
+                android:id="@+id/ll_AdMod_Native"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@drawable/bg_search_corner_8"
+                android:backgroundTint="@color/color_EDEFF1"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_margin="@dimen/_16sdp"
+                    app:cardCornerRadius="@dimen/_8sdp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/ext_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:text="AdMod Native Advanced"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ext_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:autoLink="all"
+                    android:text="Figma.com"
+                    android:textColor="@color/black"
+                    android:textColorLink="@color/color_2F6BFF"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/ext_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="Description content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/ext_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
+                    android:background="@drawable/bg_search_corner_8"
+                    android:backgroundTint="@color/color_21C3FF"
+                    android:paddingStart="@dimen/_48sdp"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingEnd="@dimen/_48sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="Open"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:padding="@dimen/_16sdp"
+                android:id="@+id/label3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Test IQ"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_20ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_AdMod_Native" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_height="wrap_content"
+                android:text="Money"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Star"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@+id/tv_rate"
+                app:layout_constraintTop_toTopOf="@id/money" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_16sdp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center_vertical"
+                android:drawableEnd="@drawable/ic_money_"
+                android:drawablePadding="@dimen/_3sdp"
+                android:text="Get 2"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toStartOf="@id/money"
+                app:layout_constraintTop_toBottomOf="@id/money" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/_16sdp"
+                android:drawableEnd="@drawable/ic_vector_1"
+                android:drawablePadding="@dimen/_3sdp"
+                android:text="Get 2"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintStart_toEndOf="@id/tv_money"
+                app:layout_constraintTop_toTopOf="@+id/tv_money" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/description"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_50sdp"
+                android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="@dimen/_50sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
                 android:textSize="@dimen/_14sdp"
+                android:text="sdsdadsadsad"
                 app:fontFamily="@font/roboto_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -79,14 +211,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/amod"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@drawable/image_advertisement"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

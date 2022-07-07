@@ -44,7 +44,7 @@ class RegisterFragment : BaseFragment() {
     private var name = ""
     private var password = ""
     private var confirmPassword = ""
-    private val emailPattern : String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    private val emailPattern: String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,11 +78,11 @@ class RegisterFragment : BaseFragment() {
             if (ishowPassword) {
                 binding.edtPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 binding.imvEyePass.setImageResource(R.drawable.ic_open_eye)
-                Log.e("---...", "pass: 1", )
+                Log.e("---...", "pass: 1")
             } else {
                 binding.edtPass.transformationMethod = PasswordTransformationMethod.getInstance()
                 binding.imvEyePass.setImageResource(R.drawable.ic_close_eye)
-                Log.e("---...", "pass: 2", )
+                Log.e("---...", "pass: 2")
             }
 
         }
@@ -95,7 +95,8 @@ class RegisterFragment : BaseFragment() {
                 binding.imvEyeRepass.setImageResource(R.drawable.ic_open_eye)
 
             } else {
-                binding.edtConfirmPass.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.edtConfirmPass.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
                 binding.imvEyeRepass.setImageResource(R.drawable.ic_close_eye)
             }
 
@@ -160,7 +161,6 @@ class RegisterFragment : BaseFragment() {
             viewModel.registerAccount(email, name, password, confirmPassword)
 
 
-
         } else {
             Toast.makeText(
                 requireContext(),
@@ -173,7 +173,7 @@ class RegisterFragment : BaseFragment() {
 
     private fun validateEmail() {
 
-        if (email.matches(emailPattern) && email.length <100) {
+        if (email.matches(emailPattern) && email.length < 100) {
             binding.txtErrorEmail.isVisible = false
             binding.edtMail.setBackgroundResource(R.drawable.boarde_blue_21)
             isSuccessEmail = true
@@ -198,7 +198,6 @@ class RegisterFragment : BaseFragment() {
         binding.txtErrorPass.isVisible = false
         binding.edtPass.setBackgroundResource(R.drawable.boarde_blue_21)
         isSuccessName = true
-
 
 
     }
@@ -227,7 +226,7 @@ class RegisterFragment : BaseFragment() {
             binding.edtConfirmPass.setBackgroundResource(R.drawable.boarde_red)
             isSuccessConfirmPass = false
             return
-        }else if (confirmPassword != password) {
+        } else if (confirmPassword != password) {
             binding.txtErrorConfirmpass.isVisible = true
             binding.edtConfirmPass.setBackgroundResource(R.drawable.boarde_red)
             binding.txtErrorConfirmpass.setText(R.string.re_entered_password_does_not_match)
@@ -242,8 +241,9 @@ class RegisterFragment : BaseFragment() {
 
     }
 
-    private fun checkButtonRegister(){
-        binding.btnRegister.isEnabled = isSuccessEmail && isSuccessPass && isSuccessName && isSuccessConfirmPass
+    private fun checkButtonRegister() {
+        binding.btnRegister.isEnabled =
+            isSuccessEmail && isSuccessPass && isSuccessName && isSuccessConfirmPass
     }
 
     private fun setupObserver() {
@@ -258,9 +258,8 @@ class RegisterFragment : BaseFragment() {
 
         viewModel.registerAccount.observe(viewLifecycleOwner) {
             if (it.success == true) {
-                SharePrefrenceUtils.getInstance(requireContext()).apply {
-                    setUserAccessToken("")
-                }
+                SharePrefrenceUtils.getInstance(requireContext()).userAccessToken =
+                    it.data?.accessToken ?: ""
                 replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
                 (activity as MainActivity?)!!.hideOrShowBottomView(false)
             } else {

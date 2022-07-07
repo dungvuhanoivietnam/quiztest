@@ -96,6 +96,8 @@ public class UserViewModel extends ViewModel {
             HomeDataResponse homeDataResponse = response.body();
             if (homeDataResponse != null) {
                 consumer.accept(homeDataResponse);
+            }else {
+                consumer.accept(response.code());
             }
         }
 

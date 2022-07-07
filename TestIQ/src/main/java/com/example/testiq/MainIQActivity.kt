@@ -1,36 +1,36 @@
 package com.example.testiq
 
-import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.HtmlCompat
-import com.example.testiq.databinding.ActivityMainIqBinding
-import com.androidnetworking.AndroidNetworking
+import androidx.activity.viewModels
+import com.example.testiq.databinding.ActivityMainTestIqBinding
+import com.example.testiq.ui.BaseActivity
+import com.example.testiq.viewmodel.MainIQViewModel
 
 
-class MainIQActivity : AppCompatActivity() {
+class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>() {
 
-    private lateinit var binding: ActivityMainIqBinding
+    override val viewModel: MainIQViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainIqBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-
-        binding.start.setOnClickListener {
-            startActivity(Intent(this, ActivityQuestion::class.java))
-        }
-
-        binding.description.text =
-            HtmlCompat.fromHtml(
-                getString(R.string.txt_description_home_test_iq),
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
-
-        binding.toolbar.setOnClickListener {
-            finish()
-        }
+    companion object {
+        var token: String = ""
+        var type : String = ""
     }
+
+    override fun initView() {
+
+        intent.getStringExtra("token")?.let {
+            if (intent.getStringExtra("token")?.isNotEmpty() == true) {
+                token = it
+            }
+        }
+
+        intent.getStringExtra("type")?.let {
+            type = it
+        }
+
+        addFragment(R.id.frame_layout, FragmentIQStart(), FragmentIQStart::class.java.simpleName)
+    }
+
+    override fun getViewBinding(): ActivityMainTestIqBinding =
+        ActivityMainTestIqBinding.inflate(layoutInflater)
 
 }

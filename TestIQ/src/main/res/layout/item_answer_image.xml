@@ -11,8 +11,8 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:id="@+id/background"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:paddingStart="@dimen/_10sdp"
@@ -24,18 +24,18 @@
             android:id="@+id/txt_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#22313F"
             android:fontFamily="@font/roboto_medium"
             android:text="A. "
+            android:textColor="#22313F"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_answer" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_marginStart="@dimen/_6sdp"
             android:id="@+id/image"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_6sdp"
             android:src="@drawable/image_answer"
             app:layout_constraintStart_toEndOf="@id/txt_"
             app:layout_constraintTop_toTopOf="@id/txt_" />

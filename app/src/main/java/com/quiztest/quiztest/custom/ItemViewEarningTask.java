@@ -3,7 +3,6 @@ package com.quiztest.quiztest.custom;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.media.Image;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,13 @@ import androidx.cardview.widget.CardView;
 import com.quiztest.quiztest.R;
 
 public class ItemViewEarningTask extends LinearLayout {
+
+    private Listener listener;
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
     public ItemViewEarningTask(Context context) {
         super(context);
     }
@@ -48,6 +54,12 @@ public class ItemViewEarningTask extends LinearLayout {
                 R.styleable.EarningTask,
                 0, 0);
 
+        view.setOnClickListener(view1 -> {
+            if (listener != null){
+                listener.onClick();
+            }
+        });
+
         try {
             cardView.setCardBackgroundColor(a.getColor(R.styleable.EarningTask_backgroundColor, 0));
             extTitle.setText(a.getString(R.styleable.EarningTask_title));
@@ -56,5 +68,9 @@ public class ItemViewEarningTask extends LinearLayout {
             a.recycle();
         }
         addView(view);
+    }
+
+    public interface Listener{
+        void onClick();
     }
 }

@@ -12,11 +12,12 @@ import android.view.WindowManager
 import androidx.core.text.HtmlCompat
 import com.example.testiq.R
 import com.example.testiq.databinding.DialogConfirmSubmitBinding
+import com.example.testiq.model.QuestionModel
 
 class DialogConfirm(
     internal var context: Context,
-    var value: String,
-    var onclick: () -> Unit
+    var value: String, var lstData : List<QuestionModel>,
+    var onclick: () -> Unit, var description : String = ""
 ) : Dialog(context, R.style.MaterialDialogSheet) {
 
     private val binding = DialogConfirmSubmitBinding.inflate(LayoutInflater.from(context))
@@ -31,12 +32,15 @@ class DialogConfirm(
     }
 
     private fun initUI() {
-
-        binding.description.text =
-            HtmlCompat.fromHtml(
-                context.resources.getString(R.string.txt_description_confirm, value),
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+        if (value.toInt() == lstData.size){
+            binding.description.text = context.resources.getString(R.string.txt_confirm_success)
+        }else{
+            binding.description.text =
+                HtmlCompat.fromHtml(
+                    context.resources.getString(R.string.txt_description_confirm, "${lstData.size - value.toInt()} "),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+        }
 
         binding.cancelButton.setOnClickListener {
             dismiss()

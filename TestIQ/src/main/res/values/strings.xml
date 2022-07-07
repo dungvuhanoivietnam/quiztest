@@ -2,10 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="descriptipon" translatable="false"><![CDATA[<b><font color=#FF0000>Hello world!</font></b>]]></string>
-    <string name="txt_description_home_test_iq"><![CDATA[Number of questions: <font color=#21C3FF>40</font> <br>Time: <font color=#21C3FF>20 minutes</font><br> Allotment: <font color=#21C3FF>From easy to difficult</font><br> Form: <font color=#21C3FF>Multiple-choice</font>]]></string>
+    <string name="txt_description_home_test_iq"><![CDATA[Number of questions: <b><font color=#21C3FF>40</font></b> <br>Time: <b><font color=#21C3FF>20 minutes</font></b><br> Allotment: <b><font color=#21C3FF>From easy to difficult</font></b><br> Form: <b><font color=#21C3FF>Multiple-choice</font></b>]]></string>
     <string name="analyzing_data">Analyzing data...</string>
     <string name="txt_ok">OK</string>
-    <string name="txt_description_confirm"><![CDATA[You have <font color=#21C3FF>%s</font> questions left unanswered. Are you sure you want to submit your essay?]]></string>
+    <string name="txt_description_confirm"><![CDATA[You have <font color=#21C3FF>%s</font>questions left unanswered. Are you sure you want to submit your essay?]]></string>
+    <string name="txt_description_congratulation"><![CDATA[%s]]></string>
+    <string name="txt_confirm_success">Submit your test now and see the results</string>
 
+    <string name="txt_gift_baskets_stars"><![CDATA[Get<font color=#21C3FF> %s </font>stars!]]></string>
+    <string name="txt_gift_baskets_dollars"><![CDATA[Get<font color=#21C3FF> %s </font>dollars!]]></string>
 
 </resources>

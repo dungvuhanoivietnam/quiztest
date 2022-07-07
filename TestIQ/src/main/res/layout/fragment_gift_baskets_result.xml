@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:src="@drawable/ic_frame_39742"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_gift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/_3sdp"
+        android:src="@drawable/ic_group_39324"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/ic_group_39327"
+        app:layout_constraintBottom_toTopOf="@id/img_gift"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_gift"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_gift" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/ic_frame_39915"
+        app:layout_constraintBottom_toTopOf="@+id/img_gift"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0sp"
+        android:src="@drawable/ic_vector__1_"
+        app:layout_constraintBottom_toBottomOf="@+id/img_gift"
+        app:layout_constraintEnd_toEndOf="@+id/img_gift"
+        app:layout_constraintStart_toStartOf="@+id/img_gift"
+        app:layout_constraintTop_toTopOf="@id/img_gift" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_vector__2_"
+        app:layout_constraintEnd_toEndOf="@+id/img_gift"
+        app:layout_constraintStart_toStartOf="@+id/img_gift"
+        app:layout_constraintTop_toTopOf="@id/img_gift" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_19sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_group_39325"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@id/img_gift"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/starts"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:text="Get 10 stars!"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_17ssp"
+        app:layout_constraintTop_toBottomOf="@id/img_gift"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_13sdp"
+        app:layout_constraintTop_toBottomOf="@id/img_gift"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bonus"
+        android:layout_width="wrap_content"
+        android:text="Get 2 dollars!"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_17ssp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/starts"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/get_gift"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:background="@drawable/customer_border"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Get gift"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
