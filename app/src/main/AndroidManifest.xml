@@ -12,6 +12,10 @@
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         android:minSdkVersion="30" />
 
+    <queries>
+        <package android:name="earn.learn.fun" />
+    </queries>
+
     <application
         android:name=".App"
         android:allowBackup="true"
