@@ -58,20 +58,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintTop_toBottomOf="@+id/txt_we_sent_a" />
-    <com.goodiebag.pinview.Pinview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/txt_mail_verify"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:id="@+id/pinview"
-        app:pinWidth="40dp"
-        app:pinHeight="40dp"
-        app:pinLength="6"
-        app:cursorVisible="false"
-        app:forceKeyboard="true"
-        app:inputType="text"
-        app:password="false"/>
+
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_you_đi_not"
         android:layout_width="wrap_content"
@@ -85,7 +72,7 @@
         app:layout_constraintEnd_toStartOf="@id/txt_send_again"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pinview" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_mail_verify" />
 
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_send_again"
