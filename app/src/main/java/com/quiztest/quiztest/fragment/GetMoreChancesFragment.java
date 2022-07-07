@@ -83,8 +83,8 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
                 currentListTopic = ((TopicListResponse) o).getData().getListTopicByType();
                 getMoreStarsAdapter.setListData(currentListTopic);
                 rcvGetMoreChance.setAdapter(getMoreStarsAdapter);
-                cancelLoading();
             }
+            cancelLoading();
         });
     }
 

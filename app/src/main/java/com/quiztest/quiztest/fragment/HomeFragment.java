@@ -111,6 +111,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         }
         initDataUser();
+        initDataTest();
+
+    }
+
+    private void initDataTest() {
         if (userViewModel != null) {
             showLoading();
             userViewModel.getDataForHome(requestAPI, o -> {
@@ -250,6 +255,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    public void resetData(){
+        initDataUser();
+        initDataTest();
     }
 
 }
