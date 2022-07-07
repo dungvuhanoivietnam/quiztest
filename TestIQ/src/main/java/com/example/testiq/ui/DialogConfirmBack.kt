@@ -31,10 +31,10 @@ class DialogConfirmBack(
         with(binding){
             cancelButton.setOnClickListener {
                 dismiss()
+                onClickSubmit.invoke()
             }
 
             submit.setOnClickListener {
-                onClickSubmit.invoke()
                 dismiss()
             }
         }
