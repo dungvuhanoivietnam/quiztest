@@ -8,10 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_6sdp"
-        android:background="@color/color_E3F4FB"
         app:cardCornerRadius="@dimen/_8sdp">
 
         <RelativeLayout
+            android:id="@+id/rl_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_E3F4FB">
@@ -24,17 +24,32 @@
                 android:layout_marginStart="@dimen/_15sdp"
                 android:src="@drawable/ic_rank_gold" />
 
+            <com.quiztest.quiztest.custom.ExtTextView
+                android:visibility="gone"
+                android:id="@+id/tv_stt"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:background="@drawable/bg_circle"
+                android:backgroundTint="@color/color_21C3FF"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_toEndOf="@id/ic_rank"
                 app:cardCornerRadius="@dimen/_200sdp">
 
                 <ImageView
+                    android:id="@+id/imv_avatar"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/ic_create_account_profile" />
@@ -46,8 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/cv_avatar"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_40sdp"
                 android:layout_toEndOf="@id/cv_avatar"
-                android:text="Alexpham"
+                android:ellipsize="end"
+                android:lines="1"
                 android:textColor="@color/color_22313F"
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="bold" />

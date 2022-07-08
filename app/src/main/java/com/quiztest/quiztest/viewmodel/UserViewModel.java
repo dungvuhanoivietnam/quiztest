@@ -12,6 +12,7 @@ import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.model.UserRankingResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 
 import java.io.File;
@@ -73,6 +74,8 @@ public class UserViewModel extends ViewModel {
             if (userInfoResponse != null) {
                 userInfo = userInfoResponse.getData().getUserInfo();
                 consumer.accept(userInfoResponse);
+            }else {
+                consumer.accept(response.code());
             }
 
         }
@@ -103,6 +106,30 @@ public class UserViewModel extends ViewModel {
 
         @Override
         public void onFailure(Call<HomeDataResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    private class callBackGetRankingByType implements Callback<UserRankingResponse> {
+
+        private Consumer consumer;
+
+        public callBackGetRankingByType(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<UserRankingResponse> call, Response<UserRankingResponse> response) {
+            UserRankingResponse userRankingResponse = response.body();
+            if (userRankingResponse != null) {
+                consumer.accept(userRankingResponse);
+            } else {
+                consumer.accept(response.code());
+            }
+        }
+
+        @Override
+        public void onFailure(Call<UserRankingResponse> call, Throwable t) {
             consumer.accept(t);
         }
     }
@@ -192,6 +219,10 @@ public class UserViewModel extends ViewModel {
 
     public void getTopicListByType(RequestAPI requestAPI, int type, Consumer consumer){
         requestAPI.getTopicByType(type).enqueue(new callBackGetTopicByType(consumer));
+    }
+
+    public void getUserRankingByType(RequestAPI requestAPI, String type, Consumer consumer){
+        requestAPI.getRankingStarByType(type).enqueue(new callBackGetRankingByType(consumer));
     }
 
     private static class callBackLogout implements Callback<BaseResponse> {

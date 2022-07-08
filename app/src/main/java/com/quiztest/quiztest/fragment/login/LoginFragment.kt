@@ -26,9 +26,10 @@ import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
-import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
+import com.quiztest.quiztest.model.UserInfoResponse
+import com.quiztest.quiztest.retrofit.RetrofitClient
 import com.quiztest.quiztest.utils.Const
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
@@ -245,9 +246,16 @@ class LoginFragment : BaseFragment() {
             if (it.success == true) {
                 it.data?.accessToken?.let {
                     SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
-                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
+                    UserInfoResponse.setCurrentUser(null)
+                    RetrofitClient.setOurInstance(null)
+//                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
+                    backstackFragment()
+                    if (activity is MainActivity) {
+                        val activity = activity as MainActivity?
+                        activity!!.actionLogout()
+                    }
 //                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
-                } ?: kotlin.run {
+                }?: kotlin.run {
                     Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT).show()
                 }
 

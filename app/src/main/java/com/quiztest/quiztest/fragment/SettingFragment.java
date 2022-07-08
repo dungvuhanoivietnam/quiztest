@@ -31,6 +31,7 @@ import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.retrofit.RetrofitClient;
 import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.utils.Utils;
@@ -115,6 +116,8 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
                     if (baseResponse.getSuccess()) {
                         SharePrefrenceUtils.getInstance(mContext).saveAuth("");
                         userViewModel.clearViewModel();
+                        UserInfoResponse.setCurrentUser(null);
+                        RetrofitClient.setOurInstance(null);
                         backstackFragment();
                         if (getActivity() instanceof MainActivity) {
                             MainActivity activity = (MainActivity) getActivity();
@@ -142,12 +145,14 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     }
 
     private void checkIsSave() {
-        String name = edtName.getText().toString().toLowerCase();
-        String mName = userInfo.getName().toLowerCase();
-        String gmail = edtGmail.getText().toString().toLowerCase();
-        String mgmail = userInfo.getEmail().toLowerCase();
-        isSave = !name.equals(mName) || !gmail.equals(mgmail);
-        llSave.setBackgroundResource(isSave ? R.drawable.bg_button_blue_21 : R.drawable.bg_gray_b8);
+        if (userInfo != null) {
+            String name = edtName.getText().toString().toLowerCase();
+            String mName = userInfo.getName().toLowerCase();
+            String gmail = edtGmail.getText().toString().toLowerCase();
+            String mgmail = userInfo.getEmail().toLowerCase();
+            isSave = !name.equals(mName) || !gmail.equals(mgmail);
+            llSave.setBackgroundResource(isSave ? R.drawable.bg_button_blue_21 : R.drawable.bg_gray_b8);
+        }
     }
 
     @Override

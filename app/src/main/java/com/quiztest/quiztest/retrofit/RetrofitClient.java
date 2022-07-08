@@ -23,12 +23,16 @@ public class RetrofitClient {
 
     private static Retrofit ourInstance;
 
+    public static void setOurInstance(Retrofit ourInstance) {
+        RetrofitClient.ourInstance = ourInstance;
+    }
+
     public static OkHttpClient okHttpClient(Context context, long time) {
         String auth = SharePrefrenceUtils.getInstance(context).getAuth();
         Interceptor interceptor;
         if (auth != null && !"".contains(auth)) {
             interceptor = new AuthenticationInterceptor(auth);
-        }else {
+        } else {
             interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         }
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()

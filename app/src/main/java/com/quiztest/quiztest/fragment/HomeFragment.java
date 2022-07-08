@@ -99,6 +99,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         }
         initDataUser();
+        initDataTest();
+
+    }
+
+    private void initDataTest() {
         if (userViewModel != null) {
             showLoading();
             userViewModel.getDataForHome(requestAPI, o -> {
@@ -138,6 +143,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         currentUser = UserInfoResponse.getInstance();
                         setDataUserInfo(currentUser);
                     }
+                    cancelLoading();
                 });
             }
         } else {
@@ -149,10 +155,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         currentUser = UserInfoResponse.getInstance();
                         setDataUserInfo(currentUser);
                     }
+                    cancelLoading();
                 });
             }
         }
-        cancelLoading();
     }
 
     private void setDataUserInfo(UserInfoResponse currentUser) {
@@ -251,4 +257,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onItemLongClickListener(int position) {
 
     }
+    public void resetData(){
+        initDataUser();
+        initDataTest();
+    }
+
 }
