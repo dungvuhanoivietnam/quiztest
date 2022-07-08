@@ -2,6 +2,7 @@ package com.quiztest.quiztest.retrofit;
 
 import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TopicListResponse;
@@ -76,5 +77,6 @@ public interface RequestAPI {
                                    @Query("access_token") String accessToken,
                                    @Query("device_id") String deviceId,
                                    @Query("language") String language);
-
+    @POST("user/change-language")
+    Call<ChangeLanguageResponse> changeLanguage(@Query("language") String language);
 }
