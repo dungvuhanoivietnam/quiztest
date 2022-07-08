@@ -15,9 +15,10 @@ import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
-import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
+import com.quiztest.quiztest.model.UserInfoResponse
+import com.quiztest.quiztest.retrofit.RetrofitClient
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
 import java.util.regex.Pattern
@@ -103,7 +104,7 @@ class LoginFragment : BaseFragment() {
             if (ishowPassword) {
                 binding.edtPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 binding.imvEyePass.setImageResource(R.drawable.ic_open_eye)
-                Log.e("->>>>>>>", "setupView: ", )
+                Log.e("->>>>>>>", "setupView: ")
 
 
             } else {
@@ -202,6 +203,8 @@ class LoginFragment : BaseFragment() {
             if (it.success == true) {
                 it.data?.accessToken?.let {
                     SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
+                    UserInfoResponse.setCurrentUser(null)
+                    RetrofitClient.setOurInstance(null)
 //                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
                     backstackFragment()
                     if (activity is MainActivity) {

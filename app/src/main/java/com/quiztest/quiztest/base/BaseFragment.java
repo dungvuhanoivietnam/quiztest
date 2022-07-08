@@ -179,7 +179,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showLoading() {
-        dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
+        if (dialogProgressLoading == null) {
+            dialogProgressLoading = new DialogProgressLoading(getContext(), R.style.MaterialDialogSheet);
+        }
         if (!dialogProgressLoading.isShowing()) {
             dialogProgressLoading.show();
         }

@@ -96,18 +96,21 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
     private void setDataRanking() {
         if (userViewModel != null) {
+            showLoading();
             userViewModel.getUserRankingByType(requestAPI, WeekRanking, o -> {
                 if (o instanceof UserRankingResponse) {
                     listUserWeeklyRanking = ((UserRankingResponse) o).getData();
                     rankingAdapter.setListData(listUserWeeklyRanking);
                     rankingAdapter.notifyDataSetChanged();
                 }
+                cancelLoading();
             });
 
             userViewModel.getUserRankingByType(requestAPI, AllTimeRanking, o -> {
                 if (o instanceof UserRankingResponse) {
                     listUserAllTimeRanking = ((UserRankingResponse) o).getData();
                 }
+                cancelLoading();
             });
         }
         recyclerViewRanking.setAdapter(rankingAdapter);

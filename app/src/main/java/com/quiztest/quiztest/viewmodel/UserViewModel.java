@@ -74,6 +74,8 @@ public class UserViewModel extends ViewModel {
             if (userInfoResponse != null) {
                 userInfo = userInfoResponse.getData().getUserInfo();
                 consumer.accept(userInfoResponse);
+            }else {
+                consumer.accept(response.code());
             }
 
         }

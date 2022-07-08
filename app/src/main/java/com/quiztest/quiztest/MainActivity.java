@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
     public void actionLogout() {
         showFragment(fragmentHome);
         enableButton(btnHome);
+        ((HomeFragment) fragmentHome).resetData();
     }
 
     private void addFragment(BaseFragment fmAdd, String tag) {

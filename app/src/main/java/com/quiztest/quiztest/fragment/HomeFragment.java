@@ -153,6 +153,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         currentUser = UserInfoResponse.getInstance();
                         setDataUserInfo(currentUser);
                     }
+                    cancelLoading();
                 });
             }
         } else {
@@ -164,10 +165,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         currentUser = UserInfoResponse.getInstance();
                         setDataUserInfo(currentUser);
                     }
+                    cancelLoading();
                 });
             }
         }
-        cancelLoading();
     }
 
     private void setDataUserInfo(UserInfoResponse currentUser) {
