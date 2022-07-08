@@ -33,7 +33,6 @@ import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.fragment.SettingFragment;
-import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

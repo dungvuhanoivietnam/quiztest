@@ -122,5 +122,9 @@
     <string name="money_get">Get %d$</string>
     <string name="star_pay">Cost %d</string>
     <string name="value_">%d</string>
+    <string name="facebook_app_id">5165269983581044</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">2602e25e3b8500fd165fdf5356aa167a</string>
+    <string name="default_web_client_id">288710554517-1ilvbqq05l8vpi2amm1v71hknetvl42h.apps.googleusercontent.com</string>
 
 </resources>

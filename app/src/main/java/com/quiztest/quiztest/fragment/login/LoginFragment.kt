@@ -1,6 +1,8 @@
 package com.quiztest.quiztest.fragment.login
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
@@ -11,6 +13,15 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
@@ -18,8 +29,10 @@ import com.quiztest.quiztest.databinding.FragmentLoginBinding
 import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
+import com.quiztest.quiztest.utils.Const
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -34,6 +47,9 @@ class LoginFragment : BaseFragment() {
     private var email = ""
     private var password = ""
     private val emailPattern = ""
+    private var mGoogleSignInClient: GoogleSignInClient? = null
+    private var mCallbackManager: CallbackManager? = null
+    private val RC_SIGN_IN = 1
 
 
     override fun onCreateView(
@@ -51,7 +67,42 @@ class LoginFragment : BaseFragment() {
 
 
     override fun initData() {
+        initLoginGoogleFacebook()
+    }
 
+    private fun initLoginGoogleFacebook() {
+        val googleSignInOptions: GoogleSignInOptions = GoogleSignInOptions
+            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        val deviceId =
+            Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
+        val language = Locale.getDefault().language
+
+        mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, googleSignInOptions) }
+        mCallbackManager = CallbackManager.Factory.create()
+        LoginManager.getInstance()
+            .registerCallback(mCallbackManager, object : FacebookCallback<LoginResult> {
+                override fun onCancel() {
+                    Log.e("Cancel", "cancel")
+                }
+
+                override fun onError(error: FacebookException) {
+                    Log.e("onError", "onError")
+                }
+
+                override fun onSuccess(loginResult: LoginResult) {
+                    Log.d("AcessToken", loginResult.accessToken.token)
+                    viewModel.loginSocial(
+                        Const.PROVIDE_NAME_FACEBOOK,
+                        loginResult.accessToken.token,
+                        deviceId,
+                        language
+                    )
+                }
+            })
     }
 
     override fun initView(v: View?) {
@@ -67,24 +118,6 @@ class LoginFragment : BaseFragment() {
 
     private fun setupView() {
 
-//        binding.edtMail.initData(
-//            ExtEditTextApp.TYPE_VALIDATE.EMAIL, context?.getString(R.string.malformed_account)
-//                ?: "", InputType.TYPE_CLASS_TEXT
-//        ) { t ->
-//            kotlin.run {
-//                isSuccessEmail = t
-//                initButtonLogin()
-//            }
-//        }
-//        binding.edtPass.initData(ExtEditTextApp.TYPE_VALIDATE.PASSWORD, context?.getString(R.string.incorrect_password)
-//            ?: "", InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-//        ) { t ->
-//            kotlin.run {
-//                isSuccessPass = t
-//                initButtonLogin()
-//            }
-//
-//        }
         binding.ivBack.setOnClickListener {
             backstackFragment()
         }
@@ -103,7 +136,7 @@ class LoginFragment : BaseFragment() {
             if (ishowPassword) {
                 binding.edtPass.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 binding.imvEyePass.setImageResource(R.drawable.ic_open_eye)
-                Log.e("->>>>>>>", "setupView: ", )
+                Log.e("->>>>>>>", "setupView: ")
 
 
             } else {
@@ -129,8 +162,19 @@ class LoginFragment : BaseFragment() {
             handleLogin()
         }
 
-    }
+        binding.ivLoginFacebook.setOnClickListener {
+            LoginManager.getInstance()
+                .logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+        }
 
+
+        binding.ivLoginGoogle.setOnClickListener {
+            val signInIntent = mGoogleSignInClient!!.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+
+
+    }
 
 
     private fun validateEmail() {
@@ -165,7 +209,6 @@ class LoginFragment : BaseFragment() {
 
         }
 
-
     }
 
 
@@ -198,13 +241,13 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-        viewModel.loginAccount.observe(viewLifecycleOwner) {
+        viewModel.loginResLiveData.observe(viewLifecycleOwner) {
             if (it.success == true) {
                 it.data?.accessToken?.let {
                     SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
                     replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
 //                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
-                }?: kotlin.run {
+                } ?: kotlin.run {
                     Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT).show()
                 }
 
@@ -217,6 +260,35 @@ class LoginFragment : BaseFragment() {
     private fun String.matches(regex: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]"
         return Pattern.matches(emailPattern, this)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val deviceId =
+                    Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
+                val language = Locale.getDefault().language
+                val account = task.getResult(ApiException::class.java)
+                Log.e("Token Account: ", account.idToken!!)
+                if (account.idToken != null) {
+                    viewModel.loginSocial(
+                        Const.PROVIDE_NAME_GOOGLE,
+                        account.idToken!!,
+                        deviceId,
+                        language
+                    )
+                }
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.e("TAG", "Google sign in failed")
+            }
+        } else {
+            mCallbackManager!!.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }
 

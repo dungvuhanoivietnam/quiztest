@@ -15,9 +15,10 @@ class AuthRemote(
         email: String,
         name: String,
         password: String,
-        confirm_password: String
+        confirm_password: String,
+        language: String
     ): Call<AuthResponse> {
-        return apiUser.registerAccount(email, name, password, confirm_password)
+        return apiUser.registerAccount(email, name, password, confirm_password, language)
     }
 
     fun loginAccount(
@@ -27,7 +28,16 @@ class AuthRemote(
         return apiUser.loginAccount(email, password)
     }
 
-    fun verifyEmail( email: String): Call< VerifyEmailResponse>{
+    fun loginSocial(
+        provideName: String,
+        accessToken: String,
+        deviceId: String,
+        language: String
+    ): Call<AuthResponse> {
+        return apiUser.loginSocial(provideName, accessToken, deviceId, language)
+    }
+
+    fun verifyEmail(email: String): Call<VerifyEmailResponse> {
         return apiUser.verifyMail(email)
     }
 }

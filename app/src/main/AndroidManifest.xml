@@ -14,6 +14,8 @@
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         android:minSdkVersion="30" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <queries>
         <package android:name="earn.learn.fun" />
     </queries>
@@ -44,6 +46,14 @@
             android:name="com.quiztest.MyCustomOnboarder"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
 
     </application>
 
