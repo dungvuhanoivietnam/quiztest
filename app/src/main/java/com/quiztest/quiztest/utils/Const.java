@@ -11,4 +11,9 @@ public class Const {
     public static final String PROVIDE_NAME_FACEBOOK = "facebook";
     public static final String PROVIDE_NAME_GOOGLE = "google";
 
+    public static final String BEARER = "Bearer ";
+    public static final String DATA = "data";
+    public static final String TOKEN = "token";
+    public static final String TYPE = "type";
+
 }

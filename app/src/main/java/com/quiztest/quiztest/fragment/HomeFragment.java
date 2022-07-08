@@ -1,13 +1,15 @@
 package com.quiztest.quiztest.fragment;
 
+import static com.quiztest.quiztest.utils.Const.BEARER;
+import static com.quiztest.quiztest.utils.Const.DATA;
+import static com.quiztest.quiztest.utils.Const.TOKEN;
+import static com.quiztest.quiztest.utils.Const.TYPE;
+
 import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.example.testiq.MainIQActivity;
-import com.example.testiq.model.Event;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,10 +38,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import com.quiztest.quiztest.viewmodel.UserViewModel;
-
 import java.util.ArrayList;
-import java.util.Locale;
 
 import retrofit2.Retrofit;
 
@@ -128,9 +127,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     private void startActTestIQ(String type, TestItem testItem){
         Intent intent = new Intent(getContext(), MainIQActivity.class);
-        intent.putExtra("token", SharePrefrenceUtils.getInstance(requireActivity()).getUserAccessToken());
-        intent.putExtra("type", type);
-        intent.putExtra("data", testItem.getMoneyBonus() + "," + testItem.getFeeStar());
+        intent.putExtra(TOKEN, BEARER+ SharePrefrenceUtils.getInstance(mContext).getAuth());
+        intent.putExtra(TYPE, type);
+        intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
         startActivity(intent);
     }
 
