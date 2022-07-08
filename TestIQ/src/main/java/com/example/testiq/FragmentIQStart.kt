@@ -22,6 +22,9 @@ class FragmentIQStart :
             toolbar.setOnClickListener {
                 activity?.finish()
             }
+
+            tvMoney.text = MainIQActivity.moneyBonus
+            tvRate.text = MainIQActivity.feeStar
         }
     }
 

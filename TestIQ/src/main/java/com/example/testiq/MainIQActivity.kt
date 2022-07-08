@@ -13,6 +13,8 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
     companion object {
         var token: String = ""
         var type : String = ""
+        var moneyBonus : String = ""
+        var feeStar : String = ""
     }
 
     override fun initView() {
@@ -23,8 +25,10 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
             }
         }
 
-        intent.getStringExtra("type")?.let {
-            type = it
+        intent.getStringExtra("data")?.let {
+            val data = it.split(",")
+            moneyBonus = data[0]
+            feeStar = data[1]
         }
 
         addFragment(R.id.frame_layout, FragmentIQStart(), FragmentIQStart::class.java.simpleName)

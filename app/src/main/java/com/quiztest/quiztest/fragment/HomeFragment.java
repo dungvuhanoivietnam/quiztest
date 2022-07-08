@@ -2,23 +2,21 @@ package com.quiztest.quiztest.fragment;
 
 import android.content.Intent;
 import android.os.Handler;
-
 import android.text.TextUtils;
-
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.testiq.MainIQActivity;
-import com.example.testiq.model.Event;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testiq.MainIQActivity;
+import com.example.testiq.model.Event;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.EarningTasksAdapter;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
+import com.quiztest.quiztest.adapter.RankingAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.custom.ItemViewEarningTask;
@@ -26,18 +24,17 @@ import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.UserInfoResponse;
-import com.quiztest.quiztest.retrofit.RequestAPI;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
+import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, RankingAdapter.ItemClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney, extName, extStarCount, extMoneyCount;
@@ -89,21 +86,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivNotify.setOnClickListener(this);
-        itemIQ.setListener(() -> {
-            startActTestIQ("IQ");
-        });
-
-        itemEQ.setListener(() -> {
-            startActTestIQ("EQ");
-        });
-
-        itemMBI.setListener(() -> {
-            startActTestIQ("MBI");
-        });
-
-        itemOT.setListener(() -> {
-            startActTestIQ("OT");
-        });
 
         getMoreStarsAdapter = new GetMoreStarsAdapter(mContext);
         earningTasksAdapter = new EarningTasksAdapter(mContext);
@@ -121,6 +103,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
 
                     earningTasksAdapter.setListData(currentListEarningTasks);
+                    earningTasksAdapter.setItemClickListener(this);
                     rcvEarningTask.setAdapter(earningTasksAdapter);
                 }
                 cancelLoading();
@@ -128,10 +111,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    private void startActTestIQ(String type){
+    private void startActTestIQ(String type, TestItem testItem){
         Intent intent = new Intent(getContext(), MainIQActivity.class);
         intent.putExtra("token", SharePrefrenceUtils.getInstance(requireActivity()).getUserAccessToken());
         intent.putExtra("type", type);
+        intent.putExtra("data", testItem.getMoneyBonus() + "," + testItem.getFeeStar());
         startActivity(intent);
     }
 
@@ -252,4 +236,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onPause();
     }
 
+    @Override
+    public void onItemClickListener(int position) {
+        startActTestIQ("",currentListEarningTasks.get(position));
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+
+    }
 }
