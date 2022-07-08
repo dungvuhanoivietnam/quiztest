@@ -76,7 +76,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         ll_logout = v.findViewById(R.id.ll_logout);
         llSave = v.findViewById(R.id.llSave);
 
-        v.findViewById(R.id.txt_change_info).setOnClickListener(v1 -> replaceFragment(new ChangePassFragment(),ChangePassFragment.class.getSimpleName()));
+        v.findViewById(R.id.txt_change_info).setOnClickListener(v1 -> replaceFragment(new ChangePassFragment(), ChangePassFragment.class.getSimpleName()));
 
         dialogChooseImage = new DialogChooseImage(getContext(), R.style.MaterialDialogSheet, type_select -> {
             if (type_select == DialogChooseImage.TYPE_SELECT.CAMERA)
@@ -120,8 +120,6 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
                             MainActivity activity = (MainActivity) getActivity();
                             activity.actionLogout();
                         }
-                    }else{
-
                     }
                 }
             });

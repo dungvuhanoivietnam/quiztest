@@ -9,25 +9,29 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class VerifyMailViewModel(
-private var userRepository : AuthRepository = AuthRepository()): ViewModel(){
-    val valiEmail = MutableLiveData<VerifyEmailResponse>()
+    private var userRepository: AuthRepository = AuthRepository()
+) : ViewModel() {
+    val validEmailResLiveData = MutableLiveData<VerifyEmailResponse>()
     var isLoading = MutableLiveData<Boolean>()
-    var errorMessage = MutableLiveData< String>()
+    var errorMessage = MutableLiveData<String>()
 
-    fun valiEmail( email: String){
+    fun validEmail(email: String) {
         isLoading.postValue(true)
-        userRepository.verifyEmail(email).enqueue(object : Callback<VerifyEmailResponse>{
+        userRepository.verifyEmail(email).enqueue(object : Callback<VerifyEmailResponse> {
             override fun onResponse(
                 call: Call<VerifyEmailResponse>,
-                response: Response<VerifyEmailResponse>) {
+                response: Response<VerifyEmailResponse>
+            ) {
                 isLoading.postValue(false)
-                val data = response.body() as VerifyEmailResponse
-                if(response.isSuccessful){
-                    valiEmail.postValue(data)
-                }else{
-                    errorMessage.postValue(response.message())
+                if (response.body() != null) {
+                    if (response.isSuccessful) {
+                        validEmailResLiveData.postValue(response.body())
+                    } else {
+                        errorMessage.postValue(response.message())
+                    }
+                } else {
+                    errorMessage.postValue(response.errorBody().toString())
                 }
-
             }
 
             override fun onFailure(call: Call<VerifyEmailResponse>, t: Throwable) {

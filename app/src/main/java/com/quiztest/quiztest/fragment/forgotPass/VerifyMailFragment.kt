@@ -11,11 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
-import com.quiztest.quiztest.databinding.FragmentLoginBinding
 import com.quiztest.quiztest.databinding.FragmentVerifyMailBinding
-import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.login.LoginFragment
-import com.quiztest.quiztest.fragment.login.LoginViewModel
 import java.util.regex.Pattern
 
 
@@ -24,10 +21,10 @@ class VerifyMailFragment : BaseFragment() {
         ViewModelProvider(this)[VerifyMailViewModel::class.java]
     }
 
-    private var email  = ""
+    private var email = ""
     private var isSuccessEmail = false
     val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-    val message= ""
+    val message = ""
 
     private lateinit var binding: FragmentVerifyMailBinding
     override fun onCreateView(
@@ -49,15 +46,16 @@ class VerifyMailFragment : BaseFragment() {
             checkButtonContinue()
 
         }
+
         binding.btnContinue.setOnClickListener {
-            if (isSuccessEmail){
+            if (isSuccessEmail) {
                 binding.btnContinue.setBackgroundResource(R.drawable.btn_background_done)
-                viewModel.valiEmail(email)
-            }else{
+                viewModel.validEmail(email)
+            } else {
                 showErrorOTP(message)
             }
-
         }
+
         binding.ivBack.setOnClickListener {
             backstackFragment()
         }
@@ -66,12 +64,11 @@ class VerifyMailFragment : BaseFragment() {
             (activity as MainActivity?)!!.hideOrShowBottomView(false)
         }
 
-
     }
 
     private fun validMail() {
 
-        if (email.matches(emailPattern) && email.length <100) {
+        if (email.matches(emailPattern) && email.length < 100) {
             binding.txtErrorEmail.isVisible = false
             binding.edtVeriMail.setBackgroundResource(R.drawable.boarde_blue_21)
             isSuccessEmail = true
@@ -88,11 +85,14 @@ class VerifyMailFragment : BaseFragment() {
     override fun initData() {
 
     }
+
     private fun String.matches(regex: String): Boolean {
         return Pattern.matches(emailPattern, this)
 
     }
+
     private fun setupObserver() {
+
         viewModel.isLoading.observe(viewLifecycleOwner) { isShowLoading ->
             if (isShowLoading) {
                 showLoading()
@@ -100,21 +100,25 @@ class VerifyMailFragment : BaseFragment() {
                 cancelLoading()
             }
         }
-        viewModel.valiEmail.observe(viewLifecycleOwner){
-            if(it.success == true){
-                replaceFragment(OtpFragment(), OtpFragment::class.java.simpleName)
-                (activity as MainActivity?)!!.hideOrShowBottomView(false)
-            }
-            else{
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+
+        viewModel.validEmailResLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.success) {
+                    replaceFragment(OtpFragment(), OtpFragment::class.java.simpleName)
+                    (activity as MainActivity?)!!.hideOrShowBottomView(false)
+                } else {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
 
     }
+
     private fun checkButtonContinue() {
         binding.btnContinue.isEnabled = isSuccessEmail
     }
+
     private fun showErrorOTP(message: String) {
         binding.txtErrorEmail.apply {
             isVisible = true

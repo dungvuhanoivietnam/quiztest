@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.testiq.MainIQActivity;
 import com.example.testiq.model.Event;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,9 +33,11 @@ import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -44,7 +47,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView ivSearch, ivNotify, ivAvatar;
     private RecyclerView rcvGetMoreStar;
     private RecyclerView rcvEarningTask;
-    private ItemViewEarningTask itemIQ, itemMBI, itemEQ , itemOT;
+    private ItemViewEarningTask itemIQ, itemMBI, itemEQ, itemOT;
 
     private UserViewModel userViewModel;
     private ArrayList<TestItem> currentListEarningTasks;
@@ -56,7 +59,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initView(View v) {
-        if (!EventBus.getDefault().isRegistered(this)){
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
         extLogin = v.findViewById(R.id.ext_login);
@@ -128,7 +131,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    private void startActTestIQ(String type){
+    private void startActTestIQ(String type) {
         Intent intent = new Intent(getContext(), MainIQActivity.class);
         intent.putExtra("token", SharePrefrenceUtils.getInstance(requireActivity()).getUserAccessToken());
         intent.putExtra("type", type);
@@ -231,13 +234,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEvent(Event event) {
-        if (event != null){
-           new Handler().postDelayed(() -> {
-               replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
-               if (getActivity() != null) {
-                   ((MainActivity) getActivity()).hideOrShowBottomView(false);
-               }
-           },500);
+        if (event != null) {
+            new Handler().postDelayed(() -> {
+                replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName());
+                if (getActivity() != null) {
+                    ((MainActivity) getActivity()).hideOrShowBottomView(false);
+                }
+            }, 500);
         }
     }
 
