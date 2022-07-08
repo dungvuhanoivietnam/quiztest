@@ -2,21 +2,28 @@ package com.quiztest.quiztest.fragment;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.RankingAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.model.RankerResponse;
+import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.model.UserRankingResponse;
+import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
@@ -26,11 +33,20 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
     private RankingAdapter rankingAdapter;
     private RecyclerView recyclerViewRanking;
+    private ExtTextView extWeeklyRanking, extOverallRating, extName, extStars;
+    private ImageView ivAvatar;
 
-    private ExtTextView extWeeklyRanking, extOverallRating;
+    private UserViewModel userViewModel;
+    private UserInfoResponse currentUser;
+    private ArrayList<UserRankingResponse.UserRanking> listUserWeeklyRanking = new ArrayList<>();
+    private ArrayList<UserRankingResponse.UserRanking> listUserAllTimeRanking = new ArrayList<>();
 
     private final int ButtonWeeklyRanking = 1;
     private final int ButtonOverallRating = 2;
+
+    private final String AllTimeRanking = "all";
+    private final String WeekRanking = "week";
+    private String currentType;
 
     @Nullable
     @Override
@@ -48,36 +64,69 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
         extWeeklyRanking = v.findViewById(R.id.ext_weekly_ranking);
         extOverallRating = v.findViewById(R.id.ext_overall_rating);
         recyclerViewRanking = v.findViewById(R.id.rcv_ranking);
+        extName = v.findViewById(R.id.ext_name);
+        extStars = v.findViewById(R.id.ext_stars);
+        ivAvatar = v.findViewById(R.id.iv_avatar);
     }
 
     @Override
     protected void initData() {
+        if (getActivity() != null) {
+            userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+        }
         extWeeklyRanking.setOnClickListener(this);
         extOverallRating.setOnClickListener(this);
-
         rankingAdapter = new RankingAdapter(getContext());
-        rankingAdapter.setListData(fakeDataRank());
         rankingAdapter.setItemClickListener(this);
-        recyclerViewRanking.setAdapter(rankingAdapter);
+        setDataUser();
+        setDataRanking();
     }
 
-    private ArrayList<RankerResponse> fakeDataRank() {
-        ArrayList<RankerResponse> list = new ArrayList<>();
-        list.add(new RankerResponse("Alexpham", 1034));
-        list.add(new RankerResponse("Wade Warren", 1034));
-        list.add(new RankerResponse("Brooklyn Simmons", 1034));
-        list.add(new RankerResponse("Jenny Wilson", 1034));
-        list.add(new RankerResponse("Bessie Cooper", 1034));
-        list.add(new RankerResponse("Ralph Edwards", 1034));
-        return list;
+    private void setDataUser() {
+        if (UserInfoResponse.getInstance() != null && getContext() != null) {
+            currentUser = UserInfoResponse.getInstance();
+            extName.setText(currentUser.getData().getUserInfo().getName());
+            extStars.setText(getString(R.string.stars, currentUser.getData().getUserInfo().getTotalStar()));
+            String avatar = currentUser.getData().getUserInfo().getAvatar();
+            if (!TextUtils.isEmpty(avatar)) {
+                Glide.with(getContext()).load(avatar).circleCrop().into(ivAvatar);
+            }
+        }
+    }
+
+    private void setDataRanking() {
+        if (userViewModel != null) {
+            userViewModel.getUserRankingByType(requestAPI, WeekRanking, o -> {
+                if (o instanceof UserRankingResponse) {
+                    listUserWeeklyRanking = ((UserRankingResponse) o).getData();
+                    rankingAdapter.setListData(listUserWeeklyRanking);
+                    rankingAdapter.notifyDataSetChanged();
+                }
+            });
+
+            userViewModel.getUserRankingByType(requestAPI, AllTimeRanking, o -> {
+                if (o instanceof UserRankingResponse) {
+                    listUserAllTimeRanking = ((UserRankingResponse) o).getData();
+                }
+            });
+        }
+        recyclerViewRanking.setAdapter(rankingAdapter);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.ext_weekly_ranking) {
+            if (rankingAdapter != null) {
+                rankingAdapter.setListData(listUserWeeklyRanking);
+                rankingAdapter.notifyDataSetChanged();
+            }
             setButtonOptionEnable(ButtonWeeklyRanking);
         }
         if (view.getId() == R.id.ext_overall_rating) {
+            if (rankingAdapter != null) {
+                rankingAdapter.setListData(listUserAllTimeRanking);
+                rankingAdapter.notifyDataSetChanged();
+            }
             setButtonOptionEnable(ButtonOverallRating);
         }
     }
@@ -108,7 +157,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onItemClickListener(int position) {
-        Toast.makeText(getContext(),position+"",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), position + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
