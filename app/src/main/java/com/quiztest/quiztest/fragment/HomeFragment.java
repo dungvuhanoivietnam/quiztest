@@ -27,6 +27,8 @@ import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.UserInfoResponse;
+import com.quiztest.quiztest.retrofit.RequestAPI;
+import com.quiztest.quiztest.retrofit.RetrofitClient;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
@@ -38,6 +40,8 @@ import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import retrofit2.Retrofit;
 
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener, RankingAdapter.ItemClickListener {
@@ -258,6 +262,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
     public void resetData(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        requestAPI = retrofit.create(RequestAPI.class);
         initDataUser();
         initDataTest();
     }
