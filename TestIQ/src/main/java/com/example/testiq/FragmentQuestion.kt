@@ -148,6 +148,7 @@ class FragmentQuestion :
             when (it.status) {
                 Status.SUCCESS -> {
                     cancelLoading()
+                    cTimer?.cancel()
                     if (it.data?.success == true) {
                         viewModel.submitResponse = it.data
                         it.data.submitData?.let { submitDataResponse ->
@@ -251,6 +252,23 @@ class FragmentQuestion :
     override fun onDestroy() {
         super.onDestroy()
         cTimer?.cancel()
+        Log.d("AAAAAAAAAAA", "onDestroy")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cTimer?.cancel()
+        Log.d("AAAAAAAAAAA", "onPause")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("AAAAAAAAAAA", "onDestroyView")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("AAAAAAAAAAA", "onStop")
     }
 
     override fun getViewBinding(): FragmentQuestionIqBinding =

@@ -1,5 +1,12 @@
 package com.quiztest.quiztest.fragment;
 
+import static com.quiztest.quiztest.utils.Const.BEARER;
+import static com.quiztest.quiztest.utils.Const.DATA;
+import static com.quiztest.quiztest.utils.Const.LANGUAGE;
+import static com.quiztest.quiztest.utils.Const.TOKEN;
+import static com.quiztest.quiztest.utils.Const.TYPE;
+
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -7,6 +14,7 @@ import android.widget.RelativeLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testiq.MainIQActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -14,6 +22,8 @@ import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogWithdrawMoney;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.TopicListResponse;
+import com.quiztest.quiztest.utils.LanguageConfig;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -32,6 +42,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     private ArrayList<TestItem> currentListTopic;
     private int current_type;
     private int totalMoney;
+    private String currentLanguage;
 
     public GetMoreChancesFragment(int type_get_more) {
         current_type = type_get_more;
@@ -60,6 +71,9 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
 
     @Override
     protected void initData() {
+
+        currentLanguage = LanguageConfig.INSTANCE.getCurrentLanguage();
+
         ivBack.setOnClickListener(v -> {
             backstackFragment();
         });
@@ -86,6 +100,22 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
             }
             cancelLoading();
         });
+
+        getMoreStarsAdapter.setListener(new GetMoreStarsAdapter.ItemClickListener() {
+            @Override
+            public void onClick(TestItem item) {
+                startActTestIQ("",item);
+            }
+        });
+    }
+
+    private void startActTestIQ(String type, TestItem testItem){
+        Intent intent = new Intent(getContext(), MainIQActivity.class);
+        intent.putExtra(TOKEN, BEARER+ SharePrefrenceUtils.getInstance(mContext).getAuth());
+        intent.putExtra(TYPE, type);
+        intent.putExtra(LANGUAGE, currentLanguage);
+        intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
+        startActivity(intent);
     }
 
     private void setLayoutType(int current_type) {

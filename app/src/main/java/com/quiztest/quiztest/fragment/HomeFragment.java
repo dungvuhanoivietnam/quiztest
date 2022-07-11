@@ -2,6 +2,7 @@ package com.quiztest.quiztest.fragment;
 
 import static com.quiztest.quiztest.utils.Const.BEARER;
 import static com.quiztest.quiztest.utils.Const.DATA;
+import static com.quiztest.quiztest.utils.Const.LANGUAGE;
 import static com.quiztest.quiztest.utils.Const.TOKEN;
 import static com.quiztest.quiztest.utils.Const.TYPE;
 
@@ -31,6 +32,7 @@ import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 import com.quiztest.quiztest.retrofit.RetrofitClient;
+import com.quiztest.quiztest.utils.LanguageConfig;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
@@ -58,6 +60,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private GetMoreStarsAdapter getMoreStarsAdapter;
     private EarningTasksAdapter earningTasksAdapter;
     private UserInfoResponse currentUser;
+    private String currentLanguage;
 
 
     @Override
@@ -95,12 +98,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivNotify.setOnClickListener(this);
+        currentLanguage = LanguageConfig.INSTANCE.getCurrentLanguage();
 
         getMoreStarsAdapter = new GetMoreStarsAdapter(mContext);
         earningTasksAdapter = new EarningTasksAdapter(mContext);
         if (getActivity() != null) {
             userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         }
+        getMoreStarsAdapter.setListener(item -> {
+            startActTestIQ("", item);
+        });
         initDataUser();
         initDataTest();
 
@@ -129,6 +136,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         Intent intent = new Intent(getContext(), MainIQActivity.class);
         intent.putExtra(TOKEN, BEARER+ SharePrefrenceUtils.getInstance(mContext).getAuth());
         intent.putExtra(TYPE, type);
+        intent.putExtra(LANGUAGE, currentLanguage);
         intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
         startActivity(intent);
     }
