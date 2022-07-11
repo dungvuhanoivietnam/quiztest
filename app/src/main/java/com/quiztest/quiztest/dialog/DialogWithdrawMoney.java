@@ -5,19 +5,28 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.custom.ExtEditText;
 import com.quiztest.quiztest.custom.ExtEditTextApp;
+import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.model.AuthResponse;
 
 public class DialogWithdrawMoney extends Dialog {
+    private ExtEditText edtAccountAddress, edtWithdrawalAmount;
+    private ExtTextView extWithdrawMoney;
+    private OnWithDrawClickLisenter onWithDrawClickLisenter;
 
-    public DialogWithdrawMoney(@NonNull Context context, int themeResId) {
+    public DialogWithdrawMoney(@NonNull Context context, int themeResId, OnWithDrawClickLisenter lisenter) {
         super(context, themeResId);
+        this.onWithDrawClickLisenter = lisenter;
     }
 
     @Override
@@ -30,7 +39,33 @@ public class DialogWithdrawMoney extends Dialog {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.dialog_withdraw_money);
         setCanceledOnTouchOutside(true);
-        ((ExtEditTextApp) findViewById(R.id.edt_account_address)).setHint(getContext().getResources().getString(R.string.input_your_account));
-        ((ExtEditTextApp) findViewById(R.id.edt_withdrawal_amount)).setHint(getContext().getResources().getString(R.string.please_enter_withdrawal_amount));
+        initView();
+        initData();
+
+    }
+
+    private void initData() {
+        extWithdrawMoney.setOnClickListener(v -> {
+            if (onWithDrawClickLisenter != null) {
+                String email = edtAccountAddress.getText().toString().trim();
+                String money = edtWithdrawalAmount.getText().toString().trim();
+                try {
+                    onWithDrawClickLisenter.onWidthDrawClick(email, Integer.parseInt(money));
+                } catch (NumberFormatException e) {
+
+                }
+                dismiss();
+            }
+        });
+    }
+
+    private void initView() {
+        edtAccountAddress = findViewById(R.id.edt_account_address);
+        edtWithdrawalAmount = findViewById(R.id.edt_withdrawal_amount);
+        extWithdrawMoney = findViewById(R.id.ext_withdraw_money);
+    }
+
+    public interface OnWithDrawClickLisenter {
+        void onWidthDrawClick(String email, int money);
     }
 }

@@ -43,6 +43,12 @@ public interface RequestAPI {
             @Query("password") String password
     );
 
+    @POST("payment/request-withdrawal")
+    Call<AuthResponse> requestWithdrawal(
+            @Query("email") String email,
+            @Query("money") int money
+    );
+
 
     @GET("quiz/get-history-participation")
     Call<HistoryResponse> getHistorys(@Query("page") String page);

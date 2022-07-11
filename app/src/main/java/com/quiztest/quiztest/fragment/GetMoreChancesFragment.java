@@ -7,18 +7,21 @@ import android.widget.RelativeLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testiq.ui.DialogResultCallApi;
+import com.example.testiq.utils.Status;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogWithdrawMoney;
+import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
-public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener {
+public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener, DialogWithdrawMoney.OnWithDrawClickLisenter {
     public static final int TYPE_GET_MORE_STAR = 1;
     public static final int TYPE_GET_MORE_MONEY = 2;
 
@@ -101,9 +104,36 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.ext_withdraw_money) {
-            DialogWithdrawMoney dialogWithdrawMoney = new DialogWithdrawMoney(getContext(), R.style.MaterialDialogSheet);
+            DialogWithdrawMoney dialogWithdrawMoney = new DialogWithdrawMoney(getContext(), R.style.MaterialDialogSheet, this);
             dialogWithdrawMoney.show();
         }
     }
 
+    @Override
+    public void onWidthDrawClick(String email, int money) {
+        if (userViewModel != null) {
+            showLoading();
+            userViewModel.requestWithDraw(requestAPI, email, money, o -> {
+                if (o instanceof AuthResponse) {
+                    if (getContext() != null) {
+                        if (Boolean.TRUE.equals(((AuthResponse) o).getSuccess())) {
+                            new DialogResultCallApi(getContext(), Status.SUCCESS, ((AuthResponse) o).getMessage()).show();
+                        } else {
+                            DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
+                                    ((AuthResponse) o).getMessage());
+                            dialogResultCallApi.setTextAndIcon(getString(R.string.minimum_money), R.drawable.ic_error);
+                        }
+                    }
+                } else {
+                    if (getContext() != null) {
+                        DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
+                                getString(R.string.error_message_default));
+                        dialogResultCallApi.setTextAndIcon(getString(R.string.error), R.drawable.ic_error);
+                        dialogResultCallApi.show();
+                    }
+                }
+                cancelLoading();
+            });
+        }
+    }
 }

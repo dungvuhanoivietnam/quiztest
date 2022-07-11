@@ -129,5 +129,7 @@
     <string name="d_questions">%d questions</string>
     <string name="result_d">Result (%d)</string>
     <string name="top_d">Top %d</string>
+    <string name="error_message_default">An error occurred, please try again later</string>
+    <string name="minimum_money">Minimum money</string>
 
 </resources>

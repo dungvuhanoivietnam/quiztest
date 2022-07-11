@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
+import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.model.ChangePassResponse;
@@ -137,6 +138,30 @@ public class UserViewModel extends ViewModel {
         }
     }
 
+    private class callBackWithDraw implements Callback<AuthResponse> {
+
+        private Consumer consumer;
+
+        public callBackWithDraw(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+            AuthResponse authResponse = response.body();
+            if (authResponse != null) {
+                consumer.accept(authResponse);
+            } else {
+                consumer.accept(response.code());
+            }
+        }
+
+        @Override
+        public void onFailure(Call<AuthResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
     private class callBackGetTopicByType implements Callback<TopicListResponse> {
 
         private Consumer consumer;
@@ -244,6 +269,11 @@ public class UserViewModel extends ViewModel {
 
     public void getUserRankingByType(RequestAPI requestAPI, String type, Consumer consumer){
         requestAPI.getRankingStarByType(type).enqueue(new callBackGetRankingByType(consumer));
+    }
+
+
+    public void requestWithDraw(RequestAPI requestAPI, String email, int money, Consumer consumer){
+        requestAPI.requestWithdrawal(email, money).enqueue(new callBackWithDraw(consumer));
     }
 
     private static class callBackLogout implements Callback<BaseResponse> {
