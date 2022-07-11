@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragmentStates.size() > 1) {
             fragmentStates.remove(fragmentStates.size() - 1);
             getSupportFragmentManager().popBackStack();
-            String tagg = fragmentStates.get(fragmentStates.size()-1);
+            String tagg = fragmentStates.get(fragmentStates.size() - 1);
             hideOrShowBottomView(tagg.contains(HomeFragment.class.getSimpleName()) || tagg.contains(ProfileFragment.class.getSimpleName()) || tagg.contains(RankingFragment.class.getSimpleName()));
             return;
         } else {
@@ -361,13 +361,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        activityResultFragment.result(requestCode, resultCode, data);
+        if (activityResultFragment != null) {
+            activityResultFragment.result(requestCode, resultCode, data);
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        activityResultFragment.result(requestCode,permissions,grantResults);
+        activityResultFragment.result(requestCode, permissions, grantResults);
     }
 
     public void addFragment(Fragment fragment, String tag) {

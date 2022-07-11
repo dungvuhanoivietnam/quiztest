@@ -13,6 +13,7 @@ import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentVerifyMailBinding
 import com.quiztest.quiztest.fragment.login.LoginFragment
+import com.quiztest.quiztest.utils.Const
 import java.util.regex.Pattern
 
 
@@ -50,7 +51,7 @@ class VerifyMailFragment : BaseFragment() {
         binding.btnContinue.setOnClickListener {
             if (isSuccessEmail) {
                 binding.btnContinue.setBackgroundResource(R.drawable.btn_background_done)
-                viewModel.validEmail(email)
+                viewModel.validEmail(requireContext(), email)
             } else {
                 showErrorOTP(message)
             }
@@ -59,6 +60,7 @@ class VerifyMailFragment : BaseFragment() {
         binding.ivBack.setOnClickListener {
             backstackFragment()
         }
+
         binding.txtLogin.setOnClickListener {
             replaceFragment(LoginFragment(), LoginFragment::class.java.simpleName)
             (activity as MainActivity?)!!.hideOrShowBottomView(false)
@@ -78,7 +80,6 @@ class VerifyMailFragment : BaseFragment() {
             binding.txtErrorEmail.setText(R.string.malformed_account)
             binding.edtVeriMail.setBackgroundResource(R.drawable.boarde_red)
             isSuccessEmail = false
-            return
         }
     }
 
@@ -104,12 +105,21 @@ class VerifyMailFragment : BaseFragment() {
         viewModel.validEmailResLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.success) {
-                    replaceFragment(OtpFragment(), OtpFragment::class.java.simpleName)
+                    val bundle = Bundle()
+                    bundle.putString(Const.KEY_EMAIL, binding.edtVeriMail.text.toString())
+                    val otpFragment = OtpFragment()
+                    otpFragment.arguments = bundle
+                    replaceFragment(otpFragment, otpFragment::class.java.simpleName)
                     (activity as MainActivity?)!!.hideOrShowBottomView(false)
                 } else {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
 

@@ -15,6 +15,8 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.quiztest.quiztest.R;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,6 +93,24 @@ public class Utils {
         } catch (Exception e) {
             Log.e("TAG", "printHashKey()", e);
         }
+    }
+
+    public static String errorMessage(Context context, int code) {
+        switch (code) {
+            case Const.KEY_CODE_400:
+                return context.getResources().getString(R.string.error_400);
+
+            case Const.KEY_CODE_401:
+                return context.getResources().getString(R.string.error_401);
+
+            case Const.KEY_CODE_404:
+                return context.getResources().getString(R.string.error_404);
+
+            case Const.KEY_CODE_500:
+                return context.getResources().getString(R.string.error_500);
+        }
+
+        return "";
     }
 
 }

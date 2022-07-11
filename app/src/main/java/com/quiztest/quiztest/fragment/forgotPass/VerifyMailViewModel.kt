@@ -1,9 +1,11 @@
 package com.quiztest.quiztest.fragment.forgotPass
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.quiztest.quiztest.model.VerifyEmailResponse
 import com.quiztest.quiztest.repository.AuthRepository
+import com.quiztest.quiztest.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +17,7 @@ class VerifyMailViewModel(
     var isLoading = MutableLiveData<Boolean>()
     var errorMessage = MutableLiveData<String>()
 
-    fun validEmail(email: String) {
+    fun validEmail(context: Context, email: String) {
         isLoading.postValue(true)
         userRepository.verifyEmail(email).enqueue(object : Callback<VerifyEmailResponse> {
             override fun onResponse(
@@ -30,7 +32,7 @@ class VerifyMailViewModel(
                         errorMessage.postValue(response.message())
                     }
                 } else {
-                    errorMessage.postValue(response.errorBody().toString())
+                    errorMessage.postValue(Utils.errorMessage(context,response.code()))
                 }
             }
 

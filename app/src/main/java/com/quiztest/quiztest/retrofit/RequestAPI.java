@@ -4,6 +4,7 @@ import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.HomeDataResponse;
+import com.quiztest.quiztest.model.OtpDataResponse;
 import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -76,5 +77,12 @@ public interface RequestAPI {
                                    @Query("access_token") String accessToken,
                                    @Query("device_id") String deviceId,
                                    @Query("language") String language);
+
+    @POST("auth/resend-otp")
+    Call<OtpDataResponse> resendOtp(@Query("email") String email, @Query("verify_style") String verifyStyle, @Query("verify_type") String verifyType);
+
+    @POST("auth/verify-otp")
+    Call<AuthResponse> verifyOtp(@Query("verify_type") String verifyType, @Query("email")
+            String email, @Query("otp") String otp);
 
 }

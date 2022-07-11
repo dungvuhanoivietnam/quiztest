@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.forgotPass.OtpFragment">
+
     <androidx.appcompat.widget.AppCompatImageView
-    android:id="@+id/imv_thum"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_180sdp"
-    android:scaleType="fitXY"
-    android:src="@drawable/bg_login"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/imv_thum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_back"
@@ -24,6 +25,7 @@
         android:src="@drawable/ic_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_verify_account"
         android:layout_width="match_parent"
@@ -36,6 +38,7 @@
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/imv_thum" />
+
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_we_sent_a"
         android:layout_width="match_parent"
@@ -47,6 +50,7 @@
         android:textColor="@color/color_8D959D"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintTop_toBottomOf="@+id/txt_verify_account" />
+
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_mail_verify"
         android:layout_width="match_parent"
@@ -54,10 +58,28 @@
         android:layout_marginTop="@dimen/_6sdp"
         android:fontFamily="@font/roboto_regular"
         android:gravity="center"
-        tools:text="alexanderstupid@gmail.com"
         android:textColor="@color/black"
         android:textSize="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@+id/txt_we_sent_a" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_we_sent_a"
+        tools:text="alexanderstupid@gmail.com" />
+
+    <com.quiztest.quiztest.custom.code_otp_view.OtpTextView
+        android:id="@+id/otp_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:textColor="@color/color_3C3C3C"
+        app:height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:length="6"
+        app:otp=""
+        app:otp_box_background="@drawable/bg_inactive_code_view"
+        app:otp_box_background_inactive="@drawable/bg_inactive_code_view"
+        app:otp_text_size="20dp"
+        app:width="40dp" />
 
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_you_đi_not"
@@ -72,7 +94,7 @@
         app:layout_constraintEnd_toStartOf="@id/txt_send_again"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_mail_verify" />
+        app:layout_constraintTop_toBottomOf="@+id/otp_view" />
 
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_send_again"
@@ -87,6 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txt_you_đi_not"
         app:layout_constraintTop_toTopOf="@+id/txt_you_đi_not" />
+
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/txt_resendcode"
         android:layout_width="wrap_content"

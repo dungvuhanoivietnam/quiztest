@@ -1,8 +1,7 @@
 package com.quiztest.quiztest.remote
 
-import com.quiztest.quiztest.model.AuthResponse
-import com.quiztest.quiztest.model.UserReponse
-import com.quiztest.quiztest.model.VerifyEmailResponse
+import com.quiztest.quiztest.base.BaseFragment
+import com.quiztest.quiztest.model.*
 import com.quiztest.quiztest.retrofit.RequestAPI
 import com.quiztest.quiztest.retrofit.RetrofitClient
 import okhttp3.ResponseBody
@@ -39,5 +38,21 @@ class AuthRemote(
 
     fun verifyEmail(email: String): Call<VerifyEmailResponse> {
         return apiUser.verifyMail(email)
+    }
+
+    fun resendOtp(
+        email: String,
+        verifyStyle: String,
+        verifyType: String
+    ): Call<OtpDataResponse> {
+        return apiUser.resendOtp(email, verifyStyle, verifyType)
+    }
+
+    fun verifyOtp(
+        verifyStyle: String,
+        email: String,
+        otp: String
+    ): Call<AuthResponse> {
+        return apiUser.verifyOtp(verifyStyle, email, otp)
     }
 }

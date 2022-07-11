@@ -74,27 +74,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/boarder"
                 android:ellipsize="end"
+                android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_9sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_60sdp"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_welcometo" />
 
-            <com.quiztest.quiztest.custom.ExtTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/margin_top_content"
-                android:background="@color/white"
-                android:text="@string/email"
-                android:textColor="@color/color_8D959D"
-                app:layout_constraintLeft_toLeftOf="@id/edt_pass"
-                app:layout_constraintTop_toTopOf="@id/edt_mail" />
 
             <com.quiztest.quiztest.custom.ExtTextView
                 android:id="@+id/txt_error_email"
@@ -108,28 +101,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edt_mail" />
 
-            <!--            <com.quiztest.quiztest.custom.ExtEditTextApp-->
-            <!--                android:id="@+id/edt_pass"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginHorizontal="@dimen/_16sdp"-->
-            <!--                android:layout_marginTop="@dimen/_7sdp"-->
-            <!--                android:drawableEnd="@drawable/ic_open_eye"-->
-            <!--                android:hint="@string/enter_your_password"-->
-            <!--                android:inputType="textPassword"-->
-            <!--                android:textSize="@dimen/_16sdp"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="0.512"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/edt_mail" />-->
+
             <com.quiztest.quiztest.custom.ExtEditText
                 android:id="@+id/edt_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 android:background="@drawable/boarder"
                 android:ellipsize="end"
+                android:hint="@string/hint_pass"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingVertical="@dimen/_9sdp"
@@ -150,17 +131,6 @@
                 android:src="@drawable/ic_close_eye"
                 app:layout_constraintBottom_toBottomOf="@id/edt_pass"
                 app:layout_constraintRight_toRightOf="@id/edt_pass"
-                app:layout_constraintTop_toTopOf="@id/edt_pass" />
-
-            <com.quiztest.quiztest.custom.ExtTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/margin_top_content"
-                android:background="@color/white"
-                android:text="@string/password"
-                android:textColor="@color/color_8D959D"
-                app:layout_constraintLeft_toLeftOf="@id/edt_pass"
                 app:layout_constraintTop_toTopOf="@id/edt_pass" />
 
             <com.quiztest.quiztest.custom.ExtTextView

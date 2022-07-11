@@ -68,7 +68,7 @@ class LoginFragment : BaseFragment() {
 
 
     override fun initData() {
-        initLoginGoogleFacebook()
+
     }
 
     private fun initLoginGoogleFacebook() {
@@ -82,7 +82,7 @@ class LoginFragment : BaseFragment() {
             Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
         val language = Locale.getDefault().language
 
-        mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, googleSignInOptions) }
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
         mCallbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance()
             .registerCallback(mCallbackManager, object : FacebookCallback<LoginResult> {
@@ -95,8 +95,9 @@ class LoginFragment : BaseFragment() {
                 }
 
                 override fun onSuccess(loginResult: LoginResult) {
-                    Log.d("AcessToken", loginResult.accessToken.token)
+                    Log.d("AcessTokenFacebook", loginResult.accessToken.token)
                     viewModel.loginSocial(
+                        requireContext(),
                         Const.PROVIDE_NAME_FACEBOOK,
                         loginResult.accessToken.token,
                         deviceId,
@@ -112,6 +113,7 @@ class LoginFragment : BaseFragment() {
             ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height)
         binding.imvThum.layoutParams = layoutParams
 
+        initLoginGoogleFacebook()
         setupView()
         setupObserver()
     }
@@ -170,10 +172,11 @@ class LoginFragment : BaseFragment() {
 
 
         binding.ivLoginGoogle.setOnClickListener {
-            val signInIntent = mGoogleSignInClient!!.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
+            if (mGoogleSignInClient != null) {
+                val signInIntent = mGoogleSignInClient!!.signInIntent
+                startActivityForResult(signInIntent, RC_SIGN_IN)
+            }
         }
-
 
     }
 
@@ -216,8 +219,7 @@ class LoginFragment : BaseFragment() {
     private fun handleLogin() {
         if (isSuccessEmail and isSuccessPass) {
             binding.btnLogin.setBackgroundResource(R.drawable.btn_background_done)
-
-            viewModel.loginAccount(email, password)
+            viewModel.loginAccount(requireContext(), email, password)
 
         } else {
             Toast.makeText(
@@ -255,7 +257,7 @@ class LoginFragment : BaseFragment() {
                         activity!!.actionLogout()
                     }
 //                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
-                }?: kotlin.run {
+                } ?: kotlin.run {
                     Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT).show()
                 }
 
@@ -263,6 +265,11 @@ class LoginFragment : BaseFragment() {
             }
 
         }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun String.matches(regex: String): Boolean {
@@ -282,8 +289,10 @@ class LoginFragment : BaseFragment() {
                 val language = Locale.getDefault().language
                 val account = task.getResult(ApiException::class.java)
                 Log.e("Token Account: ", account.idToken!!)
+//                Log.e("Server AuthCode: ", account.serverAuthCode!!)
                 if (account.idToken != null) {
                     viewModel.loginSocial(
+                        requireContext(),
                         Const.PROVIDE_NAME_GOOGLE,
                         account.idToken!!,
                         deviceId,

@@ -25,7 +25,7 @@
     <string name="recommend_for_you">Recommend for you</string>
     <string name="search_recent">Search recent</string>
     <string name="show_all_history">Show all history</string>
-    <string name="do_you_already_have_an_account">Do you already have an account?</string>
+    <string name="do_you_already_have_an_account">Did you remember the password?</string>
     <string name="when_you_click_register_you_agree_to">When you click register, you agree to </string>
     <string name="our_terms_and_conditions_of_use">Our Terms and Conditions of Use </string>
 
@@ -122,9 +122,19 @@
     <string name="money_get">Get %d$</string>
     <string name="star_pay">Cost %d</string>
     <string name="value_">%d</string>
-    <string name="facebook_app_id">5165269983581044</string>
+    <string name="facebook_app_id">599806405113141</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">2602e25e3b8500fd165fdf5356aa167a</string>
-    <string name="default_web_client_id">288710554517-1ilvbqq05l8vpi2amm1v71hknetvl42h.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">288710554517-r0nq21nmc0toaciq1g8j42i02o7vu0oo.apps.googleusercontent.com</string>
+    <string name="hint_email">Enter your email</string>
+    <string name="hint_pass">Enter your password</string>
+    <string name="error_400">Bad request</string>
+    <string name="error_401">Authorization failed</string>
+    <string name="error_404">Not found url</string>
+    <string name="error_500">Internal Server Error</string>
+    <string name="title_forget_pass">Forget Password</string>
+    <string name="text_done">Done</string>
+    <string name="text_notice">Notice</string>
+    <string name="text_error_re_enter_pass">Re-entered password does not match</string>
 
 </resources>

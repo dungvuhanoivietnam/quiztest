@@ -87,6 +87,7 @@ class RegisterFragment : BaseFragment() {
         setupView()
         setupObserver()
         initLoginGoogleFacebook()
+        Utils.printHashKey(requireContext())
 
     }
 
@@ -100,7 +101,7 @@ class RegisterFragment : BaseFragment() {
         val deviceId =
             Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
         val language = Locale.getDefault().language
-        mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, googleSignInOptions) }
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
         mCallbackManager = create()
         LoginManager.getInstance()
             .registerCallback(mCallbackManager, object : FacebookCallback<LoginResult> {
@@ -115,6 +116,7 @@ class RegisterFragment : BaseFragment() {
                 override fun onSuccess(loginResult: LoginResult) {
                     Log.d("AcessToken", loginResult.accessToken.token)
                     viewModel.loginSocial(
+                        requireContext(),
                         Const.PROVIDE_NAME_FACEBOOK,
                         loginResult.accessToken.token,
                         deviceId,
@@ -212,8 +214,10 @@ class RegisterFragment : BaseFragment() {
 
 
         binding.ivLoginGoogle.setOnClickListener {
-            val signInIntent = mGoogleSignInClient!!.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
+            if (mGoogleSignInClient != null) {
+                val signInIntent = mGoogleSignInClient!!.signInIntent
+                startActivityForResult(signInIntent, RC_SIGN_IN)
+            }
         }
 
         binding.ivBack.setOnClickListener {
@@ -228,7 +232,14 @@ class RegisterFragment : BaseFragment() {
             binding.btnRegister.setBackgroundResource(R.drawable.btn_background_done)
             val language = Locale.getDefault().language
             if (language.isNotEmpty()) {
-                viewModel.registerAccount(email, name, password, confirmPassword, language)
+                viewModel.registerAccount(
+                    requireContext(),
+                    email,
+                    name,
+                    password,
+                    confirmPassword,
+                    language
+                )
             }
 
         } else {
@@ -253,6 +264,7 @@ class RegisterFragment : BaseFragment() {
                 Log.e("Token Account: ", account.idToken!!)
                 if (account.idToken != null) {
                     viewModel.loginSocial(
+                        requireContext(),
                         Const.PROVIDE_NAME_GOOGLE,
                         account.idToken!!,
                         deviceId,
