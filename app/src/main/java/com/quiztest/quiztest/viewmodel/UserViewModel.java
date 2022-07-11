@@ -1,11 +1,14 @@
 package com.quiztest.quiztest.viewmodel;
 
+import android.util.Log;
+
 import androidx.core.util.Consumer;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.model.ChangePassResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.HomeDataResponse;
@@ -223,6 +226,10 @@ public class UserViewModel extends ViewModel {
         requestAPI.getDataForHome().enqueue(new callBackGetDataHome(consumer));
     }
 
+    public void changeLanguage(RequestAPI requestAPI,String language, Consumer consumer) {
+        requestAPI.changeLanguage(language).enqueue(new callBackChangeLanguage(consumer));
+    }
+
     public void getTopicListByType(RequestAPI requestAPI, int type, Consumer consumer){
         requestAPI.getTopicByType(type).enqueue(new callBackGetTopicByType(consumer));
     }
@@ -322,6 +329,30 @@ public class UserViewModel extends ViewModel {
 
         @Override
         public void onFailure(Call<ChangePassResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
+    private class callBackChangeLanguage implements Callback<ChangeLanguageResponse> {
+
+        private Consumer consumer;
+
+        public callBackChangeLanguage(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<ChangeLanguageResponse> call, Response<ChangeLanguageResponse> response) {
+            ChangeLanguageResponse changeLanguageResponse = response.body();
+            if (changeLanguageResponse != null) {
+                consumer.accept(changeLanguageResponse);
+            }else {
+                consumer.accept(response.code());
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ChangeLanguageResponse> call, Throwable t) {
             consumer.accept(t);
         }
     }

@@ -19,7 +19,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_gift"
-        android:layout_width="wrap_content"
+        android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_3sdp"
         android:src="@drawable/ic_group_39324"
@@ -101,6 +101,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_giay2"
         android:layout_marginBottom="@dimen/_13sdp"
         app:layout_constraintTop_toBottomOf="@id/img_gift"
         app:layout_constraintEnd_toEndOf="parent"

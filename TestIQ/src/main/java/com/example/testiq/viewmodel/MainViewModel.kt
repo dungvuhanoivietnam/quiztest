@@ -122,6 +122,7 @@ class MainViewModel(
             .addQueryParameter("answers", lstJSONObject.toString())
             .addQueryParameter("key_quiz_test", keyQuizTest)
             .addQueryParameter("topic_id", "1")
+            .addQueryParameter("language", "English")
             .setTag("SubmitNoToken")
             .setPriority(Priority.MEDIUM)
             .build()

@@ -2,6 +2,7 @@ package com.quiztest.quiztest.retrofit;
 
 import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.model.HistoryResponse;
 import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TopicListResponse;
@@ -27,7 +28,8 @@ public interface RequestAPI {
     Call<AuthResponse> registerAccount(@Query("email") String email,
                                        @Query("name") String name,
                                        @Query("password") String password,
-                                       @Query("confirm_password") String confirm_password);
+                                       @Query("confirm_password") String confirm_password,
+                                       @Query("language") String language);
 
     @GET("user")
     Call<UserInfoResponse> getUserInfo();
@@ -73,5 +75,11 @@ public interface RequestAPI {
     @POST("auth/request-set-password")
     Call<VerifyEmailResponse> verifyMail(@Query("email") String email);
 
-
+    @POST("auth/login-social")
+    Call<AuthResponse> loginSocial(@Query("provider_name") String provideName,
+                                   @Query("access_token") String accessToken,
+                                   @Query("device_id") String deviceId,
+                                   @Query("language") String language);
+    @POST("user/change-language")
+    Call<ChangeLanguageResponse> changeLanguage(@Query("language") String language);
 }

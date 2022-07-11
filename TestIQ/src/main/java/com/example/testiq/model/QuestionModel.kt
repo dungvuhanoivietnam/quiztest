@@ -1,5 +1,8 @@
 package com.example.testiq.model
 
+import android.os.Parcel
+import android.os.Parcelable
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class QuizTestResponse(
@@ -39,8 +42,8 @@ data class SubmitDataResponse(
     @SerializedName("answer_correct") var questions: Int?,
     @SerializedName("total_score") var total_score: Int? = 0,
     @SerializedName("review") var review: String?,
-    @SerializedName("money_bonus") var money_bonus: Int?,
-    @SerializedName("star_bonus") var star_bonus: Int?,
+    @SerializedName("money_bonus") var money_bonus: Int? = 0,
+    @SerializedName("star_bonus") var star_bonus: Int? = 0,
 )
 
 data class ConfirmOpenGifResponse(
