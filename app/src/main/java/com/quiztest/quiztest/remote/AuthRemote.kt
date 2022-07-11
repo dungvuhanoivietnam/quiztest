@@ -55,4 +55,11 @@ class AuthRemote(
     ): Call<AuthResponse> {
         return apiUser.verifyOtp(verifyStyle, email, otp)
     }
+
+    fun setNewPass(
+        password: String,
+        confirmPassword: String,
+    ): Call<AuthResponse> {
+        return apiUser.setNewPass(password, confirmPassword)
+    }
 }

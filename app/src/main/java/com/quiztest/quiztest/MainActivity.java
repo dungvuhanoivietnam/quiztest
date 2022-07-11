@@ -33,6 +33,7 @@ import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.fragment.SettingFragment;
+import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

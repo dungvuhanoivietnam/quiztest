@@ -85,4 +85,8 @@ public interface RequestAPI {
     Call<AuthResponse> verifyOtp(@Query("verify_type") String verifyType, @Query("email")
             String email, @Query("otp") String otp);
 
+    @POST("user/set-new-password")
+    Call<AuthResponse> setNewPass(@Query("password") String password, @Query("confirm_password") String confirmPassword);
+
+
 }

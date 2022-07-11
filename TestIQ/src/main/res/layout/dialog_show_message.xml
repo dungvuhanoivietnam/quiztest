@@ -22,7 +22,7 @@
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginEnd="@dimen/_16sdp"
-            android:text="@string/text_notice"
+            android:text="Notice"
             android:textColor="#22313F"
             android:textSize="@dimen/_16ssp"
             app:fontFamily="@font/roboto_medium"
@@ -47,17 +47,17 @@
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_18sdp"
             android:layout_marginEnd="@dimen/_4sdp"
+            android:fontFamily="@font/roboto_medium"
             android:lineSpacingExtra="8sp"
-            android:padding="@dimen/_13sdp"
-            android:text="@string/close"
+            android:text="CLOSE"
             android:textAllCaps="true"
-            android:textColor="#21C3FF"
             android:textSize="@dimen/_13ssp"
+            app:fontFamily="@font/roboto_medium"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/message"
-            app:textAllCaps="true" />
+            app:layout_constraintTop_toBottomOf="@+id/message" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

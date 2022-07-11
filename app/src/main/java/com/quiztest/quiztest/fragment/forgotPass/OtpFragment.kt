@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.example.testiq.ui.DialogShowMessageApi
 import com.quiztest.quiztest.MainActivity
@@ -51,12 +52,14 @@ class OtpFragment : BaseFragment() {
 
             override fun onFinish() {
                 binding.txtTimeResend.text = context?.resources?.getString(R.string.text_done)
-                viewModel.resendOtp(
-                    requireContext(),
-                    email = email,
-                    Const.KEY_VERIFY_STYLE,
-                    Const.KEY_VERIFY_TYPE
-                )
+                context?.let {
+                    viewModel.resendOtp(
+                        it,
+                        email = email,
+                        Const.KEY_VERIFY_STYLE,
+                        Const.KEY_VERIFY_TYPE
+                    )
+                }
             }
         }
         cTimer.start()
@@ -96,13 +99,13 @@ class OtpFragment : BaseFragment() {
 
     private fun setupObserver() {
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { isShowLoading ->
-            if (isShowLoading) {
-                showLoading()
-            } else {
-                cancelLoading()
-            }
-        }
+//        viewModel.isLoading.observe(viewLifecycleOwner) { isShowLoading ->
+//            if (isShowLoading) {
+//                showLoading()
+//            } else {
+//                cancelLoading()
+//            }
+//        }
 
         viewModel.otpResLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -116,24 +119,26 @@ class OtpFragment : BaseFragment() {
         }
 
         viewModel.verifyOtpResLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                if (it.success == true) {
-                    it.message?.let { it1 ->
-                        context?.let { it2 ->
-                            DialogShowMessageApi(it2, it1) {
-                                replaceFragment(
-                                    CreatePassFragment(),
-                                    CreatePassFragment::class.java.simpleName
-                                )
-                                (activity as MainActivity?)!!.hideOrShowBottomView(false)
-                            }.show()
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
+                if (it != null) {
+                    if (it.success == true) {
+                        it.message?.let { it1 ->
+                            context?.let { it2 ->
+                                DialogShowMessageApi(it2, it1) {
+                                    replaceFragment(
+                                        CreatePassFragment(),
+                                        CreatePassFragment::class.java.simpleName
+                                    )
+                                    (activity as MainActivity?)!!.hideOrShowBottomView(false)
+                                }.show()
+                            }
                         }
-                    }
 
-                } else {
-                    it.message?.let { it1 ->
-                        context?.let { it2 ->
-                            DialogShowMessageApi(it2, it1) {}.show()
+                    } else {
+                        it.message?.let { it1 ->
+                            context?.let { it2 ->
+                                DialogShowMessageApi(it2, it1) {}.show()
+                            }
                         }
                     }
                 }

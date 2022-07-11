@@ -26,6 +26,7 @@ import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentLoginBinding
+import com.quiztest.quiztest.fragment.HomeFragment
 import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment
 import com.quiztest.quiztest.fragment.register.RegisterFragment
 import com.quiztest.quiztest.model.UserInfoResponse
@@ -245,22 +246,25 @@ class LoginFragment : BaseFragment() {
         }
 
         viewModel.loginResLiveData.observe(viewLifecycleOwner) {
-            if (it.success == true) {
-                it.data?.accessToken?.let {
-                    SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
-                    UserInfoResponse.setCurrentUser(null)
-                    RetrofitClient.setOurInstance(null)
+            if (it != null) {
+                if (it.success == true) {
+                    it.data?.accessToken?.let {
+                        SharePrefrenceUtils.getInstance(mContext).saveAuth(it)
+                        UserInfoResponse.setCurrentUser(null)
+                        RetrofitClient.setOurInstance(null)
 //                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
-                    backstackFragment()
-                    if (activity is MainActivity) {
-                        val activity = activity as MainActivity?
-                        activity!!.actionLogout()
-                    }
+                        backstackFragment()
+                        if (activity is MainActivity) {
+                            val activity = activity as MainActivity?
+                            activity!!.actionLogout()
+                        }
 //                    (requireActivity() as MainActivity?)?.hideOrShowBottomView(false)
-                } ?: kotlin.run {
-                    Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT).show()
-                }
+                    } ?: kotlin.run {
+                        Toast.makeText(requireContext(), "Not find token", Toast.LENGTH_SHORT)
+                            .show()
+                    }
 
+                }
 
             }
 
@@ -268,6 +272,20 @@ class LoginFragment : BaseFragment() {
 
         viewModel.errorMessage.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.loginSocialResLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.success == true) {
+                    replaceFragment(
+                        HomeFragment(),
+                        HomeFragment::class.java.simpleName
+                    )
+
+                } else {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }
@@ -288,7 +306,8 @@ class LoginFragment : BaseFragment() {
                     Settings.Secure.getString(context?.contentResolver, Settings.Secure.ANDROID_ID)
                 val language = Locale.getDefault().language
                 val account = task.getResult(ApiException::class.java)
-                Log.e("Token Account: ", account.idToken!!)
+                Log.e("Token Account gg: ", account.idToken!!)
+                Log.e("DeviceId: ", deviceId)
 //                Log.e("Server AuthCode: ", account.serverAuthCode!!)
                 if (account.idToken != null) {
                     viewModel.loginSocial(

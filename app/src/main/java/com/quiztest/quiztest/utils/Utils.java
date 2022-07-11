@@ -108,6 +108,9 @@ public class Utils {
 
             case Const.KEY_CODE_500:
                 return context.getResources().getString(R.string.error_500);
+
+            case Const.KEY_CODE_502:
+                return context.getResources().getString(R.string.error_502);
         }
 
         return "";

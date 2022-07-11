@@ -13,6 +13,8 @@
     <string name="enter_your_password">Enter your password</string>
     <string name="malformed_account">Malformed account</string>
     <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_password_agian">Enter your password again</string>
     <string name="hello_my_friend">Hello my friend</string>
     <string name="welcome_to_the_tests_of_quiz_test">Welcome to the tests of Quiz test</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -122,7 +124,7 @@
     <string name="money_get">Get %d$</string>
     <string name="star_pay">Cost %d</string>
     <string name="value_">%d</string>
-    <string name="facebook_app_id">599806405113141</string>
+    <string name="facebook_app_id">1162382864541809</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">2602e25e3b8500fd165fdf5356aa167a</string>
     <string name="default_web_client_id">288710554517-r0nq21nmc0toaciq1g8j42i02o7vu0oo.apps.googleusercontent.com</string>
@@ -132,6 +134,7 @@
     <string name="error_401">Authorization failed</string>
     <string name="error_404">Not found url</string>
     <string name="error_500">Internal Server Error</string>
+    <string name="error_502">Bad gateway</string>
     <string name="title_forget_pass">Forget Password</string>
     <string name="text_done">Done</string>
     <string name="text_notice">Notice</string>

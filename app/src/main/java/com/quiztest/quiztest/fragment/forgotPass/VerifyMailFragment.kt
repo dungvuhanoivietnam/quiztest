@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import com.quiztest.quiztest.MainActivity
 import com.quiztest.quiztest.R
@@ -40,7 +41,11 @@ class VerifyMailFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_verify_mail
 
     override fun initView(v: View?) {
+        bindingView()
         setupObserver()
+    }
+
+    private fun bindingView() {
         binding.edtVeriMail.doOnTextChanged { text, start, before, count ->
             email = text.toString().trim()
             validMail()
@@ -103,18 +108,21 @@ class VerifyMailFragment : BaseFragment() {
         }
 
         viewModel.validEmailResLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                if (it.success) {
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
+                if (it != null) {
+                    if (it.success) {
                     val bundle = Bundle()
                     bundle.putString(Const.KEY_EMAIL, binding.edtVeriMail.text.toString())
                     val otpFragment = OtpFragment()
                     otpFragment.arguments = bundle
-                    replaceFragment(otpFragment, otpFragment::class.java.simpleName)
-                    (activity as MainActivity?)!!.hideOrShowBottomView(false)
-                } else {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        replaceFragment(otpFragment, OtpFragment::class.java.simpleName)
+                        (activity as MainActivity?)!!.hideOrShowBottomView(false)
+                    } else {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
+
         }
 
 

@@ -53,4 +53,11 @@ class AuthRepository {
     ): Call<AuthResponse> {
         return remoteUser.verifyOtp(verifyStyle, email, otp)
     }
+
+    fun setNewPass(
+        password: String,
+        confirmPassword: String
+    ): Call<AuthResponse> {
+        return remoteUser.setNewPass(password, confirmPassword)
+    }
 }
