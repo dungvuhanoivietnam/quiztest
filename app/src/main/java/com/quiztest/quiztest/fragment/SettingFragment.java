@@ -8,6 +8,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -29,13 +30,17 @@ import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogChooseImage;
 import com.quiztest.quiztest.fragment.login.LoginFragment;
 import com.quiztest.quiztest.model.BaseResponse;
+import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RetrofitClient;
+import com.quiztest.quiztest.utils.LanguageConfig;
 import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.utils.Utils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
+
+import java.util.Objects;
 
 public class SettingFragment extends BaseFragment implements ActivityResultFragment {
 
@@ -132,7 +137,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                    callApiChangeLanguage(countryNames[position]);
             }
 
             @Override
@@ -142,6 +147,13 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         });
         LanguageAdapter customAdapter = new LanguageAdapter(getContext(), countryFlag, countryNames);
         sp_language.setAdapter(customAdapter);
+        String currentLanguage = LanguageConfig.INSTANCE.getCurrentLanguage();
+        for (int i = 0; i < countryNames.length; i++) {
+            if (Objects.equals(countryNames[i], currentLanguage)){
+                sp_language.setSelection(i);
+                break;
+            }
+        }
     }
 
     private void checkIsSave() {
@@ -269,5 +281,19 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             openCamera();
         if (requestCode == Const.ALBUM_REQUEST_CODE)
             openGallery();
+    }
+
+    private void callApiChangeLanguage(String language){
+        showLoading();
+        userViewModel.changeLanguage(requestAPI,language, o  -> {
+            if (o instanceof ChangeLanguageResponse) {
+                boolean isChangeSuccess = ((ChangeLanguageResponse) o).getSuccess();
+                if (isChangeSuccess){
+                   LanguageConfig.INSTANCE.changeLanguage(getActivity(),language);
+                    LanguageConfig.INSTANCE.setCurrentLanguage(language);
+                }
+            }
+            cancelLoading();
+        });
     }
 }
