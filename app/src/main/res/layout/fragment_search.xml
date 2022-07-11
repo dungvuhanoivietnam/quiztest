@@ -123,8 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_16sdp"
-
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/tv_search_result"
@@ -156,7 +155,7 @@
         android:layout_marginTop="@dimen/_80sdp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="wrap_content"

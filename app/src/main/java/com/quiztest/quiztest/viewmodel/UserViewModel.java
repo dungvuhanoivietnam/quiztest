@@ -153,7 +153,11 @@ public class UserViewModel extends ViewModel {
                     consumer.accept(topicListResponse);
                 } else {
                     //show error
+                    consumer.accept(response.code());
                 }
+            }else {
+                //show error
+                consumer.accept(response.code());
             }
         }
 

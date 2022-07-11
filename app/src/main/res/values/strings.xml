@@ -128,5 +128,6 @@
     <string name="default_web_client_id">288710554517-1ilvbqq05l8vpi2amm1v71hknetvl42h.apps.googleusercontent.com</string>
     <string name="d_questions">%d questions</string>
     <string name="result_d">Result (%d)</string>
+    <string name="top_d">Top %d</string>
 
 </resources>

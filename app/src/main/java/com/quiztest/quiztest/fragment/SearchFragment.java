@@ -117,6 +117,9 @@ public class SearchFragment extends BaseFragment {
                     showEmptyLayout(true);
                 }
                 cancelLoading();
+                if (((MainActivity) getActivity()).isKeyBoardVisible()) {
+                    ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getView().getRootView().getWindowToken(), 0);
+                }
             });
         }
     }

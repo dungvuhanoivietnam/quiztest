@@ -34,6 +34,8 @@ import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentRegisterBinding
 import com.quiztest.quiztest.fragment.HomeFragment
+import com.quiztest.quiztest.model.UserInfoResponse
+import com.quiztest.quiztest.retrofit.RetrofitClient
 import com.quiztest.quiztest.utils.Const
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
 import com.quiztest.quiztest.utils.Utils
@@ -355,8 +357,15 @@ class RegisterFragment : BaseFragment() {
                 if (it.success == true) {
                     SharePrefrenceUtils.getInstance(requireContext()).userAccessToken =
                         it.data?.accessToken ?: ""
-                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
-                    (activity as MainActivity?)!!.hideOrShowBottomView(false)
+//                    replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName)
+                    SharePrefrenceUtils.getInstance(mContext).saveAuth(it.data?.accessToken)
+                    UserInfoResponse.setCurrentUser(null)
+                    RetrofitClient.setOurInstance(null)
+                    backstackFragment()
+                    if (activity is MainActivity) {
+                        val activity = activity as MainActivity?
+                        activity!!.actionLogout()
+                    }
                 } else {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
