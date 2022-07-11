@@ -60,6 +60,9 @@ public interface RequestAPI {
     @GET("quiz/topic-list-by-type/{type}")
     Call<TopicListResponse> getTopicByType(@Path("type") int type);
 
+    @GET("quiz/search-topic")
+    Call<TopicListResponse> searchTopic(@Query("keyword") String keyword);
+
     @Multipart
     @POST("user/change-avatar")
     Call<UploadAvatarResponse> uploadAvatar(@Part MultipartBody.Part avatar);

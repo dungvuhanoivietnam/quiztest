@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class EarningTasksAdapter extends RecyclerView.Adapter<EarningTasksAdapter.EarningTaskViewHolder> {
     private Context context;
     private ArrayList<TestItem> listData;
-    private RankingAdapter.ItemClickListener itemClickListener;
+    private ItemClickListener itemClickListener;
 
     public EarningTasksAdapter(Context context) {
         this.context = context;
@@ -30,7 +30,7 @@ public class EarningTasksAdapter extends RecyclerView.Adapter<EarningTasksAdapte
         this.listData = listData;
     }
 
-    public void setItemClickListener(RankingAdapter.ItemClickListener itemClickListener) {
+    public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 

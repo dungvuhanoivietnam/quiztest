@@ -144,8 +144,14 @@ public class UserViewModel extends ViewModel {
 
         @Override
         public void onResponse(Call<TopicListResponse> call, Response<TopicListResponse> response) {
-            TopicListResponse topicListResponse = response.body();
-            consumer.accept(topicListResponse);
+            if (response.body() != null) {
+                if (response.body() instanceof TopicListResponse) {
+                    TopicListResponse topicListResponse = response.body();
+                    consumer.accept(topicListResponse);
+                } else {
+                    //show error
+                }
+            }
         }
 
         @Override
@@ -219,6 +225,10 @@ public class UserViewModel extends ViewModel {
 
     public void getTopicListByType(RequestAPI requestAPI, int type, Consumer consumer){
         requestAPI.getTopicByType(type).enqueue(new callBackGetTopicByType(consumer));
+    }
+
+    public void searchTopics(RequestAPI requestAPI, String keyword, Consumer consumer){
+        requestAPI.searchTopic(keyword).enqueue(new callBackGetTopicByType(consumer));
     }
 
     public void getUserRankingByType(RequestAPI requestAPI, String type, Consumer consumer){

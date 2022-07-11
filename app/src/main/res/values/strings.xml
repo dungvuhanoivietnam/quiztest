@@ -122,5 +122,7 @@
     <string name="money_get">Get %d$</string>
     <string name="star_pay">Cost %d</string>
     <string name="value_">%d</string>
+    <string name="d_questions">%d questions</string>
+    <string name="result_d">Result (%d)</string>
 
 </resources>

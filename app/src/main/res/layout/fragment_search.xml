@@ -63,9 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_recommend_for_you"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="-6dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="4"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="6"
             tools:listitem="@layout/item_recommend_for_you_searc" />
     </RelativeLayout>
@@ -94,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_search_recent"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:spanCount="4"
             tools:itemCount="5"
@@ -117,6 +117,37 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <RelativeLayout
+        android:id="@+id/rl_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+
+        android:visibility="visible">
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/tv_search_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:text="@string/result_d"
+            android:textColor="@color/color_22313F"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_search_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_search_result" />
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/ll_empty_view"
         android:layout_width="match_parent"
@@ -124,7 +155,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/_80sdp"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
