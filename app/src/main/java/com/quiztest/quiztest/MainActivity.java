@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -33,10 +34,18 @@ import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.fragment.SettingFragment;
-import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment;
+import com.quiztest.quiztest.model.ChangeLanguageResponse;
+import com.quiztest.quiztest.retrofit.RequestAPI;
+import com.quiztest.quiztest.retrofit.RetrofitClient;
+import com.quiztest.quiztest.utils.LanguageConfig;
+import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -345,6 +354,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d("LOGGGGG", "LOGGGGG onResume NativeLogin");
+        updateLanguage();
+    }
+
+    /**
+    *  Post current language of device to server
+    * */
+    public void updateLanguage() {
+        String language = LanguageConfig.INSTANCE.getCurrentLanguage();
+        RetrofitClient.getInstance().create(RequestAPI.class).changeLanguage(language).enqueue(new Callback<ChangeLanguageResponse>() {
+            @Override
+            public void onResponse(Call<ChangeLanguageResponse> call, Response<ChangeLanguageResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ChangeLanguageResponse> call, Throwable t) {
+                    t.printStackTrace();
+            }
+        });
     }
 
     @Override

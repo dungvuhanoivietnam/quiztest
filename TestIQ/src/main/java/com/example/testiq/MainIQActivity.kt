@@ -13,6 +13,7 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
     companion object {
         var token: String = ""
         var type : String = ""
+        var language : String = ""
         var moneyBonus : String = ""
         var feeStar : String = ""
     }
@@ -22,6 +23,12 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
         intent.getStringExtra("token")?.let {
             if (intent.getStringExtra("token")?.isNotEmpty() == true) {
                 token = it
+            }
+        }
+
+        intent.getStringExtra("language")?.let {
+            if (intent.getStringExtra("language")?.isNotEmpty() == true) {
+                language = it
             }
         }
 

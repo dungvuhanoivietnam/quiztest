@@ -61,7 +61,9 @@ class FragmentGiftBaskets(
                     cancelLoading()
                 }
                 Status.ERROR -> {
-                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?:"").show()
+                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?:"") {
+
+                    }.show()
                     cancelLoading()
                 }
                 Status.LOADING -> {

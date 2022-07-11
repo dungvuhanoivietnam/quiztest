@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.testiq.adapter.AnswerAdapter
@@ -14,12 +13,8 @@ import com.example.testiq.databinding.FragmentQuestionIqBinding
 import com.example.testiq.model.QuestionModel
 import com.example.testiq.ui.*
 import com.example.testiq.utils.NetworkHelper
-import com.example.testiq.utils.SharePrefrenceUtils
 import com.example.testiq.utils.Status
-import com.example.testiq.viewmodel.MainIQViewModel
 import com.example.testiq.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
@@ -29,6 +24,8 @@ class FragmentQuestion :
     override val viewModel: MainViewModel by viewModels()
 
     private var adapterAnswer: AnswerAdapter? = null
+     var cTimer: CountDownTimer?= null
+
 
     override fun setupViews() {
 
@@ -45,7 +42,9 @@ class FragmentQuestion :
                 viewModel.fetChQuestionNoToken()
             }
         } else {
-            DialogResultCallApi(requireContext(), Status.ERROR, "Connect internet").show()
+            DialogResultCallApi(requireContext(), Status.ERROR, "Connect internet") {
+                Objects.requireNonNull(requireActivity()).supportFragmentManager.popBackStack()
+            }.show()
         }
 
         adapterAnswer = AnswerAdapter(requireContext()) {
@@ -76,15 +75,7 @@ class FragmentQuestion :
                 DialogConfirm(requireContext(), "${checkDataSelect()}", viewModel.lstQuestion, {
                     filterListSubmit()
                     // khi chua login
-                    if (viewModel.token.isNotEmpty()) {
-                        viewModel.submitQuizTest(
-                            viewModel.quizTestResponse?.data?.key_quiz_test ?: ""
-                        )
-                    } else {
-                        viewModel.submitQuizTestNoToken(
-                            viewModel.quizTestResponse?.data?.key_quiz_test ?: ""
-                        )
-                    }
+                    submit()
                     // da login
                 }).show()
             }
@@ -108,6 +99,20 @@ class FragmentQuestion :
         }
     }
 
+    private fun submit(){
+        filterListSubmit()
+        // khi chua login
+        if (viewModel.token.isNotEmpty()) {
+            viewModel.submitQuizTest(
+                viewModel.quizTestResponse?.data?.key_quiz_test ?: ""
+            )
+        } else {
+            viewModel.submitQuizTestNoToken(
+                viewModel.quizTestResponse?.data?.key_quiz_test ?: ""
+            )
+        }
+    }
+
     override fun setupObservers() {
         viewModel.questions.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -117,7 +122,9 @@ class FragmentQuestion :
                         requireContext(),
                         Status.SUCCESS,
                         "Start Test successfully."
-                    ).show()
+                    ) {
+
+                    }.show()
                     if (it.data?.success == true) {
                         viewModel.quizTestResponse = it.data
                         it.data.data?.questions?.let { it1 ->
@@ -126,7 +133,9 @@ class FragmentQuestion :
                     }
                 }
                 Status.ERROR -> {
-                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?: "").show()
+                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?: "") {
+                        activity?.finish()
+                    }.show()
                     cancelLoading()
                 }
                 Status.LOADING -> {
@@ -139,6 +148,7 @@ class FragmentQuestion :
             when (it.status) {
                 Status.SUCCESS -> {
                     cancelLoading()
+                    cTimer?.cancel()
                     if (it.data?.success == true) {
                         viewModel.submitResponse = it.data
                         it.data.submitData?.let { submitDataResponse ->
@@ -154,7 +164,9 @@ class FragmentQuestion :
                     }
                 }
                 Status.ERROR -> {
-                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?: "").show()
+                    DialogResultCallApi(requireContext(), Status.ERROR, it.message ?: "") {
+
+                    }.show()
                     cancelLoading()
                 }
                 Status.LOADING -> {
@@ -190,8 +202,8 @@ class FragmentQuestion :
         binding.result.text = "${viewModel.index + 1}/ ${viewModel.lstQuestion.size}"
     }
 
-    private fun startTimer() {
-        val timer = object : CountDownTimer(1320000, 1000) {
+    private fun startTimer() {/*1320000*/
+        cTimer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 var seconds = (millisUntilFinished / 1000).toInt()
                 val minutes = seconds / 60
@@ -201,10 +213,12 @@ class FragmentQuestion :
             }
 
             override fun onFinish() {
-                Toast.makeText(requireContext(), "Finish", Toast.LENGTH_SHORT).show()
+                DialogTimeUp(requireContext()) {
+                    submit()
+                }.show()
             }
         }
-        timer.start()
+        (cTimer as CountDownTimer).start()
     }
 
     private fun filterListSubmit() {
@@ -233,6 +247,28 @@ class FragmentQuestion :
             }
         }
         return countSelect
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cTimer?.cancel()
+        Log.d("AAAAAAAAAAA", "onDestroy")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cTimer?.cancel()
+        Log.d("AAAAAAAAAAA", "onPause")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("AAAAAAAAAAA", "onDestroyView")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("AAAAAAAAAAA", "onStop")
     }
 
     override fun getViewBinding(): FragmentQuestionIqBinding =

@@ -38,7 +38,6 @@ public class ProfileFragment extends BaseFragment {
     public static final String TAG = ProfileFragment.class.getSimpleName();
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

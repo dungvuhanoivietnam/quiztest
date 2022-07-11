@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapter.GetMoreStarsViewHolder> {
     private Context context;
     private ArrayList<TestItem> listData;
-    private RankingAdapter.ItemClickListener itemClickListener;
+    private ItemClickListener listener;
 
     public GetMoreStarsAdapter(Context context) {
         this.context = context;
@@ -29,8 +29,8 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
         this.listData = listData;
     }
 
-    public void setItemClickListener(RankingAdapter.ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public void setListener(ItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,17 +44,6 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
     public void onBindViewHolder(@NonNull GetMoreStarsAdapter.GetMoreStarsViewHolder holder, int position) {
         TestItem item = listData.get(position);
         holder.bindData(item);
-
-        if (itemClickListener != null) {
-            holder.itemView.setOnClickListener(view -> {
-                itemClickListener.onItemClickListener(position);
-            });
-
-            holder.itemView.setOnLongClickListener(view -> {
-                itemClickListener.onItemLongClickListener(position);
-                return false;
-            });
-        }
     }
 
     @Override
@@ -78,12 +67,16 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
             txtTitle.setText(item.getTitle());
             starCanGet.setText(String.format(context.getString(R.string.get_s_star),item.getStarBonus()));
             Glide.with(context).load(item.getImage()).into(ivItem);
+            itemView.setOnClickListener(view -> {
+                if (listener != null){
+                    listener.onClick(item);
+                }
+            });
         }
     }
 
     public interface ItemClickListener {
-        void onItemClickListener(int position);
+        void onClick(TestItem item);
 
-        void onItemLongClickListener(int position);
     }
 }

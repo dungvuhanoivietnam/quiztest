@@ -19,4 +19,10 @@ public class Const {
     public static final int KEY_CODE_500 = 500;
     public static final int KEY_CODE_502 = 502;
 
+    public static final String BEARER = "Bearer ";
+    public static final String DATA = "data";
+    public static final String TOKEN = "token";
+    public static final String TYPE = "type";
+    public static final String LANGUAGE = "language";
+
 }
