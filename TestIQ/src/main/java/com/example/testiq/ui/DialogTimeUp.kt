@@ -10,13 +10,14 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.example.testiq.R
 import com.example.testiq.databinding.DialogResultApiBinding
+import com.example.testiq.databinding.DialogTimeUpBinding
 import com.example.testiq.utils.Status
 
-class DialogResultCallApi(
-    internal var context: Context, var status : Status, var description : String, var onclick : () -> Unit
+class DialogTimeUp(
+    internal var context: Context, var onclick : () -> Unit
 ) : Dialog(context, R.style.MaterialDialogSheet) {
 
-    private val binding = DialogResultApiBinding.inflate(LayoutInflater.from(context))
+    private val binding = DialogTimeUpBinding.inflate(LayoutInflater.from(context))
 
     init {
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -28,14 +29,9 @@ class DialogResultCallApi(
     }
 
     private fun initUI() {
-        binding.label.text = if (Status.SUCCESS == status) "Success" else "Error"
-        binding.description.text = description
-
         binding.submit.setOnClickListener {
             dismiss()
-            if (Status.ERROR == status){
-                onclick.invoke()
-            }
+            onclick.invoke()
         }
     }
 }
