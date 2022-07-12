@@ -32,6 +32,9 @@ class FragmentQuestion :
         if (MainIQActivity.token.isNotEmpty()) {
             viewModel.token = MainIQActivity.token
         }
+        if (MainIQActivity.testId != 0) {
+            viewModel.testId = MainIQActivity.testId
+        }
 
         if (NetworkHelper(requireContext()).isNetworkConnected()) {
             // khi da login

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_6sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_16sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:cardElevation="@dimen/_3sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_item"
+            android:layout_width="@dimen/_74sdp"
+            android:layout_height="@dimen/_74sdp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:background="@drawable/bg_search_corner_8"
+            android:backgroundTint="@color/color_E7F9FF"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/img_test_iq" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_toEndOf="@id/iv_item"
+            android:text="Test IQ"
+            android:textColor="@color/color_22313F"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_total_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_title"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_toEndOf="@id/iv_item"
+            android:text="@string/d_questions"
+            android:textColor="@color/color_8D959D"
+            android:textSize="@dimen/_11sdp" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

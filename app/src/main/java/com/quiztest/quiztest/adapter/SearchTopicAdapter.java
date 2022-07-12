@@ -16,12 +16,12 @@ import com.quiztest.quiztest.model.TestItem;
 
 import java.util.ArrayList;
 
-public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapter.GetMoreStarsViewHolder> {
+public class SearchTopicAdapter extends RecyclerView.Adapter<SearchTopicAdapter.SearchTopicViewHolder> {
     private Context context;
     private ArrayList<TestItem> listData;
     private ItemClickListener itemClickListener;
 
-    public GetMoreStarsAdapter(Context context) {
+    public SearchTopicAdapter(Context context) {
         this.context = context;
     }
 
@@ -35,19 +35,19 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
 
     @NonNull
     @Override
-    public GetMoreStarsAdapter.GetMoreStarsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_all_quiz_new, parent, false);
-        return new GetMoreStarsAdapter.GetMoreStarsViewHolder(v);
+    public SearchTopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_search_result, parent, false);
+        return new SearchTopicViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GetMoreStarsAdapter.GetMoreStarsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchTopicViewHolder holder, int position) {
         TestItem item = listData.get(position);
         holder.bindData(item);
 
         if (itemClickListener != null) {
             holder.itemView.setOnClickListener(view -> {
-                itemClickListener.onItemClickListener(listData.get(position));
+                itemClickListener.onItemClickListener(position);
             });
 
             holder.itemView.setOnLongClickListener(view -> {
@@ -62,27 +62,26 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
         return listData == null ? 0 : listData.size();
     }
 
-    public class GetMoreStarsViewHolder extends RecyclerView.ViewHolder {
-        private ExtTextView txtTitle, starCanGet;
-        private ImageView ivItem;
+    public class SearchTopicViewHolder extends RecyclerView.ViewHolder {
+        private ExtTextView extTitle, totalQuestion;
+        private ImageView imgItem;
 
-        public GetMoreStarsViewHolder(@NonNull View itemView) {
+        public SearchTopicViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.txt_title);
-            ivItem = itemView.findViewById(R.id.iv_item);
-            starCanGet = itemView.findViewById(R.id.star_can_get);
-
+            extTitle = itemView.findViewById(R.id.txt_title);
+            totalQuestion = itemView.findViewById(R.id.ext_total_question);
+            imgItem = itemView.findViewById(R.id.iv_item);
         }
 
         public void bindData(TestItem item) {
-            txtTitle.setText(item.getTitle());
-            starCanGet.setText(String.format(context.getString(R.string.get_s_star),item.getStarBonus()));
-            Glide.with(context).load(item.getImage()).into(ivItem);
+            extTitle.setText(item.getTitle());
+            totalQuestion.setText(item.getTotalQuestionCount());
+            Glide.with(context).load(item.getImage()).into(imgItem);
         }
     }
 
     public interface ItemClickListener {
-        void onItemClickListener(TestItem item);
+        void onItemClickListener(int position);
 
         void onItemLongClickListener(int position);
     }

@@ -12,6 +12,7 @@ import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserRankingResponse;
 import com.quiztest.quiztest.model.UserReponse;
 import com.quiztest.quiztest.model.VerifyEmailResponse;
+import com.quiztest.quiztest.model.WithDrawResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -44,6 +45,12 @@ public interface RequestAPI {
             @Query("password") String password
     );
 
+    @POST("payment/request-withdrawal")
+    Call<WithDrawResponse> requestWithdrawal(
+            @Query("email") String email,
+            @Query("money") int money
+    );
+
 
     @GET("quiz/get-history-participation")
     Call<HistoryResponse> getHistorys(@Query("page") String page);
@@ -62,6 +69,9 @@ public interface RequestAPI {
 
     @GET("quiz/topic-list-by-type/{type}")
     Call<TopicListResponse> getTopicByType(@Path("type") int type);
+
+    @GET("quiz/search-topic")
+    Call<TopicListResponse> searchTopic(@Query("keyword") String keyword);
 
     @Multipart
     @POST("user/change-avatar")

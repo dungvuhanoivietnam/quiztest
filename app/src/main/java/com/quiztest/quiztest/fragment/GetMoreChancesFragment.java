@@ -14,20 +14,28 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testiq.MainIQActivity;
+import com.example.testiq.ui.DialogResultCallApi;
+import com.example.testiq.utils.Status;
+import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.dialog.DialogWithdrawMoney;
+import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.utils.LanguageConfig;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
+import com.quiztest.quiztest.model.WithDrawResponse;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
-public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener {
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
+
+public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener, DialogWithdrawMoney.OnWithDrawClickLisenter, GetMoreStarsAdapter.ItemClickListener {
     public static final int TYPE_GET_MORE_STAR = 1;
     public static final int TYPE_GET_MORE_MONEY = 2;
 
@@ -95,26 +103,11 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
             if (o instanceof TopicListResponse) {
                 currentListTopic = ((TopicListResponse) o).getData().getListTopicByType();
                 getMoreStarsAdapter.setListData(currentListTopic);
+                getMoreStarsAdapter.setItemClickListener(this);
                 rcvGetMoreChance.setAdapter(getMoreStarsAdapter);
             }
             cancelLoading();
         });
-
-        getMoreStarsAdapter.setListener(new GetMoreStarsAdapter.ItemClickListener() {
-            @Override
-            public void onClick(TestItem item) {
-                startActTestIQ("",item);
-            }
-        });
-    }
-
-    private void startActTestIQ(String type, TestItem testItem){
-        Intent intent = new Intent(getContext(), MainIQActivity.class);
-        intent.putExtra(TOKEN, SharePrefrenceUtils.getInstance(mContext).getAuth());
-        intent.putExtra(TYPE, type);
-        intent.putExtra(LANGUAGE, currentLanguage);
-        intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
-        startActivity(intent);
     }
 
     private void setLayoutType(int current_type) {
@@ -130,9 +123,49 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.ext_withdraw_money) {
-            DialogWithdrawMoney dialogWithdrawMoney = new DialogWithdrawMoney(getContext(), R.style.MaterialDialogSheet);
+            DialogWithdrawMoney dialogWithdrawMoney = new DialogWithdrawMoney(getContext(), R.style.MaterialDialogSheet, this);
+            dialogWithdrawMoney.setTotalMoney(totalMoney);
             dialogWithdrawMoney.show();
         }
     }
 
+    @Override
+    public void onWidthDrawClick(String email, int money) {
+        if (userViewModel != null) {
+            showLoading();
+            userViewModel.requestWithDraw(requestAPI, email, money, o -> {
+                if (o instanceof WithDrawResponse) {
+                    if (getContext() != null) {
+                        if (Boolean.TRUE.equals(((WithDrawResponse) o).getSuccess())) {
+                            new DialogResultCallApi(getContext(), Status.SUCCESS, ((WithDrawResponse) o).getMessage(), () -> null).show();
+                        } else {
+                            DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
+                                    ((WithDrawResponse) o).getMessage(), () -> null);
+                            dialogResultCallApi.setTextAndIcon(getString(R.string.minimum_money), R.drawable.ic_error);
+                        }
+                    }
+                } else {
+                    if (getContext() != null) {
+                        DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
+                                getString(R.string.error_message_default), () -> null);
+                        dialogResultCallApi.setTextAndIcon(getString(R.string.error), R.drawable.ic_error);
+                        dialogResultCallApi.show();
+                    }
+                }
+                cancelLoading();
+            });
+        }
+    }
+
+    @Override
+    public void onItemClickListener(TestItem item) {
+        if (getActivity() != null) {
+            ((MainActivity) getActivity()).startActTestIQ("", item);
+        }
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+
+    }
 }

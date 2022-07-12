@@ -4,6 +4,9 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import com.example.testiq.databinding.ActivityMainIqBinding
 import com.example.testiq.ui.BaseFragment
+import com.example.testiq.ui.DialogResultCallApi
+import com.example.testiq.utils.NetworkHelper
+import com.example.testiq.utils.Status
 import com.example.testiq.viewmodel.MainViewModel
 import java.util.*
 

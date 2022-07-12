@@ -24,5 +24,6 @@ public class Const {
     public static final String TOKEN = "token";
     public static final String TYPE = "type";
     public static final String LANGUAGE = "language";
+    public static final String TEST_ID = "test_id";
 
 }

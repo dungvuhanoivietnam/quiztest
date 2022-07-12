@@ -38,4 +38,9 @@ class DialogResultCallApi(
             }
         }
     }
+
+    fun setTextAndIcon(title:String, icon: Int ){
+        binding.label.text = title
+        binding.icon.setImageResource(icon)
+    }
 }
