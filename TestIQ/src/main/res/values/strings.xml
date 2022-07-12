@@ -11,5 +11,6 @@
 
     <string name="txt_gift_baskets_stars"><![CDATA[Get<font color=#21C3FF> %s </font>stars!]]></string>
     <string name="txt_gift_baskets_dollars"><![CDATA[Get<font color=#21C3FF> %s </font>dollars!]]></string>
+    <string name="link_share">https://www.quizoid.info/home</string>
 
 </resources>

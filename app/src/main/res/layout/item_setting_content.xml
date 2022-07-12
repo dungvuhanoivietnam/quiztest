@@ -24,15 +24,6 @@
             android:maxLines="1"
             android:padding="@dimen/_9sdp"
             android:textSize="@dimen/_14sdp" />
-
-        <com.quiztest.quiztest.custom.ExtTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:background="@color/white"
-            android:text="@string/name"
-            android:textColor="@color/color_8D959D" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,14 +43,6 @@
             android:padding="@dimen/_9sdp"
             android:textSize="@dimen/_14sdp" />
 
-        <com.quiztest.quiztest.custom.ExtTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:background="@color/white"
-            android:text="@string/gmail"
-            android:textColor="@color/color_8D959D" />
     </RelativeLayout>
 
     <FrameLayout
@@ -83,15 +66,6 @@
             android:text="12345678"
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp" />
-
-        <com.quiztest.quiztest.custom.ExtTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:background="@color/white"
-            android:text="@string/password"
-            android:textColor="@color/color_8D959D" />
 
         <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/txt_change_info"
@@ -246,18 +220,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_8sdp"
                         android:text="@string/link"
-                        android:textColor="@color/color_22313F"
+                        android:textColor="@color/color_B8BDC2"
                         android:textSize="@dimen/_12sdp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_marginRight="@dimen/_3sdp"
-                    android:background="@color/color_DFE0E1" />
             </LinearLayout>
 
         </LinearLayout>
