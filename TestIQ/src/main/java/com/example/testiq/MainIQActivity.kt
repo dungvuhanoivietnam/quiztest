@@ -22,7 +22,7 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
 
         intent.getStringExtra("token")?.let {
             if (intent.getStringExtra("token")?.isNotEmpty() == true) {
-                token = it
+                token = "Bearer $it"
             }
         }
 
