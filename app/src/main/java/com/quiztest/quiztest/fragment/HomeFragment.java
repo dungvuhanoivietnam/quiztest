@@ -1,6 +1,5 @@
 package com.quiztest.quiztest.fragment;
 
-import static com.quiztest.quiztest.utils.Const.BEARER;
 import static com.quiztest.quiztest.utils.Const.DATA;
 import static com.quiztest.quiztest.utils.Const.LANGUAGE;
 import static com.quiztest.quiztest.utils.Const.TOKEN;
@@ -134,7 +133,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     private void startActTestIQ(String type, TestItem testItem){
         Intent intent = new Intent(getContext(), MainIQActivity.class);
-        intent.putExtra(TOKEN, BEARER+ SharePrefrenceUtils.getInstance(mContext).getAuth());
+        intent.putExtra(TOKEN, SharePrefrenceUtils.getInstance(mContext).getAuth());
         intent.putExtra(TYPE, type);
         intent.putExtra(LANGUAGE, currentLanguage);
         intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
