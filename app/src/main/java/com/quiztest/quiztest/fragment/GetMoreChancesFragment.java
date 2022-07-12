@@ -17,6 +17,7 @@ import com.quiztest.quiztest.dialog.DialogWithdrawMoney;
 import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.TopicListResponse;
+import com.quiztest.quiztest.model.WithDrawResponse;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     public void onClick(View v) {
         if (v.getId() == R.id.ext_withdraw_money) {
             DialogWithdrawMoney dialogWithdrawMoney = new DialogWithdrawMoney(getContext(), R.style.MaterialDialogSheet, this);
+            dialogWithdrawMoney.setTotalMoney(totalMoney);
             dialogWithdrawMoney.show();
         }
     }
@@ -114,13 +116,13 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
         if (userViewModel != null) {
             showLoading();
             userViewModel.requestWithDraw(requestAPI, email, money, o -> {
-                if (o instanceof AuthResponse) {
+                if (o instanceof WithDrawResponse) {
                     if (getContext() != null) {
-                        if (Boolean.TRUE.equals(((AuthResponse) o).getSuccess())) {
-                            new DialogResultCallApi(getContext(), Status.SUCCESS, ((AuthResponse) o).getMessage()).show();
+                        if (Boolean.TRUE.equals(((WithDrawResponse) o).getSuccess())) {
+                            new DialogResultCallApi(getContext(), Status.SUCCESS, ((WithDrawResponse) o).getMessage()).show();
                         } else {
                             DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
-                                    ((AuthResponse) o).getMessage());
+                                    ((WithDrawResponse) o).getMessage());
                             dialogResultCallApi.setTextAndIcon(getString(R.string.minimum_money), R.drawable.ic_error);
                         }
                     }

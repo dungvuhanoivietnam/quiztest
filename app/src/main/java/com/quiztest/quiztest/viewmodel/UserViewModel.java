@@ -17,6 +17,7 @@ import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserRankingResponse;
+import com.quiztest.quiztest.model.WithDrawResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 
 import java.io.File;
@@ -138,7 +139,7 @@ public class UserViewModel extends ViewModel {
         }
     }
 
-    private class callBackWithDraw implements Callback<AuthResponse> {
+    private class callBackWithDraw implements Callback<WithDrawResponse> {
 
         private Consumer consumer;
 
@@ -147,17 +148,17 @@ public class UserViewModel extends ViewModel {
         }
 
         @Override
-        public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-            AuthResponse authResponse = response.body();
-            if (authResponse != null) {
-                consumer.accept(authResponse);
+        public void onResponse(Call<WithDrawResponse> call, Response<WithDrawResponse> response) {
+            WithDrawResponse withDrawResponse = response.body();
+            if (withDrawResponse != null) {
+                consumer.accept(withDrawResponse);
             } else {
                 consumer.accept(response.code());
             }
         }
 
         @Override
-        public void onFailure(Call<AuthResponse> call, Throwable t) {
+        public void onFailure(Call<WithDrawResponse> call, Throwable t) {
             consumer.accept(t);
         }
     }

@@ -21,8 +21,9 @@ import com.quiztest.quiztest.model.AuthResponse;
 
 public class DialogWithdrawMoney extends Dialog {
     private ExtEditText edtAccountAddress, edtWithdrawalAmount;
-    private ExtTextView extWithdrawMoney;
+    private ExtTextView extWithdrawMoney, extAll;
     private OnWithDrawClickLisenter onWithDrawClickLisenter;
+    private int totalMoney;
 
     public DialogWithdrawMoney(@NonNull Context context, int themeResId, OnWithDrawClickLisenter lisenter) {
         super(context, themeResId);
@@ -57,12 +58,21 @@ public class DialogWithdrawMoney extends Dialog {
                 dismiss();
             }
         });
+        extAll.setOnClickListener(v -> {
+            edtWithdrawalAmount.setText(totalMoney + "");
+            edtWithdrawalAmount.setSelection(edtWithdrawalAmount.getText().toString().length());
+        });
     }
 
     private void initView() {
         edtAccountAddress = findViewById(R.id.edt_account_address);
         edtWithdrawalAmount = findViewById(R.id.edt_withdrawal_amount);
         extWithdrawMoney = findViewById(R.id.ext_withdraw_money);
+        extAll = findViewById(R.id.ext_all);
+    }
+
+    public void setTotalMoney(int totalMoney) {
+        this.totalMoney = totalMoney;
     }
 
     public interface OnWithDrawClickLisenter {

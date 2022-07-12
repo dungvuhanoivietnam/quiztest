@@ -110,6 +110,7 @@
             android:textStyle="normal" />
 
         <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical |end"

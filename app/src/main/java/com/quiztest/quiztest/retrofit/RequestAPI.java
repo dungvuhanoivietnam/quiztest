@@ -11,6 +11,7 @@ import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserRankingResponse;
 import com.quiztest.quiztest.model.UserReponse;
 import com.quiztest.quiztest.model.VerifyEmailResponse;
+import com.quiztest.quiztest.model.WithDrawResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -44,7 +45,7 @@ public interface RequestAPI {
     );
 
     @POST("payment/request-withdrawal")
-    Call<AuthResponse> requestWithdrawal(
+    Call<WithDrawResponse> requestWithdrawal(
             @Query("email") String email,
             @Query("money") int money
     );
