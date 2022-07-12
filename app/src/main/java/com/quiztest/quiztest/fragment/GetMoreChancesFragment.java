@@ -32,6 +32,9 @@ import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
+
 public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener, DialogWithdrawMoney.OnWithDrawClickLisenter, GetMoreStarsAdapter.ItemClickListener {
     public static final int TYPE_GET_MORE_STAR = 1;
     public static final int TYPE_GET_MORE_MONEY = 2;
@@ -134,17 +137,17 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
                 if (o instanceof WithDrawResponse) {
                     if (getContext() != null) {
                         if (Boolean.TRUE.equals(((WithDrawResponse) o).getSuccess())) {
-                            new DialogResultCallApi(getContext(), Status.SUCCESS, ((WithDrawResponse) o).getMessage()).show();
+                            new DialogResultCallApi(getContext(), Status.SUCCESS, ((WithDrawResponse) o).getMessage(), () -> null).show();
                         } else {
                             DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
-                                    ((WithDrawResponse) o).getMessage());
+                                    ((WithDrawResponse) o).getMessage(), () -> null);
                             dialogResultCallApi.setTextAndIcon(getString(R.string.minimum_money), R.drawable.ic_error);
                         }
                     }
                 } else {
                     if (getContext() != null) {
                         DialogResultCallApi dialogResultCallApi = new DialogResultCallApi(getContext(), Status.ERROR,
-                                getString(R.string.error_message_default));
+                                getString(R.string.error_message_default), () -> null);
                         dialogResultCallApi.setTextAndIcon(getString(R.string.error), R.drawable.ic_error);
                         dialogResultCallApi.show();
                     }

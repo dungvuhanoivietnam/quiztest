@@ -105,9 +105,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         if (getActivity() != null) {
             userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         }
-        getMoreStarsAdapter.setListener(item -> {
-            startActTestIQ("", item);
-        });
+//        getMoreStarsAdapter.setListener(item -> {
+//            startActTestIQ("", item);
+//        });
         initDataUser();
         initDataTest();
 

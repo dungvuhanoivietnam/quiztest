@@ -16,12 +16,6 @@ class FragmentIQStart :
     override val viewModel: MainViewModel by viewModels()
 
     override fun setupViews() {
-
-        if (NetworkHelper(requireContext()).isNetworkConnected()) {
-            viewModel.fetchDetailQuestion(MainIQActivity.testId)
-        } else {
-            DialogResultCallApi(requireContext(), Status.ERROR, "Connect internet").show()
-        }
         with(binding) {
             description.text =
                 HtmlCompat.fromHtml(
