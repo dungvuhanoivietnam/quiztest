@@ -4,6 +4,9 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import com.example.testiq.databinding.ActivityMainIqBinding
 import com.example.testiq.ui.BaseFragment
+import com.example.testiq.ui.DialogResultCallApi
+import com.example.testiq.utils.NetworkHelper
+import com.example.testiq.utils.Status
 import com.example.testiq.viewmodel.MainViewModel
 import java.util.*
 
@@ -13,6 +16,12 @@ class FragmentIQStart :
     override val viewModel: MainViewModel by viewModels()
 
     override fun setupViews() {
+
+        if (NetworkHelper(requireContext()).isNetworkConnected()) {
+            viewModel.fetchDetailQuestion(MainIQActivity.testId)
+        } else {
+            DialogResultCallApi(requireContext(), Status.ERROR, "Connect internet").show()
+        }
         with(binding) {
             description.text =
                 HtmlCompat.fromHtml(

@@ -61,7 +61,7 @@ public class EarningTasksAdapter extends RecyclerView.Adapter<EarningTasksAdapte
         }
         if (itemClickListener != null) {
             holder.itemView.setOnClickListener(view -> {
-                itemClickListener.onItemClickListener(position);
+                itemClickListener.onItemClickListener(listData.get(position));
             });
 
             holder.itemView.setOnLongClickListener(view -> {
@@ -100,7 +100,7 @@ public class EarningTasksAdapter extends RecyclerView.Adapter<EarningTasksAdapte
     }
 
     public interface ItemClickListener {
-        void onItemClickListener(int position);
+        void onItemClickListener(TestItem item);
 
         void onItemLongClickListener(int position);
     }

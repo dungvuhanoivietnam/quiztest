@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapter.GetMoreStarsViewHolder> {
     private Context context;
     private ArrayList<TestItem> listData;
-    private RankingAdapter.ItemClickListener itemClickListener;
+    private ItemClickListener itemClickListener;
 
     public GetMoreStarsAdapter(Context context) {
         this.context = context;
@@ -29,7 +29,7 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
         this.listData = listData;
     }
 
-    public void setItemClickListener(RankingAdapter.ItemClickListener itemClickListener) {
+    public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
@@ -47,7 +47,7 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
 
         if (itemClickListener != null) {
             holder.itemView.setOnClickListener(view -> {
-                itemClickListener.onItemClickListener(position);
+                itemClickListener.onItemClickListener(listData.get(position));
             });
 
             holder.itemView.setOnLongClickListener(view -> {
@@ -82,7 +82,7 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
     }
 
     public interface ItemClickListener {
-        void onItemClickListener(int position);
+        void onItemClickListener(TestItem item);
 
         void onItemLongClickListener(int position);
     }

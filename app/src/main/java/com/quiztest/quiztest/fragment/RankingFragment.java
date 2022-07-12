@@ -130,6 +130,15 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
                 if (o instanceof UserRankingResponse) {
                     listUserWeeklyRanking = ((UserRankingResponse) o).getData();
                     rankingAdapter.setListData(listUserWeeklyRanking);
+                    if (UserInfoResponse.getInstance() != null) {
+                        for (int i = 0; i < listUserWeeklyRanking.size(); i++) {
+                            if (listUserWeeklyRanking.get(i).getId() == UserInfoResponse.getInstance().getData().getUserInfo().getId()) {
+                                currentWeeklyRanking = i + 1;
+                                break;
+                            }
+                        }
+                    }
+                    setRanking(currentWeeklyRanking);
                     rankingAdapter.notifyDataSetChanged();
                 }
                 cancelLoading();
@@ -138,28 +147,18 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
             userViewModel.getUserRankingByType(requestAPI, AllTimeRanking, o -> {
                 if (o instanceof UserRankingResponse) {
                     listUserAllTimeRanking = ((UserRankingResponse) o).getData();
+                    if (UserInfoResponse.getInstance() != null) {
+                        for (int i = 0; i < listUserAllTimeRanking.size(); i++) {
+                            if (listUserAllTimeRanking.get(i).getId() == UserInfoResponse.getInstance().getData().getUserInfo().getId()) {
+                                currentAllTimeRanking = i + 1;
+                                break;
+                            }
+                        }
+                    }
                 }
                 cancelLoading();
             });
         }
-        if (UserInfoResponse.getInstance() != null) {
-            for (int i = 0; i < listUserWeeklyRanking.size(); i++) {
-                if (listUserWeeklyRanking.get(i).getId() == UserInfoResponse.getInstance().getData().getUserInfo().getId()) {
-                    currentWeeklyRanking = i + 1;
-                    break;
-                }
-            }
-        }
-
-        if (UserInfoResponse.getInstance() != null) {
-            for (int i = 0; i < listUserAllTimeRanking.size(); i++) {
-                if (listUserAllTimeRanking.get(i).getId() == UserInfoResponse.getInstance().getData().getUserInfo().getId()) {
-                    currentAllTimeRanking = i + 1;
-                    break;
-                }
-            }
-        }
-        setRanking(currentWeeklyRanking);
         recyclerViewRanking.setAdapter(rankingAdapter);
     }
 
@@ -175,7 +174,7 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
         }
         if (view.getId() == R.id.ext_overall_rating) {
             if (rankingAdapter != null) {
-                setRanking(currentWeeklyRanking);
+                setRanking(currentAllTimeRanking);
                 rankingAdapter.setListData(listUserAllTimeRanking);
                 rankingAdapter.notifyDataSetChanged();
             }

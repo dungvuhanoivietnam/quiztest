@@ -1,5 +1,11 @@
 package com.quiztest.quiztest;
 
+import static com.quiztest.quiztest.utils.Const.BEARER;
+import static com.quiztest.quiztest.utils.Const.DATA;
+import static com.quiztest.quiztest.utils.Const.TEST_ID;
+import static com.quiztest.quiztest.utils.Const.TOKEN;
+import static com.quiztest.quiztest.utils.Const.TYPE;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PorterDuff;
@@ -25,6 +31,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.testiq.MainIQActivity;
 import com.quiztest.MyCustomOnboarder;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.callback.ActivityResultFragment;
@@ -33,6 +40,8 @@ import com.quiztest.quiztest.fragment.HomeFragment;
 import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.fragment.SettingFragment;
+import com.quiztest.quiztest.model.TestItem;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -296,6 +305,15 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+    }
+
+    public void startActTestIQ(String type, TestItem testItem){
+        Intent intent = new Intent(this, MainIQActivity.class);
+        intent.putExtra(TOKEN, BEARER+ SharePrefrenceUtils.getInstance(this).getAuth());
+        intent.putExtra(TYPE, type);
+        intent.putExtra(TEST_ID, testItem.getId());
+        intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
+        startActivity(intent);
     }
 
     private void onBackStackChangePassSuccess() {

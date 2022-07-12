@@ -43,7 +43,8 @@ import java.util.ArrayList;
 import retrofit2.Retrofit;
 
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener, EarningTasksAdapter.ItemClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, EarningTasksAdapter.ItemClickListener,
+        GetMoreStarsAdapter.ItemClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney, extName, extStarCount, extMoneyCount;
@@ -114,6 +115,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                     currentListEarningTasks = ((HomeDataResponse) o).getData().getListEarningTasks();
                     currentListGetMoreStars = ((HomeDataResponse) o).getData().getListGetMoreStars();
                     getMoreStarsAdapter.setListData(currentListGetMoreStars);
+                    getMoreStarsAdapter.setItemClickListener(this);
                     rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
 
                     earningTasksAdapter.setListData(currentListEarningTasks);
@@ -256,8 +258,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
-    public void onItemClickListener(int position) {
-        startActTestIQ("",currentListEarningTasks.get(position));
+    public void onItemClickListener(TestItem item) {
+        startActTestIQ("",item);
     }
 
     @Override

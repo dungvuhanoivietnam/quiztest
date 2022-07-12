@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testiq.ui.DialogResultCallApi;
 import com.example.testiq.utils.Status;
+import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -22,7 +23,7 @@ import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 
-public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener, DialogWithdrawMoney.OnWithDrawClickLisenter {
+public class GetMoreChancesFragment extends BaseFragment implements View.OnClickListener, DialogWithdrawMoney.OnWithDrawClickLisenter, GetMoreStarsAdapter.ItemClickListener {
     public static final int TYPE_GET_MORE_STAR = 1;
     public static final int TYPE_GET_MORE_MONEY = 2;
 
@@ -86,6 +87,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
             if (o instanceof TopicListResponse) {
                 currentListTopic = ((TopicListResponse) o).getData().getListTopicByType();
                 getMoreStarsAdapter.setListData(currentListTopic);
+                getMoreStarsAdapter.setItemClickListener(this);
                 rcvGetMoreChance.setAdapter(getMoreStarsAdapter);
             }
             cancelLoading();
@@ -137,5 +139,17 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
                 cancelLoading();
             });
         }
+    }
+
+    @Override
+    public void onItemClickListener(TestItem item) {
+        if (getActivity() != null) {
+            ((MainActivity) getActivity()).startActTestIQ("", item);
+        }
+    }
+
+    @Override
+    public void onItemLongClickListener(int position) {
+
     }
 }

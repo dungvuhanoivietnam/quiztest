@@ -7,10 +7,7 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.example.testiq.model.ConfirmOpenGifResponse
-import com.example.testiq.model.QuestionModel
-import com.example.testiq.model.QuizTestResponse
-import com.example.testiq.model.SubmitQuizTestResponse
+import com.example.testiq.model.*
 import com.example.testiq.utils.Resource
 import com.google.gson.Gson
 import org.json.JSONObject
@@ -23,6 +20,8 @@ class MainViewModel(
     private val _users = MutableLiveData<Resource<QuizTestResponse>>()
     private val _submit = MutableLiveData<Resource<SubmitQuizTestResponse>>()
     private val _confirmOpenGif = MutableLiveData<Resource<ConfirmOpenGifResponse>>()
+    private val _question = MutableLiveData<Resource<DetailTopicResponse>>()
+    var testId : Int = 0
 
     var lstQuestion = ArrayList<QuestionModel>()
     var questionModel : QuestionModel? = null
@@ -39,6 +38,9 @@ class MainViewModel(
 
     val confirmOpenGifs: LiveData<Resource<ConfirmOpenGifResponse>>
         get() = _confirmOpenGif
+
+    val detailTopic: LiveData<Resource<DetailTopicResponse>>
+        get() = _question
 
      fun fetchQuestion() {
          _users.postValue(Resource.loading(null))
@@ -63,6 +65,30 @@ class MainViewModel(
                      _users.postValue(Resource.error("Failed connection...",null))
                  }
              })
+    }
+
+    fun fetchDetailQuestion(testId :Int) {
+        _users.postValue(Resource.loading(null))
+        AndroidNetworking.get("https://quiz-test.merryblue.llc/api/v1/quiz/get-detail-topic/$testId")
+            .addHeaders("Authorization", token)
+            .addHeaders("key-app", "quiztest")
+            .setTag("test")
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject?) {
+                    val dataResponse : DetailTopicResponse = Gson().fromJson(
+                        response.toString(),
+                        DetailTopicResponse::class.java
+                    )
+                    _question.postValue(Resource.success(dataResponse))
+                }
+
+                override fun onError(error: ANError) {
+                    // handle error
+                    _users.postValue(Resource.error("Failed connection...",null))
+                }
+            })
     }
 
     fun fetChQuestionNoToken(){
