@@ -305,8 +305,8 @@ class RegisterFragment : BaseFragment() {
             isSuccessName = false
             return
         }
-        binding.txtErrorPass.isVisible = false
-        binding.edtPass.setBackgroundResource(R.drawable.boarde_blue_21)
+        binding.txtErrorName.isVisible = false
+        binding.edtName.setBackgroundResource(R.drawable.boarde_blue_21)
         isSuccessName = true
     }
 
