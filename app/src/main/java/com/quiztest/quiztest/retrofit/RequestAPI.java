@@ -88,7 +88,7 @@ public interface RequestAPI {
                                    @Query("access_token") String accessToken,
                                    @Query("device_id") String deviceId,
                                    @Query("language") String language);
-    @POST("user/change-language")
+    @PUT("user/change-language")
     Call<ChangeLanguageResponse> changeLanguage(@Query("language") String language);
 
     @POST("auth/resend-otp")
