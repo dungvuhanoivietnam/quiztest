@@ -44,7 +44,8 @@ import java.util.ArrayList;
 import retrofit2.Retrofit;
 
 
-public class HomeFragment extends BaseFragment implements View.OnClickListener, RankingAdapter.ItemClickListener {
+public class HomeFragment extends BaseFragment implements View.OnClickListener, EarningTasksAdapter.ItemClickListener,
+        GetMoreStarsAdapter.ItemClickListener {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private ExtTextView extLogin, ivGetMoreStar, ivGetMoreMoney, extName, extStarCount, extMoneyCount;
@@ -120,6 +121,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                     currentListEarningTasks = ((HomeDataResponse) o).getData().getListEarningTasks();
                     currentListGetMoreStars = ((HomeDataResponse) o).getData().getListGetMoreStars();
                     getMoreStarsAdapter.setListData(currentListGetMoreStars);
+                    getMoreStarsAdapter.setItemClickListener(this);
                     rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
 
                     earningTasksAdapter.setListData(currentListEarningTasks);
@@ -177,7 +179,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         int total_money = currentUser.getData().getUserInfo().getTotalMoney();
         int total_star = currentUser.getData().getUserInfo().getTotalStar();
         if (!TextUtils.isEmpty(avatar)) {
-            Glide.with(mContext).load(avatar).circleCrop().into(ivAvatar);
+            Glide.with(mContext).load(avatar)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_create_account_profile)
+                    .error(R.drawable.ic_create_account_profile)
+                    .into(ivAvatar);
         }
         extMoneyCount.setText(getString(R.string.value_, total_money));
         extStarCount.setText(getString(R.string.value_, total_star));
@@ -259,8 +265,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
-    public void onItemClickListener(int position) {
-        startActTestIQ("",currentListEarningTasks.get(position));
+    public void onItemClickListener(TestItem item) {
+        startActTestIQ("",item);
     }
 
     @Override

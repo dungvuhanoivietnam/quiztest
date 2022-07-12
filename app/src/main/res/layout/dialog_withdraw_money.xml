@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_marginStart="@dimen/_16sdp"
     android:layout_marginEnd="@dimen/_16sdp"
-    android:backgroundTint="@color/white"
     android:background="@drawable/bg_search_corner_8"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical"
     android:padding="@dimen/_20sdp">
 
     <com.quiztest.quiztest.custom.ExtTextView
@@ -56,11 +56,26 @@
         android:text="@string/your_account_address"
         android:textSize="@dimen/_12sdp" />
 
-    <com.quiztest.quiztest.custom.ExtEditTextApp
+    <!--    <com.quiztest.quiztest.custom.ExtEditTextApp-->
+    <!--        android:id="@+id/edt_account_address"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textSize="@dimen/_16sdp" />-->
+    <com.quiztest.quiztest.custom.ExtEditText
         android:id="@+id/edt_account_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_16sdp" />
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/boarder"
+        android:ellipsize="end"
+        android:hint="@string/input_your_account"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingVertical="@dimen/_9sdp"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingEnd="@dimen/_12sdp"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="normal" />
 
     <com.quiztest.quiztest.custom.ExtTextView
         android:layout_width="wrap_content"
@@ -71,19 +86,35 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp">
 
-        <com.quiztest.quiztest.custom.ExtEditTextApp
+        <!--        <com.quiztest.quiztest.custom.ExtEditTextApp-->
+        <!--            android:id="@+id/edt_withdrawal_amount"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:textSize="@dimen/_16sdp" />-->
+        <com.quiztest.quiztest.custom.ExtEditText
             android:id="@+id/edt_withdrawal_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_16sdp" />
+            android:background="@drawable/boarder"
+            android:ellipsize="end"
+            android:hint="@string/please_enter_withdrawal_amount"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/_9sdp"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_32sdp"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="normal" />
 
         <com.quiztest.quiztest.custom.ExtTextView
+            android:id="@+id/ext_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom |end"
-            android:padding="@dimen/_12sdp"
+            android:layout_gravity="center_vertical |end"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:text="@string/all"
             android:textColor="@color/color_21C3FF"
             android:textSize="@dimen/_14sdp" />

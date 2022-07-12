@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -63,7 +64,9 @@ public class ExtEditTextApp extends FrameLayout {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                consumer.accept(false);
+                if (consumer!=null) {
+                    consumer.accept(false);
+                }
                 if ("".equals(charSequence.toString())) {
                     addTextChange(TYPE_ERROR.NOT_CHANGE);
                 } else {
@@ -140,6 +143,14 @@ public class ExtEditTextApp extends FrameLayout {
 
     public void setHint(String hint) {
         edtContent.setHint(hint);
+    }
+
+    public void setHintColor(int color) {
+        edtContent.setHintTextColor(color);
+    }
+
+    public void setInputType(int inputType) {
+        edtContent.setInputType(inputType);
     }
 
     public void setConsumerTextChange(Consumer<String> consumerTextChange) {

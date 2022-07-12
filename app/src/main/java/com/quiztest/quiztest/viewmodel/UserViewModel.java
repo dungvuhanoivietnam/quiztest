@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
+import com.quiztest.quiztest.model.AuthResponse;
 import com.quiztest.quiztest.model.BaseResponse;
 import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.model.ChangePassResponse;
@@ -16,6 +17,7 @@ import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UploadAvatarResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserRankingResponse;
+import com.quiztest.quiztest.model.WithDrawResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 
 import java.io.File;
@@ -137,6 +139,30 @@ public class UserViewModel extends ViewModel {
         }
     }
 
+    private class callBackWithDraw implements Callback<WithDrawResponse> {
+
+        private Consumer consumer;
+
+        public callBackWithDraw(Consumer consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void onResponse(Call<WithDrawResponse> call, Response<WithDrawResponse> response) {
+            WithDrawResponse withDrawResponse = response.body();
+            if (withDrawResponse != null) {
+                consumer.accept(withDrawResponse);
+            } else {
+                consumer.accept(response.code());
+            }
+        }
+
+        @Override
+        public void onFailure(Call<WithDrawResponse> call, Throwable t) {
+            consumer.accept(t);
+        }
+    }
+
     private class callBackGetTopicByType implements Callback<TopicListResponse> {
 
         private Consumer consumer;
@@ -147,8 +173,18 @@ public class UserViewModel extends ViewModel {
 
         @Override
         public void onResponse(Call<TopicListResponse> call, Response<TopicListResponse> response) {
-            TopicListResponse topicListResponse = response.body();
-            consumer.accept(topicListResponse);
+            if (response.body() != null) {
+                if (response.body() instanceof TopicListResponse) {
+                    TopicListResponse topicListResponse = response.body();
+                    consumer.accept(topicListResponse);
+                } else {
+                    //show error
+                    consumer.accept(response.code());
+                }
+            }else {
+                //show error
+                consumer.accept(response.code());
+            }
         }
 
         @Override
@@ -228,8 +264,17 @@ public class UserViewModel extends ViewModel {
         requestAPI.getTopicByType(type).enqueue(new callBackGetTopicByType(consumer));
     }
 
+    public void searchTopics(RequestAPI requestAPI, String keyword, Consumer consumer){
+        requestAPI.searchTopic(keyword).enqueue(new callBackGetTopicByType(consumer));
+    }
+
     public void getUserRankingByType(RequestAPI requestAPI, String type, Consumer consumer){
         requestAPI.getRankingStarByType(type).enqueue(new callBackGetRankingByType(consumer));
+    }
+
+
+    public void requestWithDraw(RequestAPI requestAPI, String email, int money, Consumer consumer){
+        requestAPI.requestWithdrawal(email, money).enqueue(new callBackWithDraw(consumer));
     }
 
     private static class callBackLogout implements Callback<BaseResponse> {

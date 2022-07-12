@@ -111,7 +111,7 @@ public class UserInfoResponse {
         @Expose
         private Object facebookProviderId;
 
-        public Integer getId() {
+        public int getId() {
             return id;
         }
 

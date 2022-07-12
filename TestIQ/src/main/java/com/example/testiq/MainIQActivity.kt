@@ -16,6 +16,7 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
         var language : String = ""
         var moneyBonus : String = ""
         var feeStar : String = ""
+        var testId :Int = 0
     }
 
     override fun initView() {
@@ -36,6 +37,10 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
             val data = it.split(",")
             moneyBonus = data[0]
             feeStar = data[1]
+        }
+
+        intent.getIntExtra("test_id", 0).let {
+            testId = it
         }
 
         addFragment(R.id.frame_layout, FragmentIQStart(), FragmentIQStart::class.java.simpleName)

@@ -139,5 +139,11 @@
     <string name="text_done">Done</string>
     <string name="text_notice">Notice</string>
     <string name="text_error_re_enter_pass">Re-entered password does not match</string>
+    <string name="default_web_client_id">288710554517-1ilvbqq05l8vpi2amm1v71hknetvl42h.apps.googleusercontent.com</string>
+    <string name="d_questions">%d questions</string>
+    <string name="result_d">Result (%d)</string>
+    <string name="top_d">Top %d</string>
+    <string name="error_message_default">An error occurred, please try again later</string>
+    <string name="minimum_money">Minimum money</string>
 
 </resources>

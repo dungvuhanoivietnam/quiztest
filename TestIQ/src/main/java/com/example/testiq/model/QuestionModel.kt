@@ -1,7 +1,5 @@
 package com.example.testiq.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -10,6 +8,55 @@ data class QuizTestResponse(
     @SerializedName("data") var data: Data?,
     @SerializedName("message") var message: String?,
 )
+
+class DetailTopicResponse {
+    @SerializedName("success") var success: Boolean? = null
+
+    @SerializedName("message") var message: String? = null
+
+    @SerializedName("data")
+    @Expose
+    private val data: Data? = null
+
+    inner class Data {
+        @SerializedName("id")
+        @Expose
+        var id = 0
+
+        @SerializedName("title")
+        @Expose
+        var title: String? = null
+
+        @SerializedName("description")
+        @Expose
+        var description: String? = null
+
+        @SerializedName("time_to_do")
+        @Expose
+        var timeToDo: Int? = null
+
+        @SerializedName("allotment")
+        @Expose
+        var allotment: String? = null
+
+        @SerializedName("money_bonus")
+        @Expose
+        var moneyBonus: Int? = null
+
+        @SerializedName("star_bonus")
+        @Expose
+        var starBonus: Int? = null
+
+        @SerializedName("fee_star")
+        @Expose
+        var feeStar: Int? = null
+
+        @SerializedName("total_question_count")
+        @Expose
+        var totalQuestionCount: Int? = null
+    }
+}
+
 
 data class Data(
     @SerializedName("questions") var questions: ArrayList<QuestionModel>?,
