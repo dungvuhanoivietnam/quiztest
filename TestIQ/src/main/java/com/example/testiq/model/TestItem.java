@@ -1,11 +1,11 @@
-package com.quiztest.quiztest.model;
+package com.example.testiq.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.testiq.utils.StarEnum;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.quiztest.quiztest.utils.StarEnum;
 
 public class TestItem implements Parcelable {
     @SerializedName("id")

@@ -16,7 +16,7 @@ class DetailTopicResponse {
 
     @SerializedName("data")
     @Expose
-    private val data: Data? = null
+    val data: Data? = null
 
     inner class Data {
         @SerializedName("id")

@@ -6,10 +6,12 @@ import static com.quiztest.quiztest.utils.Const.TOKEN;
 import static com.quiztest.quiztest.utils.Const.TYPE;
 
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,6 +78,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
         ivBack = v.findViewById(R.id.iv_back);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void initData() {
 
@@ -96,6 +99,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
         extMoneyCount.setText(getString(R.string.value_, totalMoney));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getTopicByType(int current_type) {
         showLoading();
         getMoreStarsAdapter = new GetMoreStarsAdapter(mContext);

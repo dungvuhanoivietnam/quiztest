@@ -1,8 +1,11 @@
 package com.example.testiq
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import com.example.testiq.databinding.ActivityMainTestIqBinding
+import com.example.testiq.model.TestItem
 import com.example.testiq.ui.BaseActivity
+import com.example.testiq.utils.Const
 import com.example.testiq.viewmodel.MainIQViewModel
 
 
@@ -12,11 +15,12 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
 
     companion object {
         var token: String = ""
-        var type : String = ""
-        var language : String = ""
-        var moneyBonus : String = ""
-        var feeStar : String = ""
-        var testId :Int = 0
+        var type: String = ""
+        var language: String = ""
+        var moneyBonus: String = ""
+        var feeStar: String = ""
+        var testId: Int = 0
+        var testType: String? = null
     }
 
     override fun initView() {
@@ -43,7 +47,16 @@ class MainIQActivity : BaseActivity<MainIQViewModel, ActivityMainTestIqBinding>(
             testId = it
         }
 
-        addFragment(R.id.frame_layout, FragmentIQStart(), FragmentIQStart::class.java.simpleName)
+        intent.getStringExtra(Const.TEST_TYPE).let {
+            testType = it
+        }
+
+        var bundle = Bundle()
+        var fragmentIQStart = FragmentIQStart()
+        bundle.putInt(Const.TEST_ID, testId)
+        bundle.putString(Const.TEST_TYPE, testType)
+        fragmentIQStart.arguments = bundle
+        addFragment(R.id.frame_layout, fragmentIQStart, FragmentIQStart::class.java.simpleName)
     }
 
     override fun getViewBinding(): ActivityMainTestIqBinding =

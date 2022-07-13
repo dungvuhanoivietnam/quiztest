@@ -28,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -42,12 +41,12 @@ import com.quiztest.quiztest.fragment.ProfileFragment;
 import com.quiztest.quiztest.fragment.RankingFragment;
 import com.quiztest.quiztest.fragment.SettingFragment;
 import com.quiztest.quiztest.model.TestItem;
+import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.model.ChangeLanguageResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 import com.quiztest.quiztest.retrofit.RetrofitClient;
 import com.quiztest.quiztest.utils.LanguageConfig;
-import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -317,11 +316,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void startActTestIQ(String type, TestItem testItem){
+    public void startActTestIQ(String type, TestItem testItem) {
         Intent intent = new Intent(this, MainIQActivity.class);
-        intent.putExtra(TOKEN, BEARER+ SharePrefrenceUtils.getInstance(this).getAuth());
+        intent.putExtra(TOKEN, BEARER + SharePrefrenceUtils.getInstance(this).getAuth());
         intent.putExtra(TYPE, type);
         intent.putExtra(TEST_ID, testItem.getId());
+        intent.putExtra(Const.TEST_TYPE, testItem.getType().toString());
         intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
         startActivity(intent);
     }
@@ -376,8 +376,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-    *  Post current language of device to server
-    * */
+     * Post current language of device to server
+     */
     public void updateLanguage() {
         String language = LanguageConfig.INSTANCE.getCurrentLanguage();
         RetrofitClient.getInstance().create(RequestAPI.class).changeLanguage(language).enqueue(new Callback<ChangeLanguageResponse>() {
@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ChangeLanguageResponse> call, Throwable t) {
-                    t.printStackTrace();
+                t.printStackTrace();
             }
         });
     }

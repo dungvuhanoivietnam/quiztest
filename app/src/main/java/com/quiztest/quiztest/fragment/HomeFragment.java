@@ -6,11 +6,13 @@ import static com.quiztest.quiztest.utils.Const.TOKEN;
 import static com.quiztest.quiztest.utils.Const.TYPE;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +23,6 @@ import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.EarningTasksAdapter;
 import com.quiztest.quiztest.adapter.GetMoreStarsAdapter;
-import com.quiztest.quiztest.adapter.RankingAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.custom.ItemViewEarningTask;
@@ -31,6 +32,7 @@ import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 import com.quiztest.quiztest.retrofit.RetrofitClient;
+import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.utils.LanguageConfig;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
@@ -91,6 +93,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         return R.layout.fragment_home;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void initData() {
         extLogin.setOnClickListener(this);
@@ -113,6 +116,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initDataTest() {
         if (userViewModel != null) {
             showLoading();
@@ -133,11 +137,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    private void startActTestIQ(String type, TestItem testItem){
+    private void startActTestIQ(String type, TestItem testItem) {
         Intent intent = new Intent(getContext(), MainIQActivity.class);
         intent.putExtra(TOKEN, SharePrefrenceUtils.getInstance(mContext).getAuth());
         intent.putExtra(TYPE, type);
         intent.putExtra(LANGUAGE, currentLanguage);
+        intent.putExtra(Const.TEST_ID, testItem.getId());
+        intent.putExtra(Const.TEST_TYPE, testItem.getType().toString());
         intent.putExtra(DATA, testItem.getMoneyBonus() + "," + testItem.getFeeStar());
         startActivity(intent);
     }
@@ -266,14 +272,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onItemClickListener(TestItem item) {
-        startActTestIQ("",item);
+        startActTestIQ("", item);
     }
 
     @Override
     public void onItemLongClickListener(int position) {
 
     }
-    public void resetData(){
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void resetData() {
         Retrofit retrofit = RetrofitClient.getInstance();
         requestAPI = retrofit.create(RequestAPI.class);
         initDataUser();

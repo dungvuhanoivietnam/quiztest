@@ -55,7 +55,7 @@ public class RetrofitClient {
         if (ourInstance == null)
             ourInstance = new Retrofit.Builder()
                     .client(okHttpClient(App.getInstance(), 30))
-                    .baseUrl("https://quiz-test.merryblue.llc/api/v1/")
+                    .baseUrl("https://quiz-test-online.merryblue.llc/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         return ourInstance;

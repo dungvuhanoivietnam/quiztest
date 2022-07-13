@@ -1,12 +1,14 @@
 package com.quiztest.quiztest.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,8 +16,10 @@ import com.bumptech.glide.Glide;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.model.TestItem;
+import com.quiztest.quiztest.utils.StarEnum;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class EarningTasksAdapter extends RecyclerView.Adapter<EarningTasksAdapter.EarningTaskViewHolder> {
     private Context context;
@@ -26,8 +30,11 @@ public class EarningTasksAdapter extends RecyclerView.Adapter<EarningTasksAdapte
         this.context = context;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setListData(ArrayList<TestItem> listData) {
         this.listData = listData;
+        listData.stream().filter(Objects::nonNull)
+                .forEach(elt -> elt.setType(StarEnum.FEESTAR));
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {

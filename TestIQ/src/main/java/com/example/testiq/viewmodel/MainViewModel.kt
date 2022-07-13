@@ -21,19 +21,19 @@ class MainViewModel(
 
 ) : ViewModel() {
 
-    var token : String = ""
+    var token: String = ""
     private val _users = MutableLiveData<Resource<QuizTestResponse>>()
     private val _submit = MutableLiveData<Resource<SubmitQuizTestResponse>>()
     private val _confirmOpenGif = MutableLiveData<Resource<ConfirmOpenGifResponse>>()
     private val _question = MutableLiveData<Resource<DetailTopicResponse>>()
-    var testId : Int = 0
+    var testId: Int = 0
 
     var lstQuestion = ArrayList<QuestionModel>()
-    var questionModel : QuestionModel? = null
-    var index : Int = 0
-    var quizTestResponse : QuizTestResponse?= null
-    var submitResponse  : SubmitQuizTestResponse?= null
-    var lstJSONObject  = JSONObject()
+    var questionModel: QuestionModel? = null
+    var index: Int = 0
+    var quizTestResponse: QuizTestResponse? = null
+    var submitResponse: SubmitQuizTestResponse? = null
+    var lstJSONObject = JSONObject()
 
     val questions: LiveData<Resource<QuizTestResponse>>
         get() = _users
@@ -47,75 +47,18 @@ class MainViewModel(
     val detailTopic: LiveData<Resource<DetailTopicResponse>>
         get() = _question
 
-     fun fetchQuestion() {
-         _users.postValue(Resource.loading(null))
-         AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/start-quiz-test")
-             .addHeaders("Authorization", token)
-             .addHeaders("key-app", "quiztest")
-             .addQueryParameter("topic_id", "1")
-             .setTag("test")
-             .setPriority(Priority.MEDIUM)
-             .build()
-             .getAsJSONObject(object : JSONObjectRequestListener {
-                 override fun onResponse(response: JSONObject?) {
-                     val dataResponse : QuizTestResponse = Gson().fromJson(
-                         response.toString(),
-                         QuizTestResponse::class.java
-                     )
-                     _users.postValue(Resource.success(dataResponse))
-                 }
-
-                 override fun onError(error: ANError) {
-                     // handle error
-                     val dataResponse : QuizTestResponse = Gson().fromJson(
-                         error.errorBody.toString(),
-                         QuizTestResponse::class.java
-                     )
-                     _users.postValue(
-                         Resource.error(
-                             dataResponse.message ?: "Failed Connection",
-                             null
-                         )
-                     )
-                 }
-             })
-    }
-
-    fun fetchDetailQuestion(testId :Int) {
+    fun fetchQuestion(idTopic: Int) {
         _users.postValue(Resource.loading(null))
-        AndroidNetworking.get("https://quiz-test.merryblue.llc/api/v1/quiz/get-detail-topic/$testId")
+        AndroidNetworking.post("https://quiz-test-online.merryblue.llc/api/v1/quiz/start-quiz-test")
             .addHeaders("Authorization", token)
             .addHeaders("key-app", "quiztest")
+            .addQueryParameter("topic_id", idTopic.toString())
             .setTag("test")
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
-                    val dataResponse : DetailTopicResponse = Gson().fromJson(
-                        response.toString(),
-                        DetailTopicResponse::class.java
-                    )
-                    _question.postValue(Resource.success(dataResponse))
-                }
-
-                override fun onError(error: ANError) {
-                    // handle error
-                    _users.postValue(Resource.error("Failed connection...",null))
-                }
-            })
-    }
-
-    fun fetChQuestionNoToken(){
-        _users.postValue(Resource.loading(null))
-        AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/start-quiz-test-for-guest")
-            .addHeaders("key-app", "quiztest")
-            .addQueryParameter("topic_id", "1")
-            .setTag("FetchData")
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject?) {
-                    val dataResponse : QuizTestResponse = Gson().fromJson(
+                    val dataResponse: QuizTestResponse = Gson().fromJson(
                         response.toString(),
                         QuizTestResponse::class.java
                     )
@@ -124,7 +67,7 @@ class MainViewModel(
 
                 override fun onError(error: ANError) {
                     // handle error
-                    val dataResponse : QuizTestResponse = Gson().fromJson(
+                    val dataResponse: QuizTestResponse = Gson().fromJson(
                         error.errorBody.toString(),
                         QuizTestResponse::class.java
                     )
@@ -138,9 +81,66 @@ class MainViewModel(
             })
     }
 
-    fun submitQuizTest(keyQuizTest : String){
+    fun fetchDetailQuestion(testId: Int) {
+        _users.postValue(Resource.loading(null))
+        AndroidNetworking.get("https://quiz-test-online.merryblue.llc/api/v1/quiz/get-detail-topic/$testId")
+            .addHeaders("Authorization", token)
+            .addHeaders("key-app", "quiztest")
+            .setTag("test")
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject?) {
+                    val dataResponse: DetailTopicResponse = Gson().fromJson(
+                        response.toString(),
+                        DetailTopicResponse::class.java
+                    )
+                    _question.postValue(Resource.success(dataResponse))
+                }
+
+                override fun onError(error: ANError) {
+                    // handle error
+                    _question.postValue(Resource.error("Failed connection...", null))
+                }
+            })
+    }
+
+    fun fetChQuestionNoToken(idTopic: Int) {
+        _users.postValue(Resource.loading(null))
+        AndroidNetworking.post("https://quiz-test-online.merryblue.llc/api/v1/quiz/start-quiz-test-for-guest")
+            .addHeaders("key-app", "quiztest")
+            .addQueryParameter("topic_id", idTopic.toString())
+            .setTag("FetchData")
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject?) {
+                    val dataResponse: QuizTestResponse = Gson().fromJson(
+                        response.toString(),
+                        QuizTestResponse::class.java
+                    )
+                    _users.postValue(Resource.success(dataResponse))
+                }
+
+                override fun onError(error: ANError) {
+                    // handle error
+                    val dataResponse: QuizTestResponse = Gson().fromJson(
+                        error.errorBody.toString(),
+                        QuizTestResponse::class.java
+                    )
+                    _users.postValue(
+                        Resource.error(
+                            dataResponse.message ?: "Failed Connection",
+                            null
+                        )
+                    )
+                }
+            })
+    }
+
+    fun submitQuizTest(keyQuizTest: String) {
         _submit.postValue(Resource.loading(null))
-        AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/submit-quiz-test")
+        AndroidNetworking.post("https://quiz-test-online.merryblue.llc/api/v1/quiz/submit-quiz-test")
             .addHeaders("Authorization", token)
             .addHeaders("key-app", "quiztest")
             .addQueryParameter("answers", lstJSONObject.toString())
@@ -150,7 +150,7 @@ class MainViewModel(
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
-                    val submitResponse : SubmitQuizTestResponse = Gson().fromJson(
+                    val submitResponse: SubmitQuizTestResponse = Gson().fromJson(
                         response.toString(),
                         SubmitQuizTestResponse::class.java
                     )
@@ -159,19 +159,23 @@ class MainViewModel(
 
                 override fun onError(error: ANError) {
                     // handle error
-                    val submitResponse : SubmitQuizTestResponse = Gson().fromJson(
+                    val submitResponse: SubmitQuizTestResponse = Gson().fromJson(
                         error.errorBody.toString(),
                         SubmitQuizTestResponse::class.java
                     )
-                    _submit.postValue(Resource.error(submitResponse.message ?: "Failed Connection",
-                        null))
+                    _submit.postValue(
+                        Resource.error(
+                            submitResponse.message ?: "Failed Connection",
+                            null
+                        )
+                    )
                 }
             })
     }
 
-    fun submitQuizTestNoToken(keyQuizTest : String){
+    fun submitQuizTestNoToken(keyQuizTest: String) {
         _submit.postValue(Resource.loading(null))
-        AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/submit-quiz-test-for-guest")
+        AndroidNetworking.post("https://quiz-test-online.merryblue.llc/api/v1/quiz/submit-quiz-test-for-guest")
             .addHeaders("key-app", "quiztest")
             .addQueryParameter("answers", lstJSONObject.toString())
             .addQueryParameter("key_quiz_test", keyQuizTest)
@@ -182,7 +186,7 @@ class MainViewModel(
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
-                    val submitResponse : SubmitQuizTestResponse = Gson().fromJson(
+                    val submitResponse: SubmitQuizTestResponse = Gson().fromJson(
                         response.toString(),
                         SubmitQuizTestResponse::class.java
                     )
@@ -191,18 +195,23 @@ class MainViewModel(
 
                 override fun onError(error: ANError) {
                     // handle error
-                    val submitResponse : SubmitQuizTestResponse = Gson().fromJson(
+                    val submitResponse: SubmitQuizTestResponse = Gson().fromJson(
                         error.errorBody.toString(),
                         SubmitQuizTestResponse::class.java
                     )
-                    _submit.postValue(Resource.error(submitResponse.message ?:"Failed Connection ",null))
+                    _submit.postValue(
+                        Resource.error(
+                            submitResponse.message ?: "Failed Connection ",
+                            null
+                        )
+                    )
                 }
             })
     }
 
-    fun confirmOpenGif(keyQuizTest : String){
+    fun confirmOpenGif(keyQuizTest: String) {
         _confirmOpenGif.postValue(Resource.loading(null))
-        AndroidNetworking.post("https://quiz-test.merryblue.llc/api/v1/quiz/confirm-open-gif")
+        AndroidNetworking.post("https://quiz-test-online.merryblue.llc/api/v1/quiz/confirm-open-gif")
             .addHeaders("Authorization", token)
             .addHeaders("key-app", "quiztest")
             .addQueryParameter("key_quiz_test", keyQuizTest)
@@ -211,7 +220,7 @@ class MainViewModel(
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject?) {
-                    val confirmGiftResponse : ConfirmOpenGifResponse = Gson().fromJson(
+                    val confirmGiftResponse: ConfirmOpenGifResponse = Gson().fromJson(
                         response.toString(),
                         ConfirmOpenGifResponse::class.java
                     )
@@ -220,11 +229,15 @@ class MainViewModel(
 
                 override fun onError(error: ANError) {
                     // handle error
-                    val confirmGiftResponse : ConfirmOpenGifResponse = Gson().fromJson(
+                    val confirmGiftResponse: ConfirmOpenGifResponse = Gson().fromJson(
                         error.errorBody.toString(),
                         ConfirmOpenGifResponse::class.java
                     )
-                    _confirmOpenGif.postValue(Resource.error(confirmGiftResponse.message ?:"Failed Connection",null))
+                    _confirmOpenGif.postValue(
+                        Resource.error(
+                            confirmGiftResponse.message ?: "Failed Connection", null
+                        )
+                    )
                 }
             })
     }

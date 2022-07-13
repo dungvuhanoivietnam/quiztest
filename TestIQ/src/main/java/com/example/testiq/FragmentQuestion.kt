@@ -12,6 +12,7 @@ import com.example.testiq.adapter.AnswerAdapter
 import com.example.testiq.databinding.FragmentQuestionIqBinding
 import com.example.testiq.model.QuestionModel
 import com.example.testiq.ui.*
+import com.example.testiq.utils.Const
 import com.example.testiq.utils.NetworkHelper
 import com.example.testiq.utils.Status
 import com.example.testiq.viewmodel.MainViewModel
@@ -24,7 +25,8 @@ class FragmentQuestion :
     override val viewModel: MainViewModel by viewModels()
 
     private var adapterAnswer: AnswerAdapter? = null
-     var cTimer: CountDownTimer?= null
+    var cTimer: CountDownTimer? = null
+    private var idTopic: Int = 0
 
 
     override fun setupViews() {
@@ -32,17 +34,18 @@ class FragmentQuestion :
         if (MainIQActivity.token.isNotEmpty()) {
             viewModel.token = MainIQActivity.token
         }
-        if (MainIQActivity.testId != 0) {
-            viewModel.testId = MainIQActivity.testId
+
+        if (arguments?.getInt(Const.TEST_ID) != 0) {
+            idTopic = arguments?.getInt(Const.TEST_ID)!!
         }
 
         if (NetworkHelper(requireContext()).isNetworkConnected()) {
             // khi da login
             if (viewModel.token.isNotEmpty()) {
-                viewModel.fetchQuestion()
+                viewModel.fetchQuestion(idTopic)
             } else {
                 // khi chua login
-                viewModel.fetChQuestionNoToken()
+                viewModel.fetChQuestionNoToken(idTopic)
             }
         } else {
             DialogResultCallApi(requireContext(), Status.ERROR, "Connect internet") {
@@ -102,7 +105,7 @@ class FragmentQuestion :
         }
     }
 
-    private fun submit(){
+    private fun submit() {
         filterListSubmit()
         // khi chua login
         if (viewModel.token.isNotEmpty()) {

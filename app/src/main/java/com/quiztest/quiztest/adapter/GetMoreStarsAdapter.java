@@ -1,20 +1,25 @@
 package com.quiztest.quiztest.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.model.TestItem;
+import com.quiztest.quiztest.utils.StarEnum;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapter.GetMoreStarsViewHolder> {
     private Context context;
@@ -25,8 +30,11 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
         this.context = context;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setListData(ArrayList<TestItem> listData) {
         this.listData = listData;
+        listData.stream().filter(Objects::nonNull)
+                .forEach(elt -> elt.setType(StarEnum.STARBONUS));
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
@@ -76,7 +84,7 @@ public class GetMoreStarsAdapter extends RecyclerView.Adapter<GetMoreStarsAdapte
 
         public void bindData(TestItem item) {
             txtTitle.setText(item.getTitle());
-            starCanGet.setText(String.format(context.getString(R.string.get_s_star),item.getStarBonus()));
+            starCanGet.setText(String.format(context.getString(R.string.get_s_star), item.getStarBonus()));
             Glide.with(context).load(item.getImage()).into(ivItem);
         }
     }
