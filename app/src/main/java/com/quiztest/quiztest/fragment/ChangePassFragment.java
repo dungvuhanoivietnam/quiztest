@@ -5,10 +5,12 @@ import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtEditTextApp;
 import com.quiztest.quiztest.custom.ExtTextView;
+import com.quiztest.quiztest.fragment.forgotPass.VerifyMailFragment;
 import com.quiztest.quiztest.model.ChangePassResponse;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
@@ -19,6 +21,7 @@ public class ChangePassFragment extends BaseFragment {
     private ExtTextView btn_save;
     private boolean isPass, isRepass;
     private UserViewModel userViewModel;
+    private ExtTextView tvResetPass;
 
     @Override
     protected int getLayoutId() {
@@ -32,6 +35,7 @@ public class ChangePassFragment extends BaseFragment {
         edt_new_pass = v.findViewById(R.id.edt_new_pass);
         edt_re_pass = v.findViewById(R.id.edt_re_pass);
         btn_save = v.findViewById(R.id.btn_continue);
+        tvResetPass = v.findViewById(R.id.tvResetPass);
     }
 
     @Override
@@ -63,6 +67,7 @@ public class ChangePassFragment extends BaseFragment {
             edt_new_pass.setTextFormat(s);
             edt_new_pass.addTextChange(isRepass ? ExtEditTextApp.TYPE_ERROR.DONE : ExtEditTextApp.TYPE_ERROR.ERROR);
         });
+
         btn_save.setOnClickListener(v -> {
             if (isPass && isRepass) {
                 showLoading();
@@ -82,6 +87,12 @@ public class ChangePassFragment extends BaseFragment {
                 });
             }
         });
+
+        tvResetPass.setOnClickListener(view -> {
+            replaceFragment(new VerifyMailFragment(), VerifyMailFragment.class.getSimpleName());
+            ((MainActivity) getActivity()).hideOrShowBottomView(false);
+        });
+
     }
 
     private void initButtonSave() {

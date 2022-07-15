@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.stetho.common.StringUtil;
 import com.quiztest.quiztest.R;
 import com.quiztest.quiztest.adapter.RankingAdapter;
 import com.quiztest.quiztest.base.BaseFragment;
@@ -24,6 +25,7 @@ import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.model.RankerResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.model.UserRankingResponse;
+import com.quiztest.quiztest.utils.StringUtils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -91,8 +93,8 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
     private void setDataUser() {
         if (UserInfoResponse.getInstance() != null && getContext() != null) {
             currentUser = UserInfoResponse.getInstance();
-            UserInfoResponse.UserInfo userInfo = currentUser.getData().getUserInfo();
-            if (userInfo != null) {
+            if (currentUser != null) {
+                UserInfoResponse.UserInfo userInfo = currentUser.getData().getUserInfo();
                 extName.setText(userInfo.getName());
                 extStars.setText(getString(R.string.stars, userInfo.getTotalStar()));
                 String avatar = userInfo.getAvatar();
@@ -102,10 +104,11 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
                             .error(R.drawable.ic_create_account_profile)
                             .circleCrop().into(ivAvatar);
                 }
-                if (userInfo.getId() == 0) {
-                    showEmptyView(true);
-                }else {
+
+                if (StringUtils.isNullOrEmpty(userInfo.getEmail())) {
                     showEmptyView(false);
+                } else {
+                    showEmptyView(true);
                 }
             }
         } else {

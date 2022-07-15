@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
@@ -41,7 +42,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     public static final int TYPE_GET_MORE_STAR = 1;
     public static final int TYPE_GET_MORE_MONEY = 2;
 
-    private ExtTextView extTitleActionBar, extWithdrawMoney, extMoneyCount;
+    private ExtTextView extTitleActionBar, extWithdrawMoney, extMoneyCount, tvNoData;
     private RelativeLayout rlWithdrawMoney;
     private RecyclerView rcvGetMoreChance;
     private GetMoreStarsAdapter getMoreStarsAdapter;
@@ -52,6 +53,7 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     private int current_type;
     private int totalMoney;
     private String currentLanguage;
+    private LinearLayout llRoot;
 
     public GetMoreChancesFragment(int type_get_more) {
         current_type = type_get_more;
@@ -70,9 +72,11 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     @Override
     protected void initView(View v) {
         extTitleActionBar = v.findViewById(R.id.ext_title_action_bar);
+        llRoot = v.findViewById(R.id.llRoot);
         rlWithdrawMoney = v.findViewById(R.id.rl_withdraw_money);
         extWithdrawMoney = v.findViewById(R.id.ext_withdraw_money);
         extMoneyCount = v.findViewById(R.id.ext_money_count);
+        tvNoData = v.findViewById(R.id.tvNoData);
 
         rcvGetMoreChance = v.findViewById(R.id.rcv_get_more_chance);
         ivBack = v.findViewById(R.id.iv_back);
@@ -83,6 +87,9 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
     protected void initData() {
 
         currentLanguage = LanguageConfig.INSTANCE.getCurrentLanguage();
+
+        String token = SharePrefrenceUtils.getInstance(getContext()).getAuth();
+        llRoot.setVisibility(token.equals("") ? View.GONE : View.VISIBLE);
 
         ivBack.setOnClickListener(v -> {
             backstackFragment();
@@ -106,6 +113,13 @@ public class GetMoreChancesFragment extends BaseFragment implements View.OnClick
         userViewModel.getTopicListByType(requestAPI, current_type, o -> {
             if (o instanceof TopicListResponse) {
                 currentListTopic = ((TopicListResponse) o).getData().getListTopicByType();
+                if (currentListTopic.isEmpty()) {
+                    rcvGetMoreChance.setVisibility(View.GONE);
+                    tvNoData.setVisibility(View.VISIBLE);
+                } else {
+                    rcvGetMoreChance.setVisibility(View.VISIBLE);
+                    tvNoData.setVisibility(View.GONE);
+                }
                 getMoreStarsAdapter.setListData(currentListTopic);
                 getMoreStarsAdapter.setItemClickListener(this);
                 rcvGetMoreChance.setAdapter(getMoreStarsAdapter);

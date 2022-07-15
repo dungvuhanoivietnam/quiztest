@@ -366,6 +366,18 @@
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone" />
 
+                <com.quiztest.quiztest.custom.ExtTextView
+                    android:id="@+id/tvNoDataEarning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/label_recommend"
+                    android:gravity="center"
+                    android:text="@string/empty_data"
+                    android:textColor="@color/color_22313F"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcv_earning_task"
                     android:layout_width="match_parent"
@@ -440,20 +452,52 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_100sdp">
 
-                <com.quiztest.quiztest.custom.ExtTextView
-                    android:id="@+id/ext_get_more_stars"
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:id="@+id/llMoreStar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/get_more_stars"
+                    android:orientation="horizontal">
+
+                    <com.quiztest.quiztest.custom.ExtTextView
+                        android:id="@+id/ext_get_more_stars"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/get_more_stars"
+                        android:textColor="@color/color_22313F"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <com.quiztest.quiztest.custom.ExtTextView
+                        android:id="@+id/tvMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_more"
+                        android:textColor="@color/color_007AFF"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+                <com.quiztest.quiztest.custom.ExtTextView
+                    android:id="@+id/tvNoDataMoreStar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llMoreStar"
+                    android:gravity="center"
+                    android:text="@string/empty_data"
                     android:textColor="@color/color_22313F"
                     android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcv_get_more_star"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ext_get_more_stars"
+                    android:layout_below="@id/llMoreStar"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="-35dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

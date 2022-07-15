@@ -27,8 +27,8 @@ import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.custom.ItemViewEarningTask;
 import com.quiztest.quiztest.fragment.login.LoginFragment;
-import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TestItem;
+import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
 import com.quiztest.quiztest.retrofit.RequestAPI;
 import com.quiztest.quiztest.retrofit.RetrofitClient;
@@ -42,6 +42,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Retrofit;
 
@@ -63,6 +66,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private EarningTasksAdapter earningTasksAdapter;
     private UserInfoResponse currentUser;
     private String currentLanguage;
+    private ArrayList<TestItem> moreStarTopic;
+    private ArrayList<TestItem> earningTaskTopic;
+    private ExtTextView tvNoDataMoreStar, tvNoDataEarning, tvMore;
 
 
     @Override
@@ -71,6 +77,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             EventBus.getDefault().register(this);
         }
         extLogin = v.findViewById(R.id.ext_login);
+        tvNoDataMoreStar = v.findViewById(R.id.tvNoDataMoreStar);
+        tvNoDataEarning = v.findViewById(R.id.tvNoDataEarning);
         ivGetMoreStar = v.findViewById(R.id.iv_get_more_star);
         ivGetMoreMoney = v.findViewById(R.id.iv_get_more_money);
         ivSearch = v.findViewById(R.id.iv_search);
@@ -79,6 +87,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         extName = v.findViewById(R.id.ext_name);
         extStarCount = v.findViewById(R.id.ext_star_count);
         extMoneyCount = v.findViewById(R.id.ext_money_count);
+        tvMore = v.findViewById(R.id.tvMore);
 
         rcvGetMoreStar = v.findViewById(R.id.rcv_get_more_star);
         rcvEarningTask = v.findViewById(R.id.rcv_earning_task);
@@ -98,6 +107,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     protected void initData() {
         extLogin.setOnClickListener(this);
         ivGetMoreStar.setOnClickListener(this);
+        tvMore.setOnClickListener(this);
         ivGetMoreMoney.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
         ivNotify.setOnClickListener(this);
@@ -120,21 +130,61 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private void initDataTest() {
         if (userViewModel != null) {
             showLoading();
-            userViewModel.getDataForHome(requestAPI, o -> {
-                if (o instanceof HomeDataResponse) {
-                    currentListEarningTasks = ((HomeDataResponse) o).getData().getListEarningTasks();
-                    currentListGetMoreStars = ((HomeDataResponse) o).getData().getListGetMoreStars();
-                    getMoreStarsAdapter.setListData(currentListGetMoreStars);
-                    getMoreStarsAdapter.setItemClickListener(this);
-                    rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
-
-                    earningTasksAdapter.setListData(currentListEarningTasks);
-                    earningTasksAdapter.setItemClickListener(this);
-                    rcvEarningTask.setAdapter(earningTasksAdapter);
-                }
-                cancelLoading();
-            });
+            getTopicByType(GetMoreChancesFragment.TYPE_GET_MORE_MONEY);
+            getTopicByType(GetMoreChancesFragment.TYPE_GET_MORE_STAR);
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void getTopicByType(int current_type) {
+        getMoreStarsAdapter = new GetMoreStarsAdapter(mContext);
+        earningTasksAdapter = new EarningTasksAdapter(mContext);
+        getMoreStarsAdapter.setItemClickListener(this);
+        userViewModel.getTopicListByType(requestAPI, current_type, o -> {
+            if (o instanceof TopicListResponse) {
+                moreStarTopic = ((TopicListResponse) o).getData().getListTopicByType();
+                earningTaskTopic = ((TopicListResponse) o).getData().getListTopicByType();
+                if (current_type == GetMoreChancesFragment.TYPE_GET_MORE_STAR) {
+                    if (moreStarTopic.isEmpty()) {
+                        rcvGetMoreStar.setVisibility(View.GONE);
+                        tvNoDataMoreStar.setVisibility(View.VISIBLE);
+                    } else {
+                        List<TestItem> listSorted = moreStarTopic.stream().limit(4).sorted(Comparator.comparing(TestItem::getTitle)).
+                                collect(Collectors.toList());
+                        rcvGetMoreStar.setVisibility(View.VISIBLE);
+                        tvNoDataMoreStar.setVisibility(View.GONE);
+
+                        if (moreStarTopic.size() > 4) {
+                            tvMore.setVisibility(View.VISIBLE);
+                        } else {
+                            tvMore.setVisibility(View.GONE);
+                        }
+
+                        getMoreStarsAdapter.setListData((ArrayList<TestItem>) listSorted);
+                        rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
+                    }
+
+                } else {
+                    if (earningTaskTopic.isEmpty()) {
+                        rcvEarningTask.setVisibility(View.GONE);
+                        tvNoDataEarning.setVisibility(View.VISIBLE);
+                    } else {
+                        rcvEarningTask.setVisibility(View.VISIBLE);
+                        tvNoDataEarning.setVisibility(View.GONE);
+
+                        List<TestItem> listSorted = earningTaskTopic.stream().sorted(Comparator.comparing(TestItem::getTitle)).
+                                collect(Collectors.toList());
+
+                        earningTasksAdapter.setListData((ArrayList<TestItem>) listSorted);
+                        earningTasksAdapter.setItemClickListener(this);
+                        rcvEarningTask.setAdapter(earningTasksAdapter);
+                    }
+
+                }
+
+            }
+            cancelLoading();
+        });
     }
 
     private void startActTestIQ(String type, TestItem testItem) {
@@ -219,7 +269,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);
             }
         }
-        if (view.getId() == R.id.iv_get_more_star) {
+        if (view.getId() == R.id.iv_get_more_star || view.getId() == R.id.tvMore) {
             addFragment(new GetMoreChancesFragment(GetMoreChancesFragment.TYPE_GET_MORE_STAR), GetMoreChancesFragment.class.getSimpleName());
             if (getActivity() != null) {
                 ((MainActivity) getActivity()).hideOrShowBottomView(false);

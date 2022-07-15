@@ -105,11 +105,11 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
                 }
             });
         });
-        v.findViewById(R.id.ivUpload).setOnClickListener(view -> {
-
-            if (!dialogChooseImage.isShowing())
-                dialogChooseImage.show();
-        });
+//        v.findViewById(R.id.ivUpload).setOnClickListener(view -> {
+//
+//            if (!dialogChooseImage.isShowing())
+//                dialogChooseImage.show();
+//        });
 
         ll_login.setOnClickListener(view -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
         ll_logout.setOnClickListener(view -> {

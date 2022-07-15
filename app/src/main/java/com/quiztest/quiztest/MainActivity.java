@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -243,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         ctsBottomNavigation = findViewById(R.id.cts_bottomNavigation);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void actionLogout() {
         showFragment(fragmentHome);
         enableButton(btnHome);
