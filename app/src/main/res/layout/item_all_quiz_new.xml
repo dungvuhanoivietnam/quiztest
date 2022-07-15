@@ -23,8 +23,7 @@
             android:layout_marginEnd="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_16sdp"
             android:background="@drawable/bg_circle"
-            android:padding="@dimen/_10sdp"
-            android:src="@drawable/img_test_iq" />
+            android:padding="@dimen/_10sdp"/>
 
         <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/txt_title"

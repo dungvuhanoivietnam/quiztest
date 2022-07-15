@@ -403,7 +403,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         custom:backgroundColor="@color/color_FBE8E7"
-                        custom:image="@drawable/img_test_iq"
                         custom:title="Test IQ" />
 
                     <com.quiztest.quiztest.custom.ItemViewEarningTask

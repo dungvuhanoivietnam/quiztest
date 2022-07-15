@@ -24,8 +24,7 @@
             android:layout_marginBottom="@dimen/_1sdp"
             android:background="@drawable/bg_search_corner_8"
             android:backgroundTint="@color/color_E7F9FF"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/img_test_iq" />
+            android:padding="@dimen/_8sdp"/>
 
         <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/txt_title"
