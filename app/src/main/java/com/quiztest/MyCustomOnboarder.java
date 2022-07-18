@@ -12,6 +12,7 @@ import com.aemerse.onboard.OnboardFragment;
 import com.aemerse.onboard.ScreenUtils;
 import com.quiztest.quiztest.MainActivity;
 import com.quiztest.quiztest.R;
+import com.quiztest.quiztest.utils.SharePrefrenceUtils;
 
 public class MyCustomOnboarder extends OnboardAdvanced {
 
@@ -40,10 +41,8 @@ public class MyCustomOnboarder extends OnboardAdvanced {
     @Override
     protected void onSkipPressed(@Nullable Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
+        SharePrefrenceUtils.saveBoolean(this,SharePrefrenceUtils.OPEN_APP_FIRST_TIME,true);
         Intent intent = new Intent(this, MainActivity.class);
-        Bundle args = new Bundle();
-        args.putBoolean("onboarding", true);
-        intent.putExtras(args);
         startActivity(intent);
         finish();
     }
@@ -51,10 +50,8 @@ public class MyCustomOnboarder extends OnboardAdvanced {
     @Override
     protected void onDonePressed(@Nullable Fragment currentFragment) {
         super.onDonePressed(currentFragment);
+        SharePrefrenceUtils.saveBoolean(this,SharePrefrenceUtils.OPEN_APP_FIRST_TIME,true);
         Intent intent = new Intent(this, MainActivity.class);
-        Bundle args = new Bundle();
-        args.putBoolean("onboarding", true);
-        intent.putExtras(args);
         startActivity(intent);
         finish();
     }
