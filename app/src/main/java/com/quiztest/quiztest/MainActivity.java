@@ -76,11 +76,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        ScreenUtils.transparentStatusAndNavigation(this);
-        boolean onboarding = false;
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            onboarding = getIntent().getExtras().getBoolean("onboarding", false);
-        }
-        if (!onboarding) {
+
+        boolean aBoolean = SharePrefrenceUtils.getBoolean(getApplicationContext(), SharePrefrenceUtils.OPEN_APP_FIRST_TIME, false);
+        if (!aBoolean) {
             initOnboarding();
         }
         setContentView(R.layout.activity_main);
