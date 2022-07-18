@@ -146,5 +146,6 @@
     <string name="minimum_money">Minimum money</string>
     <string name="empty_data">No data</string>
     <string name="tv_more">More</string>
+    <string name="title_term_condition">Term Condition</string>
 
 </resources>

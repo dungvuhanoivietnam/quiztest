@@ -33,6 +33,7 @@ import com.quiztest.quiztest.model.UserInfoResponse
 import com.quiztest.quiztest.retrofit.RetrofitClient
 import com.quiztest.quiztest.utils.Const
 import com.quiztest.quiztest.utils.SharePrefrenceUtils
+import com.quiztest.quiztest.utils.StringUtils
 import com.quiztest.quiztest.utils.Utils
 import java.util.*
 import java.util.regex.Pattern
@@ -52,6 +53,8 @@ class LoginFragment : BaseFragment() {
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private var mCallbackManager: CallbackManager? = null
     private val RC_SIGN_IN = 1
+    private var ignoreNextTextChangeEmail = true
+    private var ignoreNextTextChangePass = true
 
 
     override fun onCreateView(
@@ -152,14 +155,28 @@ class LoginFragment : BaseFragment() {
         }
 
         binding.edtPass.doOnTextChanged { text, start, before, count ->
-            password = text.toString().trim()
-            validatePassWord()
-            checkButtonLogin()
+            if (ignoreNextTextChangePass) {
+                ignoreNextTextChangePass = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                password = text.toString().trim()
+                validatePassWord()
+                checkButtonLogin()
+            }
         }
         binding.edtMail.doOnTextChanged { text, start, before, count ->
-            email = text.toString().trim()
-            validateEmail()
-            checkButtonLogin()
+            if (ignoreNextTextChangeEmail) {
+                ignoreNextTextChangeEmail = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                email = text.toString().trim()
+                validateEmail()
+                checkButtonLogin()
+            }
         }
 
         binding.btnLogin.setOnClickListener {

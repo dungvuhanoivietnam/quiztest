@@ -22,6 +22,7 @@ public class ChangePassFragment extends BaseFragment {
     private boolean isPass, isRepass;
     private UserViewModel userViewModel;
     private ExtTextView tvResetPass;
+    private boolean ignoreNextTextChangeEmail = true;
 
     @Override
     protected int getLayoutId() {

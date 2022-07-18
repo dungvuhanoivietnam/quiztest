@@ -18,12 +18,15 @@ import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentCreatePassBinding
 import com.quiztest.quiztest.fragment.login.LoginFragment
+import com.quiztest.quiztest.utils.StringUtils
 
 
 class CreatePassFragment : BaseFragment() {
     private lateinit var binding: FragmentCreatePassBinding
     private var isSuccessPass = false
     private var ishowPassword: Boolean = false
+    private var ignoreNextTextChangePass = true
+    private var ignoreNextTextChangeConfirmPass = true
 
     private val viewModel by lazy {
         ViewModelProvider(this)[CreatePassViewModel::class.java]
@@ -93,12 +96,26 @@ class CreatePassFragment : BaseFragment() {
         }
 
         binding.edtPass.doOnTextChanged { text, start, before, count ->
-            validatePassWord()
-            checkButtonSave()
+            if (ignoreNextTextChangePass) {
+                ignoreNextTextChangePass = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                validatePassWord()
+                checkButtonSave()
+            }
         }
         binding.edtConfirmPass.doOnTextChanged { text, start, before, count ->
-            validateConfirmPass()
-            checkButtonSave()
+            if (ignoreNextTextChangeConfirmPass) {
+                ignoreNextTextChangeConfirmPass = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                validateConfirmPass()
+                checkButtonSave()
+            }
         }
 
         binding.imvEyePass.setOnClickListener {

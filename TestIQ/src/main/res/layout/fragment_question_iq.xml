@@ -203,7 +203,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/_15sdp"
-        android:src="@drawable/ic_error"
+        android:src="@drawable/ic_next"
         android:tint="#22313F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

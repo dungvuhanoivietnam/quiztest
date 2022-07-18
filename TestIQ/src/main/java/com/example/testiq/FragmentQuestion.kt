@@ -124,13 +124,13 @@ class FragmentQuestion :
             when (it.status) {
                 Status.SUCCESS -> {
                     cancelLoading()
-                    DialogResultCallApi(
-                        requireContext(),
-                        Status.SUCCESS,
-                        "Start Test successfully."
-                    ) {
-
-                    }.show()
+//                    DialogResultCallApi(
+//                        requireContext(),
+//                        Status.SUCCESS,
+//                        "Start Test successfully."
+//                    ) {
+//
+//                    }.show()
                     if (it.data?.success == true) {
                         viewModel.quizTestResponse = it.data
                         it.data.data?.questions?.let { it1 ->

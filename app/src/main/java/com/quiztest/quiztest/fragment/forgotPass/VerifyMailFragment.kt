@@ -15,6 +15,7 @@ import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentVerifyMailBinding
 import com.quiztest.quiztest.fragment.login.LoginFragment
 import com.quiztest.quiztest.utils.Const
+import com.quiztest.quiztest.utils.StringUtils
 import java.util.regex.Pattern
 
 
@@ -27,6 +28,7 @@ class VerifyMailFragment : BaseFragment() {
     private var isSuccessEmail = false
     val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     val message = ""
+    private var ignoreNextTextChangeEmail = true
 
     private lateinit var binding: FragmentVerifyMailBinding
     override fun onCreateView(
@@ -47,9 +49,16 @@ class VerifyMailFragment : BaseFragment() {
 
     private fun bindingView() {
         binding.edtVeriMail.doOnTextChanged { text, start, before, count ->
-            email = text.toString().trim()
-            validMail()
-            checkButtonContinue()
+            if (ignoreNextTextChangeEmail) {
+                ignoreNextTextChangeEmail = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                email = text.toString().trim()
+                validMail()
+                checkButtonContinue()
+            }
 
         }
 
@@ -111,10 +120,10 @@ class VerifyMailFragment : BaseFragment() {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
                 if (it != null) {
                     if (it.success) {
-                    val bundle = Bundle()
-                    bundle.putString(Const.KEY_EMAIL, binding.edtVeriMail.text.toString())
-                    val otpFragment = OtpFragment()
-                    otpFragment.arguments = bundle
+                        val bundle = Bundle()
+                        bundle.putString(Const.KEY_EMAIL, binding.edtVeriMail.text.toString())
+                        val otpFragment = OtpFragment()
+                        otpFragment.arguments = bundle
                         replaceFragment(otpFragment, OtpFragment::class.java.simpleName)
                         (activity as MainActivity?)!!.hideOrShowBottomView(false)
                     } else {

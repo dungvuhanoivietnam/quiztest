@@ -10,10 +10,9 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.example.testiq.R
 import com.example.testiq.databinding.DialogConfirmBackBinding
-import com.example.testiq.databinding.ProcessLoadingBinding
 
 class DialogConfirmBack(
-    internal var context: Context, private var onClickSubmit : () -> Unit
+    internal var context: Context, private var onClickExit : () -> Unit
 ) : Dialog(context, R.style.MaterialDialogSheet) {
 
     private val binding = DialogConfirmBackBinding.inflate(LayoutInflater.from(context))
@@ -31,11 +30,11 @@ class DialogConfirmBack(
         with(binding){
             cancelButton.setOnClickListener {
                 dismiss()
-                onClickSubmit.invoke()
             }
 
             submit.setOnClickListener {
                 dismiss()
+                onClickExit.invoke()
             }
         }
     }

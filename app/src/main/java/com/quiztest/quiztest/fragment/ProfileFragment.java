@@ -26,7 +26,7 @@ import com.quiztest.quiztest.viewmodel.UserViewModel;
 
 public class ProfileFragment extends BaseFragment {
 
-    private ExtTextView txt_title_create_acount, txt_content_create_account;
+    private ExtTextView txt_title_create_acount, txt_content_create_account, txtTitle;
     private ImageView iv_profile, iv_create_account;
     private LinearLayout llLogin;
     private RecyclerView rcv_history;
@@ -51,6 +51,8 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void initView(View v) {
+        v.findViewById(R.id.txt_Left).setVisibility(View.GONE);
+        txtTitle = v.findViewById(R.id.txt_title);
         v.findViewById(R.id.llLogin).setOnClickListener(v1 -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
         v.findViewById(R.id.ic_right).setOnClickListener(v1 -> replaceFragment(new SettingFragment(), SettingFragment.class.getSimpleName()));
         v.findViewById(R.id.txt_view_all).setOnClickListener(view -> replaceFragment(new HistoryFragment(), HistoryFragment.class.getSimpleName()));
@@ -72,7 +74,8 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        txtTitle.setVisibility(View.VISIBLE);
+        txtTitle.setText(getString(R.string.profile));
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         rcv_history.setVisibility(userViewModel.getHistories().size() > 0 ? View.VISIBLE : View.GONE);
 

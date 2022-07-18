@@ -106,9 +106,9 @@ public class RankingFragment extends BaseFragment implements View.OnClickListene
                 }
 
                 if (StringUtils.isNullOrEmpty(userInfo.getEmail())) {
-                    showEmptyView(false);
-                } else {
                     showEmptyView(true);
+                } else {
+                    showEmptyView(false);
                 }
             }
         } else {

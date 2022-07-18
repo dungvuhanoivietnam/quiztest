@@ -38,7 +38,7 @@ class AdapterSelectQuestion(
         val binding = holder.binding
         if (lstQuestionModel.isNotEmpty()) {
             val item = lstQuestionModel[position]
-            binding.txt.text = "$position"
+            binding.txt.text = (position + 1).toString()
             var checkSelected: Boolean? = false
             item.options_answer?.let { it ->
                 checkSelected = it.any { options -> return@any options.selected }

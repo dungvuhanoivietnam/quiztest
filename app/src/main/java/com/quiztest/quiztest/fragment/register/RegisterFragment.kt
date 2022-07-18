@@ -34,12 +34,11 @@ import com.quiztest.quiztest.R
 import com.quiztest.quiztest.base.BaseFragment
 import com.quiztest.quiztest.databinding.FragmentRegisterBinding
 import com.quiztest.quiztest.fragment.HomeFragment
+import com.quiztest.quiztest.fragment.TermConditionFragment
+import com.quiztest.quiztest.fragment.login.LoginFragment
 import com.quiztest.quiztest.model.UserInfoResponse
 import com.quiztest.quiztest.retrofit.RetrofitClient
-import com.quiztest.quiztest.utils.Const
-import com.quiztest.quiztest.utils.SharePrefrenceUtils
-import com.quiztest.quiztest.utils.Utils
-import com.quiztest.quiztest.utils.setClickSpan
+import com.quiztest.quiztest.utils.*
 import java.util.*
 import java.util.regex.Pattern
 
@@ -64,6 +63,10 @@ class RegisterFragment : BaseFragment() {
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private var mCallbackManager: CallbackManager? = null
     private val RC_SIGN_IN = 1
+    private var ignoreNextTextChangeUserName = true
+    private var ignoreNextTextChangeEmail = true
+    private var ignoreNextTextChangePass = true
+    private var ignoreNextTextChangeConfirmPass = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -160,24 +163,52 @@ class RegisterFragment : BaseFragment() {
 
 
         binding.edtName.doOnTextChanged { text, start, before, count ->
-            name = text.toString().trim()
-            validateName()
-            checkButtonRegister()
+            if (ignoreNextTextChangeUserName) {
+                ignoreNextTextChangeUserName = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                name = text.toString().trim()
+                validateName()
+                checkButtonRegister()
+            }
         }
         binding.edtMail.doOnTextChanged { text, start, before, count ->
-            email = text.toString().trim()
-            validateEmail()
-            checkButtonRegister()
+            if (ignoreNextTextChangeEmail) {
+                ignoreNextTextChangeEmail = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                email = text.toString().trim()
+                validateEmail()
+                checkButtonRegister()
+            }
         }
         binding.edtPass.doOnTextChanged { text, start, before, count ->
-            password = text.toString().trim()
-            validatePassWord()
-            checkButtonRegister()
+            if (ignoreNextTextChangePass) {
+                ignoreNextTextChangePass = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                password = text.toString().trim()
+                validatePassWord()
+                checkButtonRegister()
+            }
         }
         binding.edtConfirmPass.doOnTextChanged { text, start, before, count ->
-            confirmPassword = text.toString().trim()
-            validateConfirmPassword()
-            checkButtonRegister()
+            if (ignoreNextTextChangeConfirmPass) {
+                ignoreNextTextChangeConfirmPass = false
+                return@doOnTextChanged
+            }
+
+            if (!StringUtils.isNullOrEmpty(text)) {
+                confirmPassword = text.toString().trim()
+                validateConfirmPassword()
+                checkButtonRegister()
+            }
         }
 
         binding.btnRegister.setOnClickListener {
@@ -192,7 +223,10 @@ class RegisterFragment : BaseFragment() {
         binding.txtOurTerm.apply {
             val clickAbleSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
-                    Toast.makeText(requireContext(), "aaaaa", Toast.LENGTH_SHORT).show()
+                    replaceFragment(
+                        TermConditionFragment(),
+                        TermConditionFragment::class.java.simpleName
+                    )
                 }
 
                 override fun updateDrawState(ds: TextPaint) {
@@ -224,6 +258,11 @@ class RegisterFragment : BaseFragment() {
 
         binding.ivBack.setOnClickListener {
             backstackFragment()
+        }
+
+        binding.tvLogin.setOnClickListener {
+            replaceFragment(LoginFragment(), LoginFragment::class.java.simpleName)
+            (activity as MainActivity?)!!.hideOrShowBottomView(false)
         }
 
     }

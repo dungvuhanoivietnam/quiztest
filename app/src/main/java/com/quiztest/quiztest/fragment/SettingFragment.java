@@ -17,6 +17,7 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,7 @@ import com.quiztest.quiztest.retrofit.RetrofitClient;
 import com.quiztest.quiztest.utils.LanguageConfig;
 import com.quiztest.quiztest.utils.Const;
 import com.quiztest.quiztest.utils.SharePrefrenceUtils;
+import com.quiztest.quiztest.utils.StringUtils;
 import com.quiztest.quiztest.utils.Utils;
 import com.quiztest.quiztest.viewmodel.UserViewModel;
 
@@ -63,6 +65,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         return R.layout.fragment_setting;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void initView(View v) {
         v.findViewById(R.id.txt_Left).setVisibility(View.GONE);
@@ -137,7 +140,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    callApiChangeLanguage(countryNames[position]);
+                callApiChangeLanguage(countryNames[position]);
             }
 
             @Override
@@ -149,7 +152,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         sp_language.setAdapter(customAdapter);
         String currentLanguage = LanguageConfig.INSTANCE.getCurrentLanguage();
         for (int i = 0; i < countryNames.length; i++) {
-            if (Objects.equals(countryNames[i], currentLanguage)){
+            if (Objects.equals(countryNames[i], currentLanguage)) {
                 sp_language.setSelection(i);
                 break;
             }
@@ -158,10 +161,10 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
 
     private void checkIsSave() {
         if (userInfo != null) {
-            String name = edtName.getText().toString().toLowerCase();
-            String mName = userInfo.getName().toLowerCase();
-            String gmail = edtGmail.getText().toString().toLowerCase();
-            String mgmail = userInfo.getEmail().toLowerCase();
+            String name = StringUtils.isNullOrEmpty(edtName.getText().toString()) ? "" : edtName.getText().toString().toLowerCase();
+            String mName = StringUtils.isNullOrEmpty(userInfo.getName()) ? "" : userInfo.getName().toLowerCase();
+            String gmail = StringUtils.isNullOrEmpty(edtGmail.getText().toString()) ? "" : edtGmail.getText().toString().toLowerCase();
+            String mgmail = StringUtils.isNullOrEmpty(userInfo.getEmail()) ? "" : userInfo.getEmail().toLowerCase();
             isSave = !name.equals(mName) || !gmail.equals(mgmail);
             llSave.setBackgroundResource(isSave ? R.drawable.bg_button_blue_21 : R.drawable.bg_gray_b8);
         }
@@ -283,13 +286,13 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             openGallery();
     }
 
-    private void callApiChangeLanguage(String language){
+    private void callApiChangeLanguage(String language) {
         showLoading();
-        userViewModel.changeLanguage(requestAPI,language, o  -> {
+        userViewModel.changeLanguage(requestAPI, language, o -> {
             if (o instanceof ChangeLanguageResponse) {
                 boolean isChangeSuccess = ((ChangeLanguageResponse) o).getSuccess();
-                if (isChangeSuccess){
-                   LanguageConfig.INSTANCE.changeLanguage(getActivity(),language);
+                if (isChangeSuccess) {
+                    LanguageConfig.INSTANCE.changeLanguage(getActivity(), language);
                     LanguageConfig.INSTANCE.setCurrentLanguage(language);
                 }
             }
