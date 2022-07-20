@@ -16,5 +16,9 @@
     <string name="time">Time</string>
     <string name="allotment">Allotment</string>
     <string name="target">Target</string>
+    <string name="title_fail_practice">OOPS !!!!\nLet\'s practice more!</string>
+    <string name="des_practice">IQ is below 85, low (about 16%)\n
+IQ is around 85-115, in the normal range (about 68%)\n
+IQ is about 115-130, intelligent type (about 14%)</string>
 
 </resources>

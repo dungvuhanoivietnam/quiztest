@@ -50,15 +50,13 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
     private ImageView ivAvatar, ivUpload;
     private UserViewModel userViewModel;
     private UserInfoResponse.UserInfo userInfo;
-    private LinearLayout ll_setting_content, ll_login, ll_logout, llSave;
+    private LinearLayout ll_setting_content, ll_logout, llSave;
     private ExtEditText edtName, edtGmail;
     private DialogChooseImage dialogChooseImage;
     private boolean isSave = false;
     private boolean isLogin = false;
-    private Spinner sp_language;
+    private ExtTextView tvProfile;
 
-    String[] countryNames = {"Tiếng Việt", "English"};
-    String[] countryFlag = {"https://manager-apps.merryblue.llc/storage/flags/Vietnam.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1920px-Flag_of_the_United_Kingdom.svg.png"};
 
     @Override
     protected int getLayoutId() {
@@ -73,13 +71,12 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         v.findViewById(R.id.iv_back).setVisibility(View.VISIBLE);
         v.findViewById(R.id.iv_back).setOnClickListener(view -> backstackFragment());
         txt_title = v.findViewById(R.id.txt_title);
+        tvProfile = v.findViewById(R.id.tvProfile);
         ivAvatar = v.findViewById(R.id.ivAvatar);
         ivUpload = v.findViewById(R.id.ivUpload);
         ll_setting_content = v.findViewById(R.id.ll_setting_content);
         edtName = v.findViewById(R.id.edtName);
         edtGmail = v.findViewById(R.id.edtGmail);
-        txt_content_create_account = v.findViewById(R.id.txt_content_create_account);
-        ll_login = v.findViewById(R.id.ll_login);
         txt_link_google = v.findViewById(R.id.txt_link_google);
         txt_link_facebook = v.findViewById(R.id.txt_link_facebook);
         ll_logout = v.findViewById(R.id.ll_logout);
@@ -108,13 +105,7 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
                 }
             });
         });
-//        v.findViewById(R.id.ivUpload).setOnClickListener(view -> {
-//
-//            if (!dialogChooseImage.isShowing())
-//                dialogChooseImage.show();
-//        });
 
-        ll_login.setOnClickListener(view -> replaceFragment(new LoginFragment(), LoginFragment.class.getSimpleName()));
         ll_logout.setOnClickListener(view -> {
             showLoading();
             userViewModel.logout(requestAPI, o -> {
@@ -136,27 +127,6 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             });
 
         });
-        sp_language = v.findViewById(R.id.sp_language);
-        sp_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                callApiChangeLanguage(countryNames[position]);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        LanguageAdapter customAdapter = new LanguageAdapter(getContext(), countryFlag, countryNames);
-        sp_language.setAdapter(customAdapter);
-        String currentLanguage = LanguageConfig.INSTANCE.getCurrentLanguage();
-        for (int i = 0; i < countryNames.length; i++) {
-            if (Objects.equals(countryNames[i], currentLanguage)) {
-                sp_language.setSelection(i);
-                break;
-            }
-        }
     }
 
     private void checkIsSave() {
@@ -176,18 +146,20 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
         txt_title.setText(getString(R.string.setting));
         txt_title.setVisibility(View.VISIBLE);
         userInfo = userViewModel.getUserInfoResponse();
-        isLogin = userInfo.getEmail() != null;
-        Glide.with(mContext).load(userInfo.getAvatar()).circleCrop().placeholder(R.drawable.ic_create_account_profile).into(ivAvatar);
-        ivUpload.setVisibility(isLogin ? View.VISIBLE : View.GONE);
-        ll_setting_content.setVisibility(isLogin ? View.VISIBLE : View.GONE);
-        edtName.setText(userInfo.getName() != null ? userInfo.getName() : "");
-        edtGmail.setText(userInfo.getEmail() != null ? userInfo.getEmail() : "");
-        txt_content_create_account.setVisibility(isLogin ? View.GONE : View.VISIBLE);
+        if (userInfo != null) {
+            isLogin = userInfo.getEmail() != null;
+//            Glide.with(mContext).load(userInfo.getAvatar()).circleCrop().placeholder(R.drawable.ic_create_account_profile).into(ivAvatar);
+            ivUpload.setVisibility(isLogin ? View.VISIBLE : View.GONE);
+            ll_setting_content.setVisibility(isLogin ? View.VISIBLE : View.GONE);
+            edtName.setText(userInfo.getName() != null ? userInfo.getName() : "");
+            edtGmail.setText(userInfo.getEmail() != null ? userInfo.getEmail() : "");
+            tvProfile.setText(userInfo.getName().substring(0, 1));
 
-        txt_link_google.setTextColor(getContext().getResources().getColor(userInfo.getGoogleProviderId() == null ? R.color.color_B8BDC2 : R.color.color_21C3FF));
-        txt_link_facebook.setTextColor(getContext().getResources().getColor(userInfo.getFacebookProviderId() == null ? R.color.color_B8BDC2 : R.color.color_21C3FF));
-        ll_login.setVisibility(isLogin ? View.GONE : View.VISIBLE);
-        ll_logout.setVisibility(isLogin ? View.VISIBLE : View.GONE);
+            txt_link_google.setTextColor(getContext().getResources().getColor(userInfo.getGoogleProviderId() == null ? R.color.color_B8BDC2 : R.color.color_21C3FF));
+            txt_link_facebook.setTextColor(getContext().getResources().getColor(userInfo.getFacebookProviderId() == null ? R.color.color_B8BDC2 : R.color.color_21C3FF));
+            ll_logout.setVisibility(isLogin ? View.VISIBLE : View.GONE);
+        }
+
         edtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -284,19 +256,5 @@ public class SettingFragment extends BaseFragment implements ActivityResultFragm
             openCamera();
         if (requestCode == Const.ALBUM_REQUEST_CODE)
             openGallery();
-    }
-
-    private void callApiChangeLanguage(String language) {
-        showLoading();
-        userViewModel.changeLanguage(requestAPI, language, o -> {
-            if (o instanceof ChangeLanguageResponse) {
-                boolean isChangeSuccess = ((ChangeLanguageResponse) o).getSuccess();
-                if (isChangeSuccess) {
-                    LanguageConfig.INSTANCE.changeLanguage(getActivity(), language);
-                    LanguageConfig.INSTANCE.setCurrentLanguage(language);
-                }
-            }
-            cancelLoading();
-        });
     }
 }

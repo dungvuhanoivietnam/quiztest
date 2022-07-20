@@ -10,12 +10,14 @@
         android:id="@+id/imageView"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
-        android:padding="5dp" /><!--Make sure image is present in Drawable folder-->
+        android:padding="5dp"
+        android:visibility="gone" /><!--Make sure image is present in Drawable folder-->
 
     <com.quiztest.quiztest.custom.ExtTextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/color_22313F" />
+        android:textColor="@color/color_8D959D"
+        android:textSize="@dimen/_12ssp" />
 </LinearLayout>

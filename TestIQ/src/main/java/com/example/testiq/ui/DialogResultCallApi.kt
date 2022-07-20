@@ -13,7 +13,10 @@ import com.example.testiq.databinding.DialogResultApiBinding
 import com.example.testiq.utils.Status
 
 class DialogResultCallApi(
-    internal var context: Context, var status : Status, var description : String, var onclick : () -> Unit
+    internal var context: Context,
+    var status: Status,
+    var description: String,
+    var onclick: () -> Unit
 ) : Dialog(context, R.style.MaterialDialogSheet) {
 
     private val binding = DialogResultApiBinding.inflate(LayoutInflater.from(context))
@@ -30,16 +33,18 @@ class DialogResultCallApi(
     private fun initUI() {
         binding.label.text = if (Status.SUCCESS == status) "Success" else "Error"
         binding.description.text = description
-
+        binding.icon.setImageResource(
+            if (Status.SUCCESS == status) R.drawable.ic_success else R.drawable.ic_error
+        )
         binding.submit.setOnClickListener {
             dismiss()
-            if (Status.ERROR == status){
+            if (Status.ERROR == status) {
                 onclick.invoke()
             }
         }
     }
 
-    fun setTextAndIcon(title:String, icon: Int ){
+    fun setTextAndIcon(title: String, icon: Int) {
         binding.label.text = title
         binding.icon.setImageResource(icon)
     }

@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/boarder"
             android:ellipsize="end"
-            android:hint="@string/please_enter_withdrawal_amount"
+            android:hint="@string/enter_amount"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:paddingVertical="@dimen/_9sdp"
@@ -110,10 +110,26 @@
             android:textStyle="normal" />
 
         <com.quiztest.quiztest.custom.ExtTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:text="(USD)"
+            android:textColor="@color/color_3C3C3C"
+            android:textSize="@dimen/_14sdp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="@dimen/_32sdp"
+            android:background="@color/color_D9D9D9" />
+
+        <com.quiztest.quiztest.custom.ExtTextView
             android:id="@+id/ext_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical |end"
+            android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="@dimen/_8sdp"
             android:text="@string/all"
             android:textColor="@color/color_21C3FF"

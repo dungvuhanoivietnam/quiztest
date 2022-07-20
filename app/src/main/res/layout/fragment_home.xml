@@ -120,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/value_"
                             android:textColor="@color/color_22313F"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_20ssp"
                             android:textStyle="bold" />
 
                         <com.quiztest.quiztest.custom.ExtTextView
@@ -130,7 +130,7 @@
                             android:layout_marginStart="@dimen/_2sdp"
                             android:text="@string/star"
                             android:textColor="@color/color_22313F"
-                            android:textSize="@dimen/_8ssp" />
+                            android:textSize="@dimen/_12ssp" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -190,7 +190,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/value_"
                             android:textColor="@color/color_22313F"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_20ssp"
                             android:textStyle="bold" />
 
                         <com.quiztest.quiztest.custom.ExtTextView
@@ -200,7 +200,7 @@
                             android:layout_marginStart="@dimen/_2sdp"
                             android:text="@string/money"
                             android:textColor="@color/color_22313F"
-                            android:textSize="@dimen/_8ssp" />
+                            android:textSize="@dimen/_12ssp" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>

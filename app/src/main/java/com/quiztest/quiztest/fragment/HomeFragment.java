@@ -27,6 +27,7 @@ import com.quiztest.quiztest.base.BaseFragment;
 import com.quiztest.quiztest.custom.ExtTextView;
 import com.quiztest.quiztest.custom.ItemViewEarningTask;
 import com.quiztest.quiztest.fragment.login.LoginFragment;
+import com.quiztest.quiztest.model.HomeDataResponse;
 import com.quiztest.quiztest.model.TestItem;
 import com.quiztest.quiztest.model.TopicListResponse;
 import com.quiztest.quiztest.model.UserInfoResponse;
@@ -130,61 +131,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private void initDataTest() {
         if (userViewModel != null) {
             showLoading();
-            getTopicByType(GetMoreChancesFragment.TYPE_GET_MORE_MONEY);
-            getTopicByType(GetMoreChancesFragment.TYPE_GET_MORE_STAR);
-        }
-    }
+            userViewModel.getDataForHome(requestAPI, o -> {
+                if (o instanceof HomeDataResponse) {
+                    currentListEarningTasks = ((HomeDataResponse) o).getData().getListEarningTasks();
+                    currentListGetMoreStars = ((HomeDataResponse) o).getData().getListGetMoreStars();
+                    getMoreStarsAdapter.setItemClickListener(this);
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void getTopicByType(int current_type) {
-        getMoreStarsAdapter = new GetMoreStarsAdapter(mContext);
-        earningTasksAdapter = new EarningTasksAdapter(mContext);
-        getMoreStarsAdapter.setItemClickListener(this);
-        userViewModel.getTopicListByType(requestAPI, current_type, o -> {
-            if (o instanceof TopicListResponse) {
-                moreStarTopic = ((TopicListResponse) o).getData().getListTopicByType();
-                earningTaskTopic = ((TopicListResponse) o).getData().getListTopicByType();
-                if (current_type == GetMoreChancesFragment.TYPE_GET_MORE_STAR) {
-                    if (moreStarTopic.isEmpty()) {
-                        rcvGetMoreStar.setVisibility(View.GONE);
-                        tvNoDataMoreStar.setVisibility(View.VISIBLE);
+                    List<TestItem> listSorted = currentListGetMoreStars.stream().sorted(Comparator.comparing(TestItem::getTitle)).
+                            collect(Collectors.toList());
+                    getMoreStarsAdapter.setListData((ArrayList<TestItem>) listSorted);
+                    rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
+                    if (currentListGetMoreStars.size() > 4) {
+                        tvMore.setVisibility(View.VISIBLE);
+                        List<TestItem> collect = currentListGetMoreStars.stream().limit(4).collect(Collectors.toList());
+                        getMoreStarsAdapter.setListData((ArrayList<TestItem>) collect);
                     } else {
-                        List<TestItem> listSorted = moreStarTopic.stream().limit(4).sorted(Comparator.comparing(TestItem::getTitle)).
-                                collect(Collectors.toList());
-                        rcvGetMoreStar.setVisibility(View.VISIBLE);
-                        tvNoDataMoreStar.setVisibility(View.GONE);
-
-                        if (moreStarTopic.size() > 4) {
-                            tvMore.setVisibility(View.VISIBLE);
-                        } else {
-                            tvMore.setVisibility(View.GONE);
-                        }
-
-                        getMoreStarsAdapter.setListData((ArrayList<TestItem>) listSorted);
-                        rcvGetMoreStar.setAdapter(getMoreStarsAdapter);
+                        tvMore.setVisibility(View.GONE);
+                        getMoreStarsAdapter.setListData(currentListGetMoreStars);
                     }
 
-                } else {
-                    if (earningTaskTopic.isEmpty()) {
-                        rcvEarningTask.setVisibility(View.GONE);
-                        tvNoDataEarning.setVisibility(View.VISIBLE);
-                    } else {
-                        rcvEarningTask.setVisibility(View.VISIBLE);
-                        tvNoDataEarning.setVisibility(View.GONE);
-
-                        List<TestItem> listSorted = earningTaskTopic.stream().sorted(Comparator.comparing(TestItem::getTitle)).
-                                collect(Collectors.toList());
-
-                        earningTasksAdapter.setListData((ArrayList<TestItem>) listSorted);
-                        earningTasksAdapter.setItemClickListener(this);
-                        rcvEarningTask.setAdapter(earningTasksAdapter);
-                    }
-
+                    earningTasksAdapter.setListData(currentListEarningTasks);
+                    earningTasksAdapter.setItemClickListener(this);
+                    rcvEarningTask.setAdapter(earningTasksAdapter);
                 }
-
-            }
-            cancelLoading();
-        });
+                cancelLoading();
+            });
+        }
     }
 
     private void startActTestIQ(String type, TestItem testItem) {
