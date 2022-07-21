@@ -17,6 +17,7 @@
 
         <ImageView
             android:id="@+id/iv_back"
+            android:padding="@dimen/_15sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -57,13 +58,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/iv_money_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/ic_money_home" />
 
                 <LinearLayout
@@ -96,7 +98,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/value_"
                             android:textColor="@color/color_22313F"
-                            android:textSize="@dimen/_11ssp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <com.quiztest.quiztest.custom.ExtTextView
@@ -106,7 +108,7 @@
                             android:layout_marginStart="@dimen/_2sdp"
                             android:text="@string/money"
                             android:textColor="@color/color_22313F"
-                            android:textSize="@dimen/_8ssp" />
+                            android:textSize="@dimen/_12ssp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -117,7 +119,8 @@
                     android:layout_marginStart="@dimen/_2sdp"
                     android:layout_toEndOf="@id/ll_your_money"
                     android:padding="@dimen/_2sdp"
-                    android:src="@drawable/ic_hide_show" />
+                    android:src="@drawable/ic_hide_show"
+                    app:tint="#666666" />
             </RelativeLayout>
 
             <com.quiztest.quiztest.custom.ExtTextView
@@ -167,7 +170,8 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:orientation="vertical">
@@ -189,8 +193,7 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:text="Description content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12ssp" />
 
             </LinearLayout>
 
@@ -199,9 +202,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_15sdp"
                 android:background="@drawable/bg_search_corner_8"
                 android:backgroundTint="@color/color_21C3FF"
                 android:paddingStart="@dimen/_18sdp"

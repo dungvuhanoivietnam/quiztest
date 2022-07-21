@@ -150,7 +150,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                         getMoreStarsAdapter.setListData(currentListGetMoreStars);
                     }
 
-                    earningTasksAdapter.setListData(currentListEarningTasks);
+
+                    if (currentListEarningTasks.size() > 4) {
+                        List<TestItem> collect = currentListEarningTasks.stream().limit(4).collect(Collectors.toList());
+                        earningTasksAdapter.setListData((ArrayList<TestItem>) collect);
+                    } else {
+                        earningTasksAdapter.setListData(currentListEarningTasks);
+                    }
+
                     earningTasksAdapter.setItemClickListener(this);
                     rcvEarningTask.setAdapter(earningTasksAdapter);
                 }
